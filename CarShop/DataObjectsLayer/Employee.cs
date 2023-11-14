@@ -7,16 +7,7 @@ using System.Threading.Tasks;
 namespace DataObjectsLayer
 {
     public class Employee
-    {
-        /*
-            EmployeeID	int	
-            FirstName	nvarchar	50
-            LastName	nvarchar	50
-            Password	nvarchar	100
-            PhoneNumber	nvarchar	11
-            Email	nvarchar	250
-            Role	nvarchar	100
-         */
+    {        
         public int EmployeeID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

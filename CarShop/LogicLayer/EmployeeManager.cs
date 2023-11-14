@@ -28,7 +28,7 @@ namespace LogicLayer
 
         public EmployeeVM AuthenticateEmployee(string email, string password)
         {
-            EmployeeVM employeeVM = _employeeAccessor.AuthenticateEmployeeWithEmailAndPassword(email, password);
+            EmployeeVM employeeVM = _employeeAccessor.AuthenticateEmployeeWithEmailAndPassword(email, HashSha256(password));
 
             return employeeVM;
         }

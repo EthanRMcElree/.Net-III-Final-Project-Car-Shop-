@@ -21,7 +21,7 @@ namespace DataObjectsLayer
         public int CarID { get; set; }
         public int CustomerID { get; set; }
         public DateTime SaleDate { get; set; }
-        public float SalePrice { get; set; }
+        public Double SalePrice { get; set; }
     }
     public class SalesVM : Sales
     {

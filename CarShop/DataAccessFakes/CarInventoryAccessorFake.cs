@@ -149,7 +149,7 @@ namespace DataAccessFakes
             return cars;
         }
 
-        public int InsertNewCar(string Model, int Year, string Color, string VIN, float Price, int Mileage, string FuelType, string TransmissionType, float EngineSize, string Description)
+        public int InsertNewCar(string Model, int Year, string Color, string VIN, Double Price, int Mileage, string FuelType, string TransmissionType, Double EngineSize, string Description)
         {
             if (Year <= 0)
             {
@@ -171,7 +171,7 @@ namespace DataAccessFakes
             return 1;
         }
 
-        public void UpdateCar(int CarID, string Model, int Year, string Color, string VIN, float Price, int Mileage, string FuelType, string TransmissionType, float EngineSize, string Description)
+        public void UpdateCar(int CarID, string Model, int Year, string Color, string VIN, Double Price, int Mileage, string FuelType, string TransmissionType, Double EngineSize, string Description)
         {                        
             var carToUpdate = ViewCarByID(CarID);
 

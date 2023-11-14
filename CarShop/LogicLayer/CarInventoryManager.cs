@@ -48,12 +48,12 @@ namespace LogicLayer
             return _carInventoryAccessor.FilterCarByModerateMileage();
         }
 
-        public int InsertNewCar(string Model, int Year, string Color, string VIN, float Price, int Mileage, string FuelType, string TransmissionType, float EngineSize, string Description)
+        public int InsertNewCar(string Model, int Year, string Color, string VIN, Double Price, int Mileage, string FuelType, string TransmissionType, Double EngineSize, string Description)
         {
             return _carInventoryAccessor.InsertNewCar(Model, Year, Color, VIN, Price, Mileage, FuelType, TransmissionType, EngineSize, Description);
         }
 
-        public void UpdateCar(int CarID, string Model, int Year, string Color, string VIN, float Price, int Mileage, string FuelType, string TransmissionType, float EngineSize, string Description)
+        public void UpdateCar(int CarID, string Model, int Year, string Color, string VIN, Double Price, int Mileage, string FuelType, string TransmissionType, Double EngineSize, string Description)
         {
             _carInventoryAccessor.UpdateCar(CarID, Model, Year, Color, VIN, Price, Mileage, FuelType, TransmissionType, EngineSize, Description);
         }

@@ -1,4 +1,5 @@
-﻿using DataObjectsLayer;
+﻿using DataObjects;
+using DataObjectsLayer;
 using LogicLayer;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFPresentation;
 
 namespace CarShop
 {
@@ -23,20 +25,62 @@ namespace CarShop
     /// </summary>
     public partial class MainWindow : Window
     {
-        // EmployeeManager _employeeManager = null;
+        EmployeeManager _employeeManager = null;
         EmployeeVM loggedInEmployee = null;
+        CustomerManager _customerManager = null;
+        CustomerVM loggedInCustomer = null;
+        string customerRole = "customer";
+        CarInventoryManager carInventoryManager = null;
         public MainWindow()
         {
             InitializeComponent();
-            CarInventoryManager carInventoryManager = new CarInventoryManager();
-            List<CarInventoryVM> cars = carInventoryManager.ViewCarInventory();
+            _employeeManager = new EmployeeManager();
+            carInventoryManager = new CarInventoryManager();
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
-        {            
-            // _employeeManager = new EmployeeManager();
+        {                    
             txtEmail.Focus();            
-            btnLogin.IsDefault = true;
-        }      
+            btnLogin.IsDefault = true;            
+            hideAllTabs();
+        }
+
+        private void hideAllTabs()
+        {
+            foreach (var tab in MainWindowTabs.Items)
+            {
+                ((TabItem)tab).Visibility = Visibility.Collapsed;
+            }
+            MainWindowTabs.Visibility = Visibility.Hidden;
+            MainWindowTabContainer.Visibility = Visibility.Hidden;
+        }
+
+        private void showTabsForRoles()
+        {
+            // loop through the user roles
+            if (loggedInEmployee != null)
+            {
+                MainWindowTabs.Visibility = Visibility.Hidden;
+                MainWindowTabContainer.Visibility = Visibility.Hidden;
+                switch (loggedInEmployee.Role)
+                {
+                    case "manager":
+                        CarInventory.Visibility = Visibility.Visible;
+                        break;
+                    case "sales":
+                        CarInventory.Visibility = Visibility.Visible;
+                        break;
+                    case "admin":
+                        CarInventory.Visibility = Visibility.Visible;
+                        break;
+                }
+            }
+            else
+            {
+                CarInventory.Visibility = Visibility.Visible;
+            }              
+            MainWindowTabs.Visibility = Visibility.Visible;
+            MainWindowTabContainer.Visibility = Visibility.Visible;
+        }
 
         private void updateUIforLogOut()
         {
@@ -62,40 +106,42 @@ namespace CarShop
                 var password = pwdPassword.Password;
 
                 // error checks
-                /* if (!email.IsValidEmail())
+                if (!email.IsValidEmail())
                 {
                     MessageBox.Show("Invalid email address", "Invalid Email",
                         MessageBoxButton.OK, MessageBoxImage.Error);
                     txtEmail.SelectAll();
                     txtEmail.Focus();
                     return;
-                }*/
-                /*if (!password.IsValidPassword())
+                }
+                if (!password.IsValidPassword())
                 {
                     MessageBox.Show("Invalid password", "Invalid Password",
                         MessageBoxButton.OK, MessageBoxImage.Error);
                     pwdPassword.SelectAll();
                     pwdPassword.Focus();
                     return;
-                }*/
+                }
                 // try to login the user
-                /*try
+                try
                 {
-                    loggedInEmployee = _employeeManager.LoginEmployee(email, password);                    
+                    loggedInEmployee = _employeeManager.AuthenticateEmployee(email, password);                    
 
+                    if(loggedInEmployee == null) 
+                    {
+                        throw new Exception("Username and/or password not found");
+                    }
                     // update the UI
                     updateUIforEmployee();
                 }
                 catch (Exception ex)
-                {
-                    // you may never throw exceptions from the presentation layer
-                    MessageBox.Show(ex.Message + "\n\n" + ex.InnerException.Message,
-                        "Login failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                {                   
+                    MessageBox.Show("Login failed");
                     pwdPassword.Clear();
                     txtEmail.Clear();
                     txtEmail.Focus();
                     return;
-                }*/
+                }
 
 
 
@@ -104,6 +150,29 @@ namespace CarShop
             {
                 updateUIforLogOut();
             }
+        }
+
+        private void updateUIforEmployee()
+        {                    
+            lblGreeting.Content = "Welcome, " + loggedInEmployee.FirstName + ". You are logged in as: "
+                + loggedInEmployee.Role + ".";
+            statMessage.Content = "Logged in on " + DateTime.Now.ToLongDateString() + " at " +
+                DateTime.Now.ToShortDateString() +
+                ". Please remember to log out before leaving your workstation.";
+            MyCars.ItemsSource = carInventoryManager.ViewCarInventory();
+
+            // clear the login section
+            txtEmail.Text = "";
+            txtEmail.Visibility = Visibility.Hidden;
+            lblEmail.Visibility = Visibility.Hidden;
+            pwdPassword.Password = "";
+            pwdPassword.Visibility = Visibility.Hidden;
+            lblPassword.Visibility = Visibility.Hidden;
+
+            btnLogin.Content = "Log Out";
+            btnLogin.IsDefault = false;
+
+            showTabsForRoles();
         }
 
         private void mnuUpdatePassword_Click(object sender, RoutedEventArgs e)
@@ -115,9 +184,9 @@ namespace CarShop
             }
             else
             {
-                /*try
+                try
                 {
-                    var passwordWindow = new PasswordChangeWindow(loggedInEmployee.Email);
+                    var passwordWindow = new ChangePasswordWindow(loggedInEmployee.Email);
                     var result = passwordWindow.ShowDialog();
                     if (result == true)
                     {
@@ -134,7 +203,7 @@ namespace CarShop
                 {
                     MessageBox.Show(ex.Message + "\n\n" + ex.InnerException.Message,
                         "Update Failed", MessageBoxButton.OK, MessageBoxImage.Error);
-                }*/
+                }
             }
         }
 

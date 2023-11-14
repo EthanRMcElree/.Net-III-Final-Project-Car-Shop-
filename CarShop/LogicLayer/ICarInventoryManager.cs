@@ -10,9 +10,9 @@ namespace LogicLayer
     public interface ICarInventoryManager 
     {
         // Insert new car inventory vm 
-        int InsertNewCar(string Model, int Year, string Color, string VIN, float Price, int Mileage, string FuelType, string TransmissionType, float EngineSize, string Description);
+        int InsertNewCar(string Model, int Year, string Color, string VIN, Double Price, int Mileage, string FuelType, string TransmissionType, Double EngineSize, string Description);
         // Update new car inventory vm 
-        void UpdateCar(int CarID, string Model, int Year, string Color, string VIN, float Price, int Mileage, string FuelType, string TransmissionType, float EngineSize, string Description);
+        void UpdateCar(int CarID, string Model, int Year, string Color, string VIN, Double Price, int Mileage, string FuelType, string TransmissionType, Double EngineSize, string Description);
         // Select new car inventory vm 
         CarInventoryVM ViewCarByID(int CarID);
         // Select all new car inventory vm 

@@ -25,7 +25,7 @@ CREATE TABLE [dbo].[Employee] (
 	[FirstName] 	[nvarchar] (50)				NOT NULL,
 	[LastName] 		[nvarchar] (50)				NOT NULL,
 	[Password] 		[nvarchar] (100)			NOT NULL DEFAULT
-		'2597a7caf656e89e9ab35e12326d557ebfe9b7b5dcbe4c564e74070fa5cfcbe5',
+		'ecd71870d1963316a97e3ac3408c9835ad8cf0f3c1bc703527c30265534f75ae',
 	[PhoneNumber] 	[nvarchar] (11)				NOT NULL,
 	[Email] 		[nvarchar] (250) 			NOT NULL,
 	[Role] 			[nvarchar] (100)			NOT NULL,

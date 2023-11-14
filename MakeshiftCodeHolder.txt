@@ -1,0 +1,356 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using DataObjects;
+using LogicLayer;
+using DataAccessFakes;
+
+namespace WPFPresentation
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        EmployeeManager _employeeManager = null;
+        EmployeeVM loggedInEmployee = null;         // no one is logged in at first
+
+        
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            // test code
+            //_employeeManager = new EmployeeManager(new EmployeeAccessorFake());
+
+            // real code
+            _employeeManager = new EmployeeManager();
+            txtEmail.Focus();
+            hideAllTabs();
+            btnLogin.IsDefault = true;
+        }
+
+        private void hideAllTabs()
+        {
+            foreach(var tab in tabsetMain.Items)
+            {
+                ((TabItem)tab).Visibility = Visibility.Collapsed;
+            }
+            tabsetMain.Visibility = Visibility.Collapsed;
+            tabContainer.Visibility = Visibility.Collapsed;
+        }
+
+        private void showTabsForRoles()
+        {
+            // loop through the user roles
+            foreach (var role in loggedInEmployee.Roles)
+            {
+                switch (role)
+                {
+                    case "Rental":
+                        tabRental.Visibility = Visibility.Visible; 
+                        break;
+                    case "TourGuide":
+                        tabTour.Visibility = Visibility.Visible;
+                        break;
+                    case "Checkin":
+                        tabCheckIn.Visibility = Visibility.Visible;
+                        break;
+                    case "Maintenance":
+                        tabMaintenance.Visibility = Visibility.Visible;
+                        break;
+                    case "Prep":
+                        tabPrep.Visibility = Visibility.Visible;
+                        break;
+                    case "Manager":
+                        tabManager.Visibility = Visibility.Visible;
+                        tabRental.Visibility = Visibility.Visible;
+                        tabTour.Visibility = Visibility.Visible;
+                        tabCheckIn.Visibility = Visibility.Visible;
+                        tabMaintenance.Visibility = Visibility.Visible;
+                        tabPrep.Visibility = Visibility.Visible;
+                        break;
+                    case "Admin":
+                        tabAdmin.Visibility = Visibility.Visible;
+                        break;
+                }
+            }
+            tabsetMain.Visibility = Visibility.Visible;
+            tabContainer.Visibility = Visibility.Visible;
+        }
+
+        private void updateUIforLogOut()
+        {
+            lblGreeting.Content = "You are not currently logged in.";
+            statMessage.Content = "Welcome. Please log in to continue";
+
+            // clear the login section            
+            txtEmail.Visibility = Visibility.Visible;
+            lblEmail.Visibility = Visibility.Visible;          
+            pwdPassword.Visibility = Visibility.Visible;
+            lblPassword.Visibility = Visibility.Visible;
+
+            btnLogin.Content = "Log in";
+            btnLogin.IsDefault = true;
+
+            hideAllTabs();
+            loggedInEmployee = null;
+        }
+
+        private void updateUIforEmployee()
+        {
+            string rolesList = "";
+            for (int i = 0;i < loggedInEmployee.Roles.Count;i++)
+            {
+                rolesList += " " + loggedInEmployee.Roles[i];
+                if(i == loggedInEmployee.Roles.Count - 2)
+                {
+                    if(loggedInEmployee.Roles.Count > 2)
+                    {
+                        rolesList += ",";
+                    }
+                    rolesList += " and";
+                }
+                else if(i < loggedInEmployee.Roles.Count - 2)
+                {
+                    rolesList += ",";
+                }
+            }
+            lblGreeting.Content = "Welcome, " + loggedInEmployee.GivenName + ". You are logged in as: "
+                + rolesList + ".";
+            statMessage.Content = "Logged in on " + DateTime.Now.ToLongDateString() + " at " +
+                DateTime.Now.ToShortDateString() +
+                ". Please remember to log out before leaving your workstation.";
+
+            // clear the login section
+            txtEmail.Text = "";
+            txtEmail.Visibility = Visibility.Hidden;
+            lblEmail.Visibility = Visibility.Hidden;
+            pwdPassword.Password = "";
+            pwdPassword.Visibility = Visibility.Hidden;
+            lblPassword.Visibility = Visibility.Hidden;
+
+            btnLogin.Content = "Log Out";
+            btnLogin.IsDefault = false;
+
+            showTabsForRoles();
+        }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            if(btnLogin.Content.ToString() == "Log in")
+            {
+                var email = txtEmail.Text;
+                var password = pwdPassword.Password;
+
+                // error checks
+                if (!email.IsValidEmail())
+                {
+                    MessageBox.Show("Invalid email address", "Invalid Email",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                    txtEmail.SelectAll();
+                    txtEmail.Focus();
+                    return;
+                }
+                if (!password.IsValidPassword())
+                {
+                    MessageBox.Show("Invalid password", "Invalid Password",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                    pwdPassword.SelectAll();
+                    pwdPassword.Focus();
+                    return;
+                }
+                // try to login the user
+                try
+                {
+                    loggedInEmployee = _employeeManager.LoginEmployee(email, password);
+
+                    // we need to check for first login as newuser
+                    if(pwdPassword.Password.ToString() == "newuser")
+                    {
+                        try
+                        {
+                            var passwordWindow = new PasswordChangeWindow(loggedInEmployee.Email);
+                            var result = passwordWindow.ShowDialog();
+                            if (result == true)
+                            {
+                                MessageBox.Show("Password updated.", "Success",
+                                    MessageBoxButton.OK, MessageBoxImage.Information);
+                                updateUIforEmployee();
+                                return;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Password not changed. \nYou must change your password to continue", "Logging Out",
+                                    MessageBoxButton.OK, MessageBoxImage.Error);
+                                updateUIforLogOut();
+                                return;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message + "\n\n" + ex.InnerException.Message,
+                                "Update Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                            updateUIforLogOut();
+                            return;
+                        }
+                    }
+                    else // not a new user
+                    {
+                        // update the UI (if the employee is logged in, and if a new user has
+                        // updated the password)
+                        updateUIforEmployee();
+                    }                   
+                }
+                catch (Exception ex)
+                {
+                    // you may never throw exceptions from the presentation layer
+                    MessageBox.Show(ex.Message + "\n\n" + ex.InnerException.Message,
+                        "Login failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                    updateUIforLogOut();
+                    pwdPassword.Clear();
+                    txtEmail.Clear();
+                    txtEmail.Focus();
+                    return;
+                }
+            }
+            else // log out
+            {
+                updateUIforLogOut();
+            }
+        }
+
+        private void mnuUpdatePassword_Click(object sender, RoutedEventArgs e)
+        {
+            if (loggedInEmployee == null)
+            {
+                MessageBox.Show("You must be logged in to update your password", "Login Required", 
+                    MessageBoxButton.OK, MessageBoxImage.Information); return;
+            } 
+            else 
+            {
+                try
+                {
+                    var passwordWindow = new PasswordChangeWindow(loggedInEmployee.Email);
+                    var result = passwordWindow.ShowDialog();
+                    if (result == true)
+                    {
+                        MessageBox.Show("Password updated.", "Success",
+                            MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Password not changed.", "Operation Aborted",
+                            MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + "\n\n" + ex.InnerException.Message,
+                        "Update Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void mnuExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void tabRental_GotFocus(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (datRental.ItemsSource == null)
+                {
+                    var segwayManager = new SegwayManager();
+                    datRental.ItemsSource = segwayManager.GetSegwaysByStatus("For Rent");
+
+                    datRental.Columns.RemoveAt(5);
+                    datRental.Columns.RemoveAt(4);
+
+                    datRental.Columns[0].Header = "Segway ID";
+                    datRental.Columns[3].Header = "Segway Type";
+                }
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show(ex.Message + "\n\n" + ex.InnerException.Message);
+            }
+        }
+
+        private void datRental_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(datRental.SelectedItems.Count != 0)
+            {
+                var segway = datRental.SelectedItem as Segway;
+
+                MessageBox.Show("You chose " + segway.Color + " " + segway.Name);
+            }
+            else
+            {
+                MessageBox.Show("You need to choose something to view.");
+            }
+        }
+    }
+}
+
+public int AuthenticateUserWithEmailAndPasswordHash(string email, string passwordHash)
+{
+    int rows = 0;
+
+    // start a connect object
+    var conn = SqlConnectionProvider.GetConnection();
+
+    // set the command text
+    var commandText = "sp_authenticate_employee";
+
+    // create the command object
+    var cmd = new SqlCommand(commandText, conn);
+
+    // set the command type
+    cmd.CommandType = CommandType.StoredProcedure;
+
+    // we need to add parameters to the command
+    cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 100);
+    cmd.Parameters.Add("@PasswordHash", SqlDbType.NVarChar, 100);
+
+    // we need to set the parameters values
+    cmd.Parameters["@Email"].Value = email;
+    cmd.Parameters["@PasswordHash"].Value = passwordHash;
+
+    // now that everything is set up, we can open the connection and execute
+    // the command in a try-catch-finally
+    try
+    {
+        // open the connection
+        conn.Open();
+
+        // execute the command and capture the result
+        rows = Convert.ToInt32(cmd.ExecuteScalar());
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
+    finally 
+    { 
+        conn.Close();
+    }
+
+    return rows;
+}

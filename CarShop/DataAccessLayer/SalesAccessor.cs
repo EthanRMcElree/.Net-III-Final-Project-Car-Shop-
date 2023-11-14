@@ -15,7 +15,7 @@ namespace DataAccessLayer
 {
     public class SalesAccessor : ISalesAccessor
     {
-        public int CreateSale(int EmployeeID, int CarID, int CustomerID, DateTime SaleDate, float SalePrice)
+        public int CreateSale(int EmployeeID, int CarID, int CustomerID, DateTime SaleDate, Double SalePrice)
         {
             // Make return variable if appropriate
             // connection
@@ -104,7 +104,7 @@ namespace DataAccessLayer
                         salesVM.CarID = reader.GetInt32(2);
                         salesVM.CustomerID = reader.GetInt32(3);
                         salesVM.SaleDate = reader.GetDateTime(4);
-                        salesVM.SalePrice = reader.GetFloat(5);                       
+                        salesVM.SalePrice = reader.GetDouble(5);                       
                         List.Add(salesVM);
                     }
                 }
@@ -159,7 +159,7 @@ namespace DataAccessLayer
                         salesVM.CarID = reader.GetInt32(2);
                         salesVM.CustomerID = reader.GetInt32(3);
                         salesVM.SaleDate = reader.GetDateTime(4);
-                        salesVM.SalePrice = reader.GetFloat(5);
+                        salesVM.SalePrice = reader.GetDouble(5);
                         List.Add(salesVM);
                     }
                 }

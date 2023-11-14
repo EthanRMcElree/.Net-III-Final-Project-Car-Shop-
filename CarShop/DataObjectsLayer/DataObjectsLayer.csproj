@@ -52,6 +52,7 @@
     <Compile Include="ServiceAppointment.cs" />
     <Compile Include="ServiceType.cs" />
     <Compile Include="Supplier.cs" />
+    <Compile Include="ValidationHelpers.cs" />
     <Compile Include="Warranty.cs" />
     <Compile Include="WarrantyType.cs" />
   </ItemGroup>

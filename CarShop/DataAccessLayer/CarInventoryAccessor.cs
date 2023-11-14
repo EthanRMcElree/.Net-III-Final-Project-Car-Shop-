@@ -98,11 +98,11 @@ namespace DataAccessLayer
                         carInventoryVM.Year = reader.GetInt32(2);
                         carInventoryVM.Color = reader.GetString(3);
                         carInventoryVM.VIN = reader.GetString(4);
-                        carInventoryVM.Price = reader.GetFloat(5);
+                        carInventoryVM.Price = reader.GetDouble(5);
                         carInventoryVM.Mileage = reader.GetInt32(6);
                         carInventoryVM.FuelType = reader.GetString(7);
                         carInventoryVM.TransmissionType = reader.GetString(8);
-                        carInventoryVM.EngineSize = reader.GetFloat(9);
+                        carInventoryVM.EngineSize = reader.GetDouble(9);
                         carInventoryVM.Description = reader.GetString(10);
                         List.Add(carInventoryVM);
                     }
@@ -155,11 +155,11 @@ namespace DataAccessLayer
                         carInventoryVM.Year = reader.GetInt32(2);
                         carInventoryVM.Color = reader.GetString(3);
                         carInventoryVM.VIN = reader.GetString(4);
-                        carInventoryVM.Price = reader.GetFloat(5);
+                        carInventoryVM.Price = reader.GetDouble(5);
                         carInventoryVM.Mileage = reader.GetInt32(6);
                         carInventoryVM.FuelType = reader.GetString(7);
                         carInventoryVM.TransmissionType = reader.GetString(8);
-                        carInventoryVM.EngineSize = reader.GetFloat(9);
+                        carInventoryVM.EngineSize = reader.GetDouble(9);
                         carInventoryVM.Description = reader.GetString(10);
                         List.Add(carInventoryVM);
                     }
@@ -212,11 +212,11 @@ namespace DataAccessLayer
                         carInventoryVM.Year = reader.GetInt32(2);
                         carInventoryVM.Color = reader.GetString(3);
                         carInventoryVM.VIN = reader.GetString(4);
-                        carInventoryVM.Price = reader.GetFloat(5);
+                        carInventoryVM.Price = reader.GetDouble(5);
                         carInventoryVM.Mileage = reader.GetInt32(6);
                         carInventoryVM.FuelType = reader.GetString(7);
                         carInventoryVM.TransmissionType = reader.GetString(8);
-                        carInventoryVM.EngineSize = reader.GetFloat(9);
+                        carInventoryVM.EngineSize = reader.GetDouble(9);
                         carInventoryVM.Description = reader.GetString(10);
                         List.Add(carInventoryVM);
                     }
@@ -272,11 +272,11 @@ namespace DataAccessLayer
                         carInventoryVM.Year = reader.GetInt32(2);
                         carInventoryVM.Color = reader.GetString(3);
                         carInventoryVM.VIN = reader.GetString(4);
-                        carInventoryVM.Price = reader.GetFloat(5);
+                        carInventoryVM.Price = reader.GetDouble(5);
                         carInventoryVM.Mileage = reader.GetInt32(6);
                         carInventoryVM.FuelType = reader.GetString(7);
                         carInventoryVM.TransmissionType = reader.GetString(8);
-                        carInventoryVM.EngineSize = reader.GetFloat(9);
+                        carInventoryVM.EngineSize = reader.GetDouble(9);
                         carInventoryVM.Description = reader.GetString(10);
                         List.Add(carInventoryVM);
                     }
@@ -329,11 +329,11 @@ namespace DataAccessLayer
                         carInventoryVM.Year = reader.GetInt32(2);
                         carInventoryVM.Color = reader.GetString(3);
                         carInventoryVM.VIN = reader.GetString(4);
-                        carInventoryVM.Price = reader.GetFloat(5);
+                        carInventoryVM.Price = reader.GetDouble(5);
                         carInventoryVM.Mileage = reader.GetInt32(6);
                         carInventoryVM.FuelType = reader.GetString(7);
                         carInventoryVM.TransmissionType = reader.GetString(8);
-                        carInventoryVM.EngineSize = reader.GetFloat(9);
+                        carInventoryVM.EngineSize = reader.GetDouble(9);
                         carInventoryVM.Description = reader.GetString(10);
                         List.Add(carInventoryVM);
                     }
@@ -389,11 +389,11 @@ namespace DataAccessLayer
                         carInventoryVM.Year = reader.GetInt32(2);
                         carInventoryVM.Color = reader.GetString(3);
                         carInventoryVM.VIN = reader.GetString(4);
-                        carInventoryVM.Price = reader.GetFloat(5);
+                        carInventoryVM.Price = reader.GetDouble(5);
                         carInventoryVM.Mileage = reader.GetInt32(6);
                         carInventoryVM.FuelType = reader.GetString(7);
                         carInventoryVM.TransmissionType = reader.GetString(8);
-                        carInventoryVM.EngineSize = reader.GetFloat(9);
+                        carInventoryVM.EngineSize = reader.GetDouble(9);
                         carInventoryVM.Description = reader.GetString(10);
                         List.Add(carInventoryVM);
                     }
@@ -410,7 +410,7 @@ namespace DataAccessLayer
             return List;
         }
 
-        public int InsertNewCar(string Model, int Year, string Color, string VIN, float Price, int Mileage, string FuelType, string TransmissionType, float EngineSize, string Description)
+        public int InsertNewCar(string Model, int Year, string Color, string VIN, Double Price, int Mileage, string FuelType, string TransmissionType, Double EngineSize, string Description)
         {
             // Make return variable if appropriate
             // connection
@@ -473,7 +473,7 @@ namespace DataAccessLayer
             return rows;
         }
 
-        public void UpdateCar(int CarID, string Model, int Year, string Color, string VIN, float Price, int Mileage, string FuelType, string TransmissionType, float EngineSize, string Description)
+        public void UpdateCar(int CarID, string Model, int Year, string Color, string VIN, Double Price, int Mileage, string FuelType, string TransmissionType, Double EngineSize, string Description)
         {
             // Make return variable if appropriate
             // connection
@@ -574,11 +574,11 @@ namespace DataAccessLayer
                         carInventoryVM.Year = reader.GetInt32(2);
                         carInventoryVM.Color = reader.GetString(3);
                         carInventoryVM.VIN = reader.GetString(4);
-                        carInventoryVM.Price = reader.GetFloat(5);
+                        carInventoryVM.Price = reader.GetDouble(5);
                         carInventoryVM.Mileage = reader.GetInt32(6);
                         carInventoryVM.FuelType = reader.GetString(7);
                         carInventoryVM.TransmissionType = reader.GetString(8);
-                        carInventoryVM.EngineSize = reader.GetFloat(9);
+                        carInventoryVM.EngineSize = reader.GetDouble(9);
                         carInventoryVM.Description = reader.GetString(10);
                     }
                 }
@@ -621,20 +621,20 @@ namespace DataAccessLayer
                 var reader = cmd.ExecuteReader();
 
                 if (reader.HasRows)
-                {
-                    CarInventoryVM carInventoryVM = new CarInventoryVM();
+                {                   
                     while (reader.Read())
                     {
+                        CarInventoryVM carInventoryVM = new CarInventoryVM();
                         carInventoryVM.CarID = reader.GetInt32(0);
                         carInventoryVM.Model = reader.GetString(1);
                         carInventoryVM.Year = reader.GetInt32(2);
                         carInventoryVM.Color = reader.GetString(3);
                         carInventoryVM.VIN = reader.GetString(4);
-                        carInventoryVM.Price = reader.GetFloat(5);
+                        carInventoryVM.Price = reader.GetDouble(5);
                         carInventoryVM.Mileage = reader.GetInt32(6);
                         carInventoryVM.FuelType = reader.GetString(7);
                         carInventoryVM.TransmissionType = reader.GetString(8);
-                        carInventoryVM.EngineSize = reader.GetFloat(9);
+                        carInventoryVM.EngineSize = reader.GetDouble(9);
                         carInventoryVM.Description = reader.GetString(10);
                         List.Add(carInventoryVM);
                     }

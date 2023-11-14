@@ -13,8 +13,8 @@ namespace DataAccessInterface
     public interface ICarInventoryAccessor
     {
         // crud: create, retrieve, update, delete
-        int InsertNewCar(string Model, int Year, string Color, string VIN, float Price, int Mileage, string FuelType, string TransmissionType, float EngineSize, string Description);
-        void UpdateCar(int CarID, string Model, int Year, string Color, string VIN, float Price, int Mileage, string FuelType, string TransmissionType, float EngineSize, string Description);
+        int InsertNewCar(string Model, int Year, string Color, string VIN, Double Price, int Mileage, string FuelType, string TransmissionType, Double EngineSize, string Description);
+        void UpdateCar(int CarID, string Model, int Year, string Color, string VIN, Double Price, int Mileage, string FuelType, string TransmissionType, Double EngineSize, string Description);
         int DeleteCarByID(int CarID);
         List<CarInventoryVM> ViewCarInventory();
         CarInventoryVM ViewCarByID(int CarID);

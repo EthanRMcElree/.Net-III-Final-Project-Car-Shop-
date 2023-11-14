@@ -17,7 +17,7 @@ namespace DataAccessLayer
     {
         public EmployeeVM AuthenticateEmployeeWithEmailAndPassword(string email, string password)
         {
-            EmployeeVM employeeVM = new EmployeeVM();
+            EmployeeVM employeeVM = null;
 
             // start connect object
             var conn = SqlConnectionProvider.GetConnection();
@@ -52,6 +52,7 @@ namespace DataAccessLayer
                 {
                     while (reader.Read())
                     {
+                        employeeVM = new EmployeeVM();
                         employeeVM.EmployeeID = reader.GetInt32(0);
                         employeeVM.FirstName = reader.GetString(1);
                         employeeVM.LastName = reader.GetString(2);
@@ -214,13 +215,13 @@ namespace DataAccessLayer
 
             // add parameters to the command
             cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 100);
-            cmd.Parameters.Add("@NewPassword", SqlDbType.NVarChar, 100);
             cmd.Parameters.Add("@OldPassword", SqlDbType.NVarChar, 100);
+            cmd.Parameters.Add("@NewPassword", SqlDbType.NVarChar, 100);           
 
             // set the parameters values
             cmd.Parameters["@Email"].Value = email;
-            cmd.Parameters["@NewPassword"].Value = newPassword;
             cmd.Parameters["@OldPassword"].Value = oldPassword;
+            cmd.Parameters["@NewPassword"].Value = newPassword;            
             
             try
             {

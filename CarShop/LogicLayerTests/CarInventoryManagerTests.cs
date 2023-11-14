@@ -32,11 +32,11 @@ namespace LogicLayerTests
             int Year = 2024;
             string Color = "red";
             string VIN = "1E8H8A40";
-            float Price = 27550.00F;
+            Double Price = 27550.00F;
             int Mileage = 12000;
             string FuelType = "hybrid";
             string TransmissionType = "automatic";
-            float EngineSize = 2.5F;
+            Double EngineSize = 2.5F;
             string Description = "awesome car";
 
             // Act
@@ -54,11 +54,11 @@ namespace LogicLayerTests
             int Year = 0;
             string Color = null;
             string VIN = "1A8HWE40";
-            float Price = 27550.00F;
+            Double Price = 27550.00F;
             int Mileage = 12000;
             string FuelType = "hybrid";
             string TransmissionType = "automatic";
-            float EngineSize = 2.5F;
+            Double EngineSize = 2.5F;
             string Description = "awesome car";
 
             // Act
@@ -162,11 +162,11 @@ namespace LogicLayerTests
             int Year = 2024;
             string Color = "red";
             string VIN = "1A8HWE40";
-            float Price = 27550.00F;
+            Double Price = 27550.00F;
             int Mileage = 15000;
             string FuelType = "hybrid";
             string TransmissionType = "automatic";
-            float EngineSize = 2.5F;
+            Double EngineSize = 2.5F;
             string Description = "awesome car";
 
             // Act
@@ -186,11 +186,11 @@ namespace LogicLayerTests
             int Year = 2024;
             string Color = "red";
             string VIN = "1A8HWE40";
-            float Price = 27550.00F;
+            Double Price = 27550.00F;
             int Mileage = 12000;
             string FuelType = "hybrid";
             string TransmissionType = "automatic";
-            float EngineSize = 2.5F;
+            Double EngineSize = 2.5F;
             string Description = "awesome car";
 
             // Act
