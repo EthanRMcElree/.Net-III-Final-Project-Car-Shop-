@@ -475,19 +475,13 @@ GO
 CREATE PROCEDURE [dbo].[sp_change_employee_password]
 (
 	@Email			[nvarchar] (250),
-	@OldPassword	[nvarchar]	(50),
-	@NewPassword	[nvarchar]	(50)
+	@OldPassword	[nvarchar]	(100),
+	@NewPassword	[nvarchar]	(100)
 )
 AS
-	BEGIN
-		IF EXISTS (SELECT 1 FROM [dbo].[Employee] WHERE @Email = [Email] AND @OldPassword = [Password])
-		BEGIN
-			UPDATE [dbo].[Employee] SET [Password] = @NewPassword WHERE [Email] = @Email
-			SELECT 'Password has been changed' AS [Result]
-		END
-		ELSE 
-			SELECT 'Password change failed' AS [Result]
-	END
+	BEGIN		
+		UPDATE [dbo].[Employee] SET [Password] = @NewPassword WHERE [Email] = @Email			
+	END		
 GO
 
 print '' print '*** creating sp_change_customer_password ***'

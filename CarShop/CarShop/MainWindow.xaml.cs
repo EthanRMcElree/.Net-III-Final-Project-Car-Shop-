@@ -3,7 +3,9 @@ using DataObjectsLayer;
 using LogicLayer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.Remoting.Lifetime;
 using System.Runtime.Serialization.Formatters;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,12 +38,14 @@ namespace CarShop
             InitializeComponent();
             _employeeManager = new EmployeeManager();
             carInventoryManager = new CarInventoryManager();
+            hideAllTabs();
+            EditCarGrid.Visibility = Visibility.Collapsed;
+            SubmitEditCar.Visibility = Visibility.Collapsed;
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {                    
             txtEmail.Focus();            
-            btnLogin.IsDefault = true;            
-            hideAllTabs();
+            btnLogin.IsDefault = true;                        
         }
 
         private void hideAllTabs()
@@ -65,12 +69,18 @@ namespace CarShop
                 {
                     case "manager":
                         CarInventory.Visibility = Visibility.Visible;
+                        InsertCar.Visibility = Visibility.Visible;
+                        DeleteCar.Visibility = Visibility.Visible;
+                        EditCar.Visibility = Visibility.Visible;
                         break;
                     case "sales":
                         CarInventory.Visibility = Visibility.Visible;
                         break;
                     case "admin":
                         CarInventory.Visibility = Visibility.Visible;
+                        InsertCar.Visibility = Visibility.Visible;
+                        DeleteCar.Visibility = Visibility.Visible;
+                        EditCar.Visibility = Visibility.Visible;
                         break;
                 }
             }
@@ -84,8 +94,7 @@ namespace CarShop
 
         private void updateUIforLogOut()
         {
-            lblGreeting.Content = "You are not currently logged in.";
-            // statMessage.Content = "Welcome. Please log in to continue";
+            lblGreeting.Content = "Please log in if you haven't already.";            
               
             txtEmail.Visibility = Visibility.Visible;
             lblEmail.Visibility = Visibility.Visible;
@@ -96,6 +105,7 @@ namespace CarShop
             btnLogin.IsDefault = true;
 
             loggedInEmployee = null;
+            hideAllTabs();
         }       
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -142,9 +152,6 @@ namespace CarShop
                     txtEmail.Focus();
                     return;
                 }
-
-
-
             }
             else // log out
             {
@@ -154,7 +161,7 @@ namespace CarShop
 
         private void updateUIforEmployee()
         {                    
-            lblGreeting.Content = "Welcome, " + loggedInEmployee.FirstName + ". You are logged in as: "
+            lblGreeting.Content = "Welcome " + loggedInEmployee.FirstName + ". You are logged in as: "
                 + loggedInEmployee.Role + ".";
             statMessage.Content = "Logged in on " + DateTime.Now.ToLongDateString() + " at " +
                 DateTime.Now.ToShortDateString() +
@@ -210,6 +217,82 @@ namespace CarShop
         private void mnuExit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void btnSubmitNewCar_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string Model = txtModel.Text;
+                int Year = Int32.Parse(cboYear.Text);
+                string Color = txtColor.Text;
+                string VIN = txtVIN.Text;
+                double Price = Double.Parse(txtPrice.Text);
+                int Mileage = Int32.Parse(txtMileage.Text);
+                string FuelType = cboFuelType.Text;
+                string TransmissionType = cboTransmissionType.Text;
+                double EngineSize = Double.Parse(txtEngineSize.Text);
+                string Description = txtDescription.Text;
+                int rows = carInventoryManager.InsertNewCar(Model, Year, Color, VIN, Price, Mileage, FuelType, TransmissionType, EngineSize, Description);
+                if (rows != 1)
+                {
+                    MessageBox.Show("Unable to insert your new car.");
+                }
+                else
+                {
+                    MessageBox.Show("Successfully added new car.");
+                    MyCars.ItemsSource = carInventoryManager.ViewCarInventory();
+                    txtModel.Text = "";
+                    cboYear.Text = "";
+                    txtColor.Text = "";
+                    txtVIN.Text = "";
+                    txtPrice.Text = "";
+                    txtMileage.Text = "";
+                    txtMileage.Text = "";
+                    cboFuelType.Text = "";
+                    cboTransmissionType.Text = "";
+                    txtEngineSize.Text = "";
+                    txtDescription.Text = "";
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("There was a problem inserting your new car.  Check your inputs.");
+            }            
+        }
+
+        private void btnDeleteCar_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int CarID = Int32.Parse(txtCarID.Text);
+                int rows = carInventoryManager.DeleteCarByID(CarID);
+                if (rows != 1)
+                {
+                    MessageBox.Show("Unable to delete car.");
+                }
+                else
+                {
+                    MessageBox.Show("Successfully deleted car.");
+                    MyCars.ItemsSource = carInventoryManager.ViewCarInventory();
+                    txtCarID.Text = "";                    
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("There was a problem deleting your car.  Check your input and try again.");
+            }
+        }
+
+        private void btnEditCar_Click(object sender, RoutedEventArgs e)
+        {
+            EditCarGrid.Visibility = Visibility.Visible;
+            SubmitEditCar.Visibility = Visibility.Visible;
+        }
+
+        private void btnSubmitEditCar_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
