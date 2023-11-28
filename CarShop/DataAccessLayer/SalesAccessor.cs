@@ -95,10 +95,10 @@ namespace DataAccessLayer
                 var reader = cmd.ExecuteReader();
 
                 if (reader.HasRows)
-                {
-                    SalesVM salesVM = new SalesVM();
+                {                    
                     while (reader.Read())
                     {
+                        SalesVM salesVM = new SalesVM();
                         salesVM.SaleID = reader.GetInt32(0);
                         salesVM.EmployeeID = reader.GetInt32(1);
                         salesVM.CarID = reader.GetInt32(2);

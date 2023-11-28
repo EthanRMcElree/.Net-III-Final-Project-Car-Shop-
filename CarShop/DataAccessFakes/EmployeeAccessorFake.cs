@@ -64,7 +64,7 @@ namespace DataAccessFakes
 
             foreach (EmployeeVM employee in fakeEmployees)
             {
-                if (employee.Email == email && employee.Password == HashSha256(password))
+                if (employee.Email == email && employee.Password == password)
                 {
                     authenticatedEmployee = employee;
                     break;

@@ -71,9 +71,11 @@ GO
 INSERT INTO [dbo].[CarInventory]
 		([Model], [Year], [Color], [VIN], [Price], [FuelType], [TransmissionType], [EngineSize], [Description])
 	VALUES
-		('crosstrek', 2023, 'black', '4HDAS138', 24995.00, 'regular', 'automatic', 2.5, 'do not miss out on this car'),
+		('crosstrek', 2023, 'black', '4HDAS138', 24995.00, 'Gasoline', 'automatic', 2.5, 'do not miss out on this car'),
 		('forester', 2024, 'blue', '9F1J2AG9', 25800.00, 'E85', 'manual', 2.5, 'another great car'),
-		('ascent', 2024, 'red', '1A8HWE40', 27550.00, 'hybrid', 'automatic', 2.5, 'awesome car')
+		('ascent', 2024, 'red', '1A8HWE40', 27550.00, 'Hybrid', 'automatic', 2.5, 'awesome car'),
+		('Semi', 2021, 'White', '7A80US3J', 30150.00, 'Diesel', 'manual', 3.5, 'big truck'),
+		('Ferari', 2018, 'Red', 'J7KZ11L9', 50500.00, 'Ethanol', 'automatic', 2.5, 'Very rare awesome car')
 GO
 
 /* Customer Table */
@@ -124,13 +126,13 @@ GO
 print '' print '*** inserting sales test records ***'
 GO
 INSERT INTO [dbo].[Sales]
-		([CarID], [EmployeeID], [CustomerID], [SalePrice])
+		([CarID], [EmployeeID], [CustomerID], [SaleDate], [SalePrice])
 	VALUES
-		(1, 1, 2, 22500.00),
-		(1, 3, 3, 19295.50),
-		(3, 2, 1, 20750.00),
-		(2, 2, 2, 15995.00),
-		(3, 3, 1, 17955.50)
+		(1, 1, 2, '2023-07-09', 22500.00),
+		(1, 3, 3, '2022-09-12', 19295.50),
+		(3, 2, 1, '2021-04-19', 20750.00),
+		(2, 2, 2, '2024-01-05', 15995.00),
+		(3, 3, 1, '2020-05-08', 17955.50)
 GO
 
 /* Manufacturer Table */

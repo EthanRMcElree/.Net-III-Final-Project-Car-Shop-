@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarShop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000">
+        Title="MainWindow" Height="700" Width="1000">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -15,17 +15,15 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0" Padding="20px, 0px">
-            <MenuItem x:Name="mnuFile" Header="File">
-                <MenuItem x:Name="mnuExit" Header="Exit" Click="mnuExit_Click"></MenuItem>
-            </MenuItem>
-            <MenuItem x:Name="mnuEdit" Header="Edit">
+        <Menu Grid.Row="0" Padding="10, 2">
+            <MenuItem x:Name="mnuEdit" Header="Update Password">
                 <MenuItem x:Name="mnuUpdatePassword" Header="Update Password" Click="mnuUpdatePassword_Click"></MenuItem>
             </MenuItem>
-            <MenuItem x:Name="mnuHelp" Header="Help">
-                <MenuItem x:Name="mnuAbout" Header="About"></MenuItem>
+            <MenuItem x:Name="mnuSales" Header="Sales">
+                <MenuItem x:Name="mnuSalesWindow" Header="Sales" Click="mnuSalesWindow_Click"></MenuItem>
             </MenuItem>
         </Menu>
+        
 
         <!-- This grid is inside the main grid -->
         <Grid Grid.Row="1">
@@ -70,7 +68,62 @@
         <StackPanel x:Name="MainWindowTabContainer" Grid.Row="3">
             <TabControl Name="MainWindowTabs" Height="450">
                 <TabItem Header="Car Inventory" Name="CarInventory">
-                    <DataGrid Name="MyCars"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Height="700">
+                            <Grid x:Name="CarInventoryHeader" Height="50">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label x:Name="lblCarInventoryTitle" Grid.Row="0" Grid.Column="0"
+                                    FontWeight="Bold" 
+                                    HorizontalContentAlignment="Center"
+                                    Content="Car Inventory" FontSize="20"/>
+                            </Grid>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="btnViewAllCars" Content="View All Cars" 
+                                    Grid.Column="0" Grid.Row="0"
+                                    FontWeight="Bold" Height="30" Width="125" Click="btnViewAllCars_Click"/>
+                                <Button x:Name="btnViewHighMileage" Content="High Mileage" 
+                                    Grid.Column="1" Grid.Row="0"
+                                    FontWeight="Bold" Height="30" Width="125" Click="btnViewHighMileage_Click"/>
+                                <Button x:Name="btnViewModerateMileage" Content="Moderate Mileage" 
+                                    Grid.Column="2" Grid.Row="0"
+                                    FontWeight="Bold" Height="30" Width="125" Click="btnViewModerateMileage_Click"/>
+                                <Button x:Name="btnViewLowMileage" Content="Low Mileage" 
+                                    Grid.Column="3" Grid.Row="0"
+                                    FontWeight="Bold" Height="30" Width="125" Click="btnViewLowMileage_Click"/>
+                                <ComboBox x:Name="cboViewFuelType"                                          
+                                    Grid.Column="4" Grid.Row="0"
+                                    FontWeight="Bold" Height="30" Width="125" SelectionChanged="cboViewFuelType_SelectionChanged" 
+                                    IsSynchronizedWithCurrentItem="True">
+                                    <ComboBoxItem Content="Gasoline"/>
+                                    <ComboBoxItem Content="Diesel"/>
+                                    <ComboBoxItem Content="Ethanol"/>
+                                    <ComboBoxItem Content="E85"/>
+                                    <ComboBoxItem Content="Hybrid"/>
+                                </ComboBox>
+                                <Label x:Name="lblSelectFuelType" Grid.Row="1" Grid.Column="4"
+                                    FontWeight="Bold" 
+                                    HorizontalContentAlignment="Center"
+                                    Content="Fuel Type" FontSize="10"/>
+                            </Grid>
+                            <DataGrid ColumnWidth="*" Name="MyCars"/>
+                        </StackPanel>
+                    </ScrollViewer>
                 </TabItem>
                 <TabItem Header="Add Car" Name="InsertCar">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -255,167 +308,167 @@
                 </TabItem>
                 <TabItem Header="Edit Car" Name="EditCar">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel>
-                        <Grid x:Name="EditCarHeader" Height="50">
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Label x:Name="lblEditCarTitle" Grid.Row="0" Grid.Column="0"
+                        <StackPanel>
+                            <Grid x:Name="EditCarHeader" Height="50">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label x:Name="lblEditCarTitle" Grid.Row="0" Grid.Column="0"
                                 FontWeight="Bold" 
                                 HorizontalContentAlignment="Center"
                                 Content="Edit Car Information" FontSize="20"/>
-                        </Grid>
-                        <Grid x:Name="EditCarBody" Height="50">
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="400"/>
-                                <ColumnDefinition Width="300"/>
-                            </Grid.ColumnDefinitions>
-                            <Label x:Name="lblEditCar" Grid.Row="0" Grid.Column="0"
+                            </Grid>
+                            <Grid x:Name="EditCarBody" Height="50">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="400"/>
+                                    <ColumnDefinition Width="300"/>
+                                </Grid.ColumnDefinitions>
+                                <Label x:Name="lblEditCar" Grid.Row="0" Grid.Column="0"
                                 FontWeight="Bold" VerticalAlignment="Top"
                                 HorizontalContentAlignment="Right"
                                 Content="Car ID" Margin="10"/>
-                            <TextBox x:Name="txtEditCarID" Grid.Row="1" Grid.Column="1" 
+                                <TextBox x:Name="txtEditCarID" Grid.Row="1" Grid.Column="1" 
                                 HorizontalContentAlignment="Left"
                                 Height="25" Width="250"/>
-                        </Grid>
-                        <Grid x:Name="EditCarButton" Height="50">
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Button x:Name="btnEditCar" Click="btnEditCar_Click" Content="Find Car" 
+                            </Grid>
+                            <Grid x:Name="EditCarButton" Height="50">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="btnEditCar" Click="btnEditCar_Click" Content="Find Car" 
                                 Grid.Column="0" Grid.Row="0"
                                 FontWeight="Bold" Height="30" Width="75"/>
-                        </Grid>
-                        <Grid x:Name="EditCarGrid">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="100"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="400"/>
-                                <ColumnDefinition Width="300"/>
-                            </Grid.ColumnDefinitions>
-                            <Label x:Name="lblEditModel" Grid.Row="1" Grid.Column="0"
+                            </Grid>
+                            <Grid x:Name="EditCarGrid">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="100"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="400"/>
+                                    <ColumnDefinition Width="300"/>
+                                </Grid.ColumnDefinitions>
+                                <Label x:Name="lblEditModel" Grid.Row="1" Grid.Column="0"
                                 FontWeight="Bold" VerticalAlignment="Top"
                                 HorizontalContentAlignment="Right"
                                 Content="Model" Margin="10"/>
-                            <TextBox x:Name="txtEditModel" Grid.Row="1" Grid.Column="1" 
+                                <TextBox x:Name="txtEditModel" Grid.Row="1" Grid.Column="1" 
                                 HorizontalContentAlignment="Left" 
                                 Height="25" Width="250"/>
-                            <Label x:Name="lblEditYear" Grid.Row="2" Grid.Column="0"
+                                <Label x:Name="lblEditYear" Grid.Row="2" Grid.Column="0"
                                 FontWeight="Bold" VerticalAlignment="Top"
                                 HorizontalContentAlignment="Right"
                                 Content="Year" Margin="10"/>
-                            <ComboBox x:Name="cboEditYear" Grid.Row="2" Grid.Column="1" 
+                                <ComboBox x:Name="cboEditYear" Grid.Row="2" Grid.Column="1" 
                                 HorizontalContentAlignment="Left"
                                 Height="25" Width="250">
-                                <ComboBoxItem Content="2015"/>
-                                <ComboBoxItem Content="2016"/>
-                                <ComboBoxItem Content="2017"/>
-                                <ComboBoxItem Content="2018"/>
-                                <ComboBoxItem Content="2019"/>
-                                <ComboBoxItem Content="2020"/>
-                                <ComboBoxItem Content="2021"/>
-                                <ComboBoxItem Content="2022"/>
-                                <ComboBoxItem Content="2023"/>
-                                <ComboBoxItem Content="2024"/>
-                            </ComboBox>
-                            <Label x:Name="lblEditColor" Grid.Row="3" Grid.Column="0"
+                                    <ComboBoxItem Content="2015"/>
+                                    <ComboBoxItem Content="2016"/>
+                                    <ComboBoxItem Content="2017"/>
+                                    <ComboBoxItem Content="2018"/>
+                                    <ComboBoxItem Content="2019"/>
+                                    <ComboBoxItem Content="2020"/>
+                                    <ComboBoxItem Content="2021"/>
+                                    <ComboBoxItem Content="2022"/>
+                                    <ComboBoxItem Content="2023"/>
+                                    <ComboBoxItem Content="2024"/>
+                                </ComboBox>
+                                <Label x:Name="lblEditColor" Grid.Row="3" Grid.Column="0"
                                 FontWeight="Bold" VerticalAlignment="Top"
                                 HorizontalContentAlignment="Right"
                                 Content="Color" Margin="10"/>
-                            <TextBox x:Name="txtEditColor" Grid.Row="3" Grid.Column="1" 
+                                <TextBox x:Name="txtEditColor" Grid.Row="3" Grid.Column="1" 
                                 HorizontalContentAlignment="Left"
                                 Height="25" Width="250"/>
-                            <Label x:Name="lblEditVIN" Grid.Row="4" Grid.Column="0"
+                                <Label x:Name="lblEditVIN" Grid.Row="4" Grid.Column="0"
                                 FontWeight="Bold" VerticalAlignment="Top"
                                 HorizontalContentAlignment="Right"
                                 Content="VIN" Margin="10"/>
-                            <TextBox x:Name="txtEditVIN" Grid.Row="4" Grid.Column="1" 
+                                <TextBox x:Name="txtEditVIN" Grid.Row="4" Grid.Column="1" 
                                 HorizontalContentAlignment="Left"
                                 Height="25" Width="250"/>
-                            <Label x:Name="lblEditPrice" Grid.Row="5" Grid.Column="0"
+                                <Label x:Name="lblEditPrice" Grid.Row="5" Grid.Column="0"
                                 FontWeight="Bold" VerticalAlignment="Top"
                                 HorizontalContentAlignment="Right"
                                 Content="Price" Margin="10"/>
-                            <TextBox x:Name="txtEditPrice" Grid.Row="5" Grid.Column="1" 
+                                <TextBox x:Name="txtEditPrice" Grid.Row="5" Grid.Column="1" 
                                 HorizontalContentAlignment="Left"
                                 Height="25" Width="250"/>
-                            <Label x:Name="lblEditMileage" Grid.Row="6" Grid.Column="0"
+                                <Label x:Name="lblEditMileage" Grid.Row="6" Grid.Column="0"
                                 FontWeight="Bold" VerticalAlignment="Top"
                                 HorizontalContentAlignment="Right"
                                 Content="Mileage" Margin="10"/>
-                            <TextBox x:Name="txtEditMileage" Grid.Row="6" Grid.Column="1" 
+                                <TextBox x:Name="txtEditMileage" Grid.Row="6" Grid.Column="1" 
                                 HorizontalContentAlignment="Left"
-                                Height="25" Width="250"/>   
-                            <Label x:Name="lblEditFuelType" Grid.Row="7" Grid.Column="0"
+                                Height="25" Width="250"/>
+                                <Label x:Name="lblEditFuelType" Grid.Row="7" Grid.Column="0"
                                 FontWeight="Bold" VerticalAlignment="Top"
                                 HorizontalContentAlignment="Right"
                                 Content="Fuel Type" Margin="10"/>
-                            <ComboBox x:Name="cboEditFuelType" Grid.Row="7" Grid.Column="1" 
+                                <ComboBox x:Name="cboEditFuelType" Grid.Row="7" Grid.Column="1" 
                                 HorizontalContentAlignment="Left"
                                 Height="25" Width="250">
-                                <ComboBoxItem Content="Gasoline"/>
-                                <ComboBoxItem Content="Diesel"/>
-                                <ComboBoxItem Content="Ethanol"/>
-                                <ComboBoxItem Content="E85"/>
-                                <ComboBoxItem Content="Hybrid"/>
-                            </ComboBox>
-                            <Label x:Name="lblEditTransmissionType" Grid.Row="8" Grid.Column="0"
+                                    <ComboBoxItem Content="Gasoline"/>
+                                    <ComboBoxItem Content="Diesel"/>
+                                    <ComboBoxItem Content="Ethanol"/>
+                                    <ComboBoxItem Content="E85"/>
+                                    <ComboBoxItem Content="Hybrid"/>
+                                </ComboBox>
+                                <Label x:Name="lblEditTransmissionType" Grid.Row="8" Grid.Column="0"
                                 FontWeight="Bold" VerticalAlignment="Top"
                                 HorizontalContentAlignment="Right"
                                 Content="Transmission Type" Margin="10"/>
-                            <ComboBox x:Name="cboEditTransmissionType" Grid.Row="8" Grid.Column="1" 
+                                <ComboBox x:Name="cboEditTransmissionType" Grid.Row="8" Grid.Column="1" 
                                 HorizontalContentAlignment="Left"
                                 Height="25" Width="250">
-                                <ComboBoxItem Content="Automatic"/>
-                                <ComboBoxItem Content="Manual"/>
-                            </ComboBox>
-                            <Label x:Name="lblEditEngineSize" Grid.Row="9" Grid.Column="0"
+                                    <ComboBoxItem Content="Automatic"/>
+                                    <ComboBoxItem Content="Manual"/>
+                                </ComboBox>
+                                <Label x:Name="lblEditEngineSize" Grid.Row="9" Grid.Column="0"
                                 FontWeight="Bold" VerticalAlignment="Top"
                                 HorizontalContentAlignment="Right"
                                 Content="Engine Size" Margin="10"/>
-                            <TextBox x:Name="txtEditEngineSize" Grid.Row="9" Grid.Column="1" 
+                                <TextBox x:Name="txtEditEngineSize" Grid.Row="9" Grid.Column="1" 
                                 HorizontalContentAlignment="Left"
                                 Height="25" Width="250"/>
-                            <Label x:Name="lblEditDescription" Grid.Row="10" Grid.Column="0"
+                                <Label x:Name="lblEditDescription" Grid.Row="10" Grid.Column="0"
                                 FontWeight="Bold" VerticalAlignment="Top"
                                 HorizontalContentAlignment="Right"
                                 Content="Description" Margin="10"/>
-                            <TextBox x:Name="txtEditDescription" Grid.Row="10" Grid.Column="1" 
+                                <TextBox x:Name="txtEditDescription" Grid.Row="10" Grid.Column="1" 
                                 HorizontalContentAlignment="Left"
                                 Height="50" Width="250"/>
-                        </Grid>
-                        <Grid x:Name="SubmitEditCar" Height="50">
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Button x:Name="btnSubmitEditCar" Click="btnSubmitEditCar_Click" Content="Submit" 
+                            </Grid>
+                            <Grid x:Name="SubmitEditCar" Height="50">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="btnSubmitEditCar" Click="btnSubmitEditCar_Click" Content="Submit" 
                                 Grid.Column="0" Grid.Row="0"
                                 FontWeight="Bold" Height="30" Width="75"/>
-                        </Grid>
-                    </StackPanel>
+                            </Grid>
+                        </StackPanel>
                     </ScrollViewer>
                 </TabItem>
             </TabControl>

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Runtime.Remoting.Lifetime;
 using System.Runtime.Serialization.Formatters;
 using System.Text;
@@ -41,6 +42,7 @@ namespace CarShop
             hideAllTabs();
             EditCarGrid.Visibility = Visibility.Collapsed;
             SubmitEditCar.Visibility = Visibility.Collapsed;
+            mnuSales.Visibility = Visibility.Hidden;
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {                    
@@ -72,6 +74,7 @@ namespace CarShop
                         InsertCar.Visibility = Visibility.Visible;
                         DeleteCar.Visibility = Visibility.Visible;
                         EditCar.Visibility = Visibility.Visible;
+                        mnuSales.Visibility = Visibility.Visible;
                         break;
                     case "sales":
                         CarInventory.Visibility = Visibility.Visible;
@@ -80,7 +83,7 @@ namespace CarShop
                         CarInventory.Visibility = Visibility.Visible;
                         InsertCar.Visibility = Visibility.Visible;
                         DeleteCar.Visibility = Visibility.Visible;
-                        EditCar.Visibility = Visibility.Visible;
+                        EditCar.Visibility = Visibility.Visible;                        
                         break;
                 }
             }
@@ -165,8 +168,8 @@ namespace CarShop
                 + loggedInEmployee.Role + ".";
             statMessage.Content = "Logged in on " + DateTime.Now.ToLongDateString() + " at " +
                 DateTime.Now.ToShortDateString() +
-                ". Please remember to log out before leaving your workstation.";
-            MyCars.ItemsSource = carInventoryManager.ViewCarInventory();
+                ". Please remember to log out before leaving your workstation.";            
+            setUpCarInventory();
 
             // clear the login section
             txtEmail.Text = "";
@@ -212,12 +215,7 @@ namespace CarShop
                         "Update Failed", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-        }
-
-        private void mnuExit_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+        }        
 
         private void btnSubmitNewCar_Click(object sender, RoutedEventArgs e)
         {
@@ -286,13 +284,119 @@ namespace CarShop
 
         private void btnEditCar_Click(object sender, RoutedEventArgs e)
         {
-            EditCarGrid.Visibility = Visibility.Visible;
-            SubmitEditCar.Visibility = Visibility.Visible;
+            try
+            {
+                int CarID = Int32.Parse(txtEditCarID.Text);
+                CarInventoryVM car = carInventoryManager.ViewCarByID(CarID);
+                if (car != null)
+                {
+                    txtEditModel.Text = car.Model;
+                    cboEditYear.Text = car.Year.ToString();
+                    txtEditColor.Text = car.Color;
+                    txtEditVIN.Text = car.VIN;
+                    txtEditPrice.Text = car.Price.ToString();
+                    txtEditMileage.Text = car.Mileage.ToString();
+                    cboEditFuelType.Text = car.FuelType.ToString();
+                    cboEditTransmissionType.Text = car.TransmissionType;
+                    txtEditEngineSize.Text = car.EngineSize.ToString();
+                    txtEditDescription.Text = car.Description;
+                    EditCarGrid.Visibility = Visibility.Visible;
+                    SubmitEditCar.Visibility = Visibility.Visible;
+                    EditCarBody.Visibility = Visibility.Collapsed;
+                    EditCarButton.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    throw new Exception("Can't find car.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Having trouble finding that car.  Try again.");
+            }            
         }
 
         private void btnSubmitEditCar_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                carInventoryManager.UpdateCar(Int32.Parse(txtEditCarID.Text),
+                txtEditModel.Text, Int32.Parse(cboEditYear.Text),
+                txtEditColor.Text, txtEditVIN.Text, Double.Parse(txtEditPrice.Text),
+                Int32.Parse(txtEditMileage.Text), cboEditFuelType.Text,
+                cboEditTransmissionType.Text, Double.Parse(txtEditEngineSize.Text),
+                txtEditDescription.Text);
+                MainWindowTabs.SelectedIndex = 0;
 
+                txtEditModel.Text = "";
+                cboEditYear.Text = "";
+                txtEditColor.Text = "";
+                txtEditVIN.Text = "";
+                txtEditPrice.Text = "";
+                txtEditMileage.Text = "";
+                cboEditFuelType.Text = "";
+                cboEditTransmissionType.Text = "";
+                txtEditEngineSize.Text = "";
+                txtEditDescription.Text = "";
+                EditCarGrid.Visibility = Visibility.Collapsed;
+                SubmitEditCar.Visibility = Visibility.Collapsed;
+                EditCarBody.Visibility = Visibility.Visible;
+                EditCarButton.Visibility = Visibility.Visible;
+                MyCars.ItemsSource = carInventoryManager.ViewCarInventory();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Invalid input in one or more of your text or comboboxes");
+            }           
+        }
+
+        private void btnViewAllCars_Click(object sender, RoutedEventArgs e)
+        {
+            MyCars.ItemsSource = carInventoryManager.ViewCarInventory();
+        }
+
+        private void btnViewHighMileage_Click(object sender, RoutedEventArgs e)
+        {
+            MyCars.ItemsSource = carInventoryManager.FilterCarByHighMileage();
+        }
+
+        private void btnViewModerateMileage_Click(object sender, RoutedEventArgs e)
+        {
+            MyCars.ItemsSource = carInventoryManager.FilterCarByModerateMileage();
+        }
+
+        private void btnViewLowMileage_Click(object sender, RoutedEventArgs e)
+        {
+            MyCars.ItemsSource = carInventoryManager.FilterCarByLowMileage();
+        }
+
+        private void cboViewFuelType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string text = (e.AddedItems[0] as ComboBoxItem).Content as string;
+            MyCars.ItemsSource = carInventoryManager.FilterCarByFuelType(text);
+        }
+        private void setUpFuelTypeSelectors()
+        {
+            SortedSet<string> fuelTypes = new SortedSet<string>();
+            List<CarInventoryVM> cars = carInventoryManager.ViewCarInventory();
+            foreach (CarInventoryVM car in cars)
+            {
+                fuelTypes.Add(car.FuelType.ToString());
+            }
+            foreach (string fuelType in fuelTypes)
+            {
+                cboViewFuelType.Items.Add(fuelType);
+            }
+        }
+        private void setUpCarInventory()
+        {            
+            MyCars.ItemsSource = carInventoryManager.ViewCarInventory();
+        }
+
+        private void mnuSalesWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var salesWindow = new SalesWindow();
+            salesWindow.Show();
         }
     }
 }

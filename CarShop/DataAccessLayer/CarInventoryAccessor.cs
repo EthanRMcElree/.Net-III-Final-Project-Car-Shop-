@@ -90,9 +90,10 @@ namespace DataAccessLayer
 
                 if (reader.HasRows)
                 {
-                    CarInventoryVM carInventoryVM = new CarInventoryVM();
+                    CarInventoryVM carInventoryVM = null;
                     while (reader.Read())
                     {
+                        carInventoryVM = new CarInventoryVM();
                         carInventoryVM.CarID = reader.GetInt32(0);
                         carInventoryVM.Model = reader.GetString(1);
                         carInventoryVM.Year = reader.GetInt32(2);
@@ -105,6 +106,7 @@ namespace DataAccessLayer
                         carInventoryVM.EngineSize = reader.GetDouble(9);
                         carInventoryVM.Description = reader.GetString(10);
                         List.Add(carInventoryVM);
+                        carInventoryVM = null;
                     }
                 }
             }
@@ -201,12 +203,12 @@ namespace DataAccessLayer
                 conn.Open();
 
                 var reader = cmd.ExecuteReader();
-
+                CarInventoryVM carInventoryVM = null;
                 if (reader.HasRows)
-                {
-                    CarInventoryVM carInventoryVM = new CarInventoryVM();
+                {                  
                     while (reader.Read())
                     {
+                        carInventoryVM = new CarInventoryVM();
                         carInventoryVM.CarID = reader.GetInt32(0);
                         carInventoryVM.Model = reader.GetString(1);
                         carInventoryVM.Year = reader.GetInt32(2);
@@ -219,6 +221,7 @@ namespace DataAccessLayer
                         carInventoryVM.EngineSize = reader.GetDouble(9);
                         carInventoryVM.Description = reader.GetString(10);
                         List.Add(carInventoryVM);
+                        carInventoryVM = null;
                     }
                 }
             }

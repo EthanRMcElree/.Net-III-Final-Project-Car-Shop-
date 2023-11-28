@@ -44,7 +44,7 @@ namespace DataAccessFakes
                 SalePrice = 20750.00F,
             });
         }
-        public int CreateSale(int EmployeeID, int CarID, int CustomerID, DateTime SaleDate, float SalePrice)
+        public int CreateSale(int EmployeeID, int CarID, int CustomerID, DateTime SaleDate, Double SalePrice)
         {
             if (CarID <= 0)
             {
