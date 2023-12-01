@@ -33,6 +33,11 @@ namespace LogicLayer
             return employeeVM;
         }
 
+        public EmployeeVM GetEmployeeVMByID(int EmployeeID)
+        {
+           return _employeeAccessor.SelectEmployeeVMByID(EmployeeID);           
+        }
+
         public EmployeeVM GetEmployeeVMByEmail(string email)
         {
             EmployeeVM employeeVM = null;

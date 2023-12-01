@@ -1,0 +1,92 @@
+﻿<Window x:Class="CarShop.AddServAppWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CarShop"
+        mc:Ignorable="d"
+        Title="AddServAppWindow" Height="500" Width="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="450"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Padding="10px, 0px">
+            <MenuItem x:Name="mnuAddServApp" Header="Exit">
+                <MenuItem x:Name="mnuAddServAppExit" Header="Close out of this window" Click="mnuAddServAppExit_Click"/>
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="1" Background="Black" Height="20" Grid.RowSpan="1">
+        </Grid>
+        <StackPanel x:Name="AddServiceAppointmentTabContainer" Grid.Row="2">
+            <TabControl Name="AddServiceAppointmentWindowTabs" Height="450">
+                <TabItem Header="Add Service Appointments" Name="AddServiceAppointments">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Height="500">
+                            <Grid x:Name="AddServiceAppointmentHeader" Height="50">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label x:Name="lblAddServiceAppointmentTitle" Grid.Row="0" Grid.Column="0"
+                                FontWeight="Bold" 
+                                HorizontalContentAlignment="Center"
+                                Content="Create Service Appointment" FontSize="20"/>
+                            </Grid>
+                            <Grid x:Name="InsertSaleGrid">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="50"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="400"/>
+                                    <ColumnDefinition Width="300"/>
+                                </Grid.ColumnDefinitions>
+                                <Label x:Name="lblSaleEmployeeID" Grid.Row="1" Grid.Column="0"
+                                FontWeight="Bold" VerticalAlignment="Top"
+                                HorizontalContentAlignment="Right"
+                                Content="Employee ID" Margin="10"/>
+                                <TextBox x:Name="txtSaleEmployeeID" Grid.Row="1" Grid.Column="1" 
+                                HorizontalContentAlignment="Left" 
+                                Height="25" Width="250"/>
+                                <Label x:Name="lblSaleCustomerID" Grid.Row="2" Grid.Column="0"
+                                FontWeight="Bold" VerticalAlignment="Top"
+                                HorizontalAlignment="Right"
+                                Content="Customer ID" Margin="10"/>
+                                <TextBox x:Name="txtSaleCustomerID" Grid.Row="2" Grid.Column="1"
+                                HorizontalContentAlignment="Left" 
+                                Height="25" Width="250"/>
+                                <Label x:Name="lblSaleDate" Grid.Row="3" Grid.Column="0"
+                                FontWeight="Bold" VerticalAlignment="Top"
+                                HorizontalAlignment="Right"
+                                Content="Date" Margin="10"/>
+                                <TextBox x:Name="txtSaleDate" Grid.Row="3" Grid.Column="1"
+                                HorizontalContentAlignment="Left" 
+                                Height="25" Width="250"/>
+                                <Label x:Name="lblSalePrice" Grid.Row="4" Grid.Column="0"
+                                FontWeight="Bold" VerticalAlignment="Top"
+                                HorizontalAlignment="Right"
+                                Content="Price" Margin="10"/>
+                                <TextBox x:Name="txtSalePrice" Grid.Row="4" Grid.Column="1"
+                                HorizontalContentAlignment="Left" 
+                                Height="25" Width="250"/>
+                            </Grid>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="Update Service Appointment" Name="UpdateServiceAppointment">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        
+                    </ScrollViewer>
+                </TabItem>
+            </TabControl>
+        </StackPanel>
+    </Grid>
+</Window>

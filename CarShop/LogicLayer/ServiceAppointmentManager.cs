@@ -32,6 +32,11 @@ namespace LogicLayer
             _serviceAppointmentAccessor.DeleteServiceAppointmentByAppointmentID(AppointmentID);
         }
 
+        public List<ServiceAppointmentVM> RetrieveServiceAppointments()
+        {
+            return _serviceAppointmentAccessor.RetrieveServiceAppointments();
+        }
+
         public ServiceAppointmentVM RetrieveServiceAppointmentByAppointmentID(int AppointmentID)
         {
             return _serviceAppointmentAccessor.RetrieveServiceAppointmentByAppointmentID(AppointmentID);

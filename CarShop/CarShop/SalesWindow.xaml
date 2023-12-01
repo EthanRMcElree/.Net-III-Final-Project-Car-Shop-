@@ -13,14 +13,14 @@
             <RowDefinition Height="450"/>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" Padding="10px, 0px">
-            <MenuItem x:Name="mnuFile" Header="Exit">
-                <MenuItem x:Name="mnuExit" Header="Exit" Click="mnuExit_Click"></MenuItem>
+            <MenuItem x:Name="mnuSaleExit" Header="Exit">
+                <MenuItem x:Name="mnuExit" Header="Close out of this window" Click="mnuExit_Click"></MenuItem>
             </MenuItem>
         </Menu>
         <Grid Grid.Row="1" Background="Black" Height="20" Grid.RowSpan="1">
         </Grid>
-        <StackPanel x:Name="MainWindowTabContainer" Grid.Row="2">
-            <TabControl Name="MainWindowTabs" Height="450">
+        <StackPanel x:Name="SalesWindowTabContainer" Grid.Row="2">
+            <TabControl Name="SalesWindowTabs" Height="450">
                 <TabItem Header="Sales" Name="Sales">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <StackPanel Height="700">
@@ -111,13 +111,91 @@
                                 <Label x:Name="lblSaleEmployeeID" Grid.Row="1" Grid.Column="0"
                                     FontWeight="Bold" VerticalAlignment="Top"
                                     HorizontalContentAlignment="Right"
-                                    Content="Model" Margin="10"/>
+                                    Content="Employee ID" Margin="10"/>
                                 <TextBox x:Name="txtSaleEmployeeID" Grid.Row="1" Grid.Column="1" 
                                     HorizontalContentAlignment="Left" 
                                     Height="25" Width="250"/>
+                                <Label x:Name="lblSaleCustomerID" Grid.Row="2" Grid.Column="0"
+                                    FontWeight="Bold" VerticalAlignment="Top"
+                                    HorizontalAlignment="Right"
+                                    Content="Customer ID" Margin="10"/>
+                                <TextBox x:Name="txtSaleCustomerID" Grid.Row="2" Grid.Column="1"
+                                    HorizontalContentAlignment="Left" 
+                                    Height="25" Width="250"/>
+                                <Label x:Name="lblSaleDate" Grid.Row="3" Grid.Column="0"
+                                    FontWeight="Bold" VerticalAlignment="Top"
+                                    HorizontalAlignment="Right"
+                                    Content="Date" Margin="10"/>
+                                <TextBox x:Name="txtSaleDate" Grid.Row="3" Grid.Column="1"
+                                    HorizontalContentAlignment="Left" 
+                                    Height="25" Width="250"/>
+                                <Label x:Name="lblSalePrice" Grid.Row="4" Grid.Column="0"
+                                    FontWeight="Bold" VerticalAlignment="Top"
+                                    HorizontalAlignment="Right"
+                                    Content="Price" Margin="10"/>
+                                <TextBox x:Name="txtSalePrice" Grid.Row="4" Grid.Column="1"
+                                    HorizontalContentAlignment="Left" 
+                                    Height="25" Width="250"/>
+                                <Label x:Name="lblSalePriceNote" Grid.Row="5" Grid.Column="1"
+                                    VerticalAlignment="Top" Margin="20, -15, -20, 0"
+                                    Content="Make sure the price is less than the car's original price."/>
+                            </Grid>
+                            <Grid x:Name="SubmitSale" Height="50">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="btnSubmitSale" Click="btnSubmitSale_Click" Content="Submit Sale"
+                                Grid.Column="0" Grid.Row="0"
+                                FontWeight="Bold" Height="30" Width="75"/>
                             </Grid>
                         </StackPanel>
                     </ScrollViewer>
+                </TabItem>
+                <TabItem Header="Delete Sale" Name="DeleteSale">
+                    <StackPanel>
+                        <Grid x:Name="DeleteSaleHeader" Height="50">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="lblDeleteSaleTitle" Grid.Row="0" Grid.Column="0"
+                                FontWeight="Bold" 
+                                HorizontalContentAlignment="Center"
+                                Content="Delete Sale" FontSize="20"/>
+                        </Grid>
+                        <Grid x:Name="DeleteSaleBody" Height="50">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="400"/>
+                                <ColumnDefinition Width="300"/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="lblDeleteSale" Grid.Row="0" Grid.Column="0"
+                                FontWeight="Bold" VerticalAlignment="Top"
+                                HorizontalContentAlignment="Right"
+                                Content="Sale ID" Margin="10"/>
+                            <TextBox x:Name="txtSaleID" Grid.Row="1" Grid.Column="1" 
+                                HorizontalContentAlignment="Left"
+                                Height="25" Width="250"/>
+                        </Grid>
+                        <Grid x:Name="DeleteSaleButton" Height="50">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="btnDeleteSale" Click="btnDeleteSale_Click" Content="Delete Sale" 
+                                Grid.Column="0" Grid.Row="0"
+                                FontWeight="Bold" Height="30" Width="75"/>
+                        </Grid>
+                    </StackPanel>
                 </TabItem>
             </TabControl>
         </StackPanel>

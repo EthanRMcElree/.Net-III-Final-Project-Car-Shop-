@@ -16,8 +16,7 @@ namespace DataAccessLayer
     public class CarInventoryAccessor : ICarInventoryAccessor
     {
         public int DeleteCarByID(int CarID)
-        {
-            // Make return variable if appropriate
+        {            
             // connection
             var conn = SqlConnectionProvider.GetConnection();
 

@@ -12,7 +12,7 @@ namespace DataAccessInterface
         int CreateNewServiceAppointment(int CarID, int CustomerID, int ServiceTypeID);
         void UpdateServiceAppointment(int AppointmentID, int CarID, int CustomerID, int ServiceTypeID, int SupplierID, DateTime ScheduledDate);
         ServiceAppointmentVM RetrieveServiceAppointmentByAppointmentID(int AppointmentID);
-
+        List<ServiceAppointmentVM> RetrieveServiceAppointments();
         void DeleteServiceAppointmentByAppointmentID(int AppointmentID);
     }
 }

@@ -107,6 +107,56 @@ namespace DataAccessLayer
             }
         }
 
+        public List<ServiceAppointmentVM> RetrieveServiceAppointments()
+        {
+            List<ServiceAppointmentVM> serviceAppointmentVMs = new List<ServiceAppointmentVM>();
+
+            // start a connect object
+            var conn = SqlConnectionProvider.GetConnection();
+
+            // set the command text
+            var commandText = "sp_view_all_service_appointments";
+
+            // create the command object
+            var cmd = new SqlCommand(commandText, conn);
+
+            // set the command type
+            cmd.CommandType = CommandType.StoredProcedure;                      
+
+            try
+            {
+                // open connection
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        ServiceAppointmentVM serviceAppointmentVM = new ServiceAppointmentVM();
+                        serviceAppointmentVM.AppointmentID = reader.GetInt32(0);
+                        serviceAppointmentVM.CarID = reader.GetInt32(1);
+                        serviceAppointmentVM.CustomerID = reader.GetInt32(2);
+                        serviceAppointmentVM.ServiceTypeID = reader.GetInt32(3);
+                        serviceAppointmentVM.SupplierID = reader.GetInt32(4);
+                        serviceAppointmentVM.ScheduledDate = reader.GetDateTime(5);
+                        serviceAppointmentVMs.Add(serviceAppointmentVM);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return serviceAppointmentVMs;
+        }
+
         public ServiceAppointmentVM RetrieveServiceAppointmentByAppointmentID(int AppointmentID)
         {
             ServiceAppointmentVM serviceAppointmentVM = new ServiceAppointmentVM();

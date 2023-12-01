@@ -80,5 +80,30 @@ namespace DataAccessFakes
 
             return salesVM;
         }
+
+        public SalesVM ViewSaleByID(int SaleID)
+        {
+            SalesVM salesVM = new SalesVM();
+
+            foreach (SalesVM sales in fakeSales)
+            {
+                if (sales.SaleID == SaleID)
+                {
+                    return sales;
+                }
+            }
+            return null;
+        }
+
+        public int DeleteSaleByID(int SaleID)
+        {
+            SalesVM salesVM = ViewSaleByID(SaleID);
+            if (salesVM == null)
+            {
+                return 0;
+            }
+            fakeSales.Remove(salesVM);
+            return 1;
+        }
     }
 }

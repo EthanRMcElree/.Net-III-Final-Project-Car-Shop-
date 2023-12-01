@@ -33,6 +33,10 @@ namespace LogicLayer
             return customerVM;
         }
 
+        public CustomerVM SelectCustomerVMByID(int CustomerID) 
+        {
+            return _customerAccessor.SelectCustomerVMByID(CustomerID);
+        }
 
         public CustomerVM GetCustomerVMByEmail(string email)
         {

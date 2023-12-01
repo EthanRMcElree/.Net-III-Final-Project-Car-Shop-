@@ -17,10 +17,19 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" Padding="10, 2">
             <MenuItem x:Name="mnuEdit" Header="Update Password">
-                <MenuItem x:Name="mnuUpdatePassword" Header="Update Password" Click="mnuUpdatePassword_Click"></MenuItem>
+                <MenuItem x:Name="mnuUpdatePassword" Header="Update your password" Click="mnuUpdatePassword_Click"/>
             </MenuItem>
             <MenuItem x:Name="mnuSales" Header="Sales">
-                <MenuItem x:Name="mnuSalesWindow" Header="Sales" Click="mnuSalesWindow_Click"></MenuItem>
+                <MenuItem x:Name="mnuSalesWindow" Header="View Sales" Click="mnuSalesWindow_Click"/>
+            </MenuItem>
+            <MenuItem x:Name="mnuServiceAppointment" Header="Service Appointments">
+                <MenuItem x:Name="mnuServiceAppointmentWindow" Header="View Service Appointments" Click="mnuServiceAppointmentWindow_Click"/>
+            </MenuItem>
+            <MenuItem x:Name="mnuAddServApp" Header="Create Service Appointment">
+                <MenuItem x:Name="mnuAddServAppWindow" Header="Send a service appointment"/>
+            </MenuItem>
+            <MenuItem x:Name="mnuEmployees" Header="Employee Accounts">
+                <MenuItem x:Name="mnuEmployeesWindow" Header="View employee Accounts" Click="mnuEmployeesWindow_Click"/>
             </MenuItem>
         </Menu>
         

@@ -56,6 +56,36 @@ namespace LogicLayerTests
         }
 
         [TestMethod]
+        public void TestSuccessfullyDeletedCarByID()
+        {
+            // Arrange
+            int SaleID = 1;
+            SalesVM salesVM = null;
+
+            // Act
+            _salesManager.DeleteSaleByID(SaleID);
+            salesVM = _salesManager.ViewSaleByID(SaleID);
+
+            // Assert
+            Assert.IsNull(salesVM);
+        }
+
+        [TestMethod]
+        public void TestFailedToDeleteCarByID()
+        {
+            // Arrange
+            int SaleID = 999999999;
+            SalesVM salesVM = null;
+
+            // Act
+            _salesManager.DeleteSaleByID(SaleID);
+            salesVM = _salesManager.ViewSaleByID(SaleID);
+
+            // Assert
+            Assert.IsNull(salesVM);
+        }
+
+        [TestMethod]
         public void TestSuccessfullyViewedSales()
         {
             // Arrange
@@ -80,6 +110,34 @@ namespace LogicLayerTests
 
             // Assert
             Assert.AreNotEqual(salesVMs.Count, 3);
+        }
+
+        [TestMethod]
+        public void TestSuccessfullyViewSaleByCorrectID()
+        {
+            // Arrange
+            int SaleID = 1;
+            SalesVM salesVM = null;
+
+            // Act
+            salesVM = _salesManager.ViewSaleByID(SaleID);
+
+            // Assert
+            Assert.AreEqual(SaleID, salesVM.SaleID);
+        }
+
+        [TestMethod]
+        public void TestFailedToViewSaleByCorrectID()
+        {
+            // Arrange
+            int SaleID = 999999999;
+            SalesVM salesVM = null;
+
+            // Act
+            salesVM = _salesManager.ViewSaleByID(SaleID);
+
+            // Assert
+            Assert.IsNull(salesVM);
         }
 
         [TestMethod]

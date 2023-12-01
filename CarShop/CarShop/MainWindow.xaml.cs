@@ -43,6 +43,8 @@ namespace CarShop
             EditCarGrid.Visibility = Visibility.Collapsed;
             SubmitEditCar.Visibility = Visibility.Collapsed;
             mnuSales.Visibility = Visibility.Hidden;
+            mnuServiceAppointment.Visibility = Visibility.Hidden;
+            mnuAddServApp.Visibility = Visibility.Hidden;
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {                    
@@ -75,15 +77,19 @@ namespace CarShop
                         DeleteCar.Visibility = Visibility.Visible;
                         EditCar.Visibility = Visibility.Visible;
                         mnuSales.Visibility = Visibility.Visible;
+                        mnuServiceAppointment.Visibility = Visibility.Visible;
+                        mnuEmployees.Visibility = Visibility.Visible;
                         break;
                     case "sales":
                         CarInventory.Visibility = Visibility.Visible;
+                        mnuSales.Visibility= Visibility.Visible;
                         break;
                     case "admin":
                         CarInventory.Visibility = Visibility.Visible;
                         InsertCar.Visibility = Visibility.Visible;
                         DeleteCar.Visibility = Visibility.Visible;
-                        EditCar.Visibility = Visibility.Visible;                        
+                        EditCar.Visibility = Visibility.Visible;
+                        mnuServiceAppointment.Visibility = Visibility.Visible;
                         break;
                 }
             }
@@ -139,7 +145,7 @@ namespace CarShop
                 try
                 {
                     loggedInEmployee = _employeeManager.AuthenticateEmployee(email, password);                    
-
+                    
                     if(loggedInEmployee == null) 
                     {
                         throw new Exception("Username and/or password not found");
@@ -397,6 +403,18 @@ namespace CarShop
         {
             var salesWindow = new SalesWindow();
             salesWindow.Show();
+        }
+
+        private void mnuServiceAppointmentWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var serviceAppointmentWindow = new ServiceAppointmentWindow();
+            serviceAppointmentWindow.Show();
+        }
+
+        private void mnuEmployeesWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var employeeWindow = new EmployeeWindow();
+            employeeWindow.Show();
         }
     }
 }

@@ -22,14 +22,24 @@ namespace LogicLayer
         {
             _salesAccessor = salesAccessor;
         }
-        public int CreateSale(int EmployeeID, int CarID, int CustomerID, DateTime SaleDate, float SalePrice)
+        public int CreateSale(int EmployeeID, int CarID, int CustomerID, DateTime SaleDate, double SalePrice)
         {
             return _salesAccessor.CreateSale(EmployeeID, CarID, CustomerID, SaleDate, SalePrice);
+        }
+
+        public int DeleteSaleByID(int SaleID)
+        {
+            return _salesAccessor.DeleteSaleByID(SaleID);
         }
 
         public List<SalesVM> ViewSales()
         {
             return _salesAccessor.ViewSales();
+        }
+
+        public SalesVM ViewSaleByID(int SaleID)
+        {
+            return _salesAccessor.ViewSaleByID(SaleID);
         }
 
         public List<SalesVM> ViewSalesForEmployee(int EmployeeID)

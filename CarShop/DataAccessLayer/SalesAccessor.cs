@@ -120,6 +120,103 @@ namespace DataAccessLayer
             return List;
         }
 
+        public SalesVM ViewSaleByID(int SaleID)
+        {
+            // Make return variable if appropriate
+            SalesVM salesVM = null;
+
+            // connection
+            var conn = SqlConnectionProvider.GetConnection();
+
+            // command text
+            var cmdText = "sp_select_sale_by_id";
+
+            // command
+            var cmd = new SqlCommand(cmdText, conn);
+
+            // command type
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            // parameters
+            cmd.Parameters.Add("@SaleID", SqlDbType.Int);
+
+            // parameter values
+            cmd.Parameters["@SaleID"].Value = SaleID;
+
+            try
+            {
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    salesVM = new SalesVM();
+                    while (reader.Read())
+                    {
+                        salesVM.SaleID = reader.GetInt32(0);
+                        salesVM.CarID = reader.GetInt32(1);
+                        salesVM.EmployeeID = reader.GetInt32(2);
+                        salesVM.CustomerID = reader.GetInt32(3);
+                        salesVM.SaleDate = reader.GetDateTime(4);
+                        salesVM.SalePrice = reader.GetDouble(5);                                                
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return salesVM;
+        }
+
+        public int DeleteSaleByID(int SaleID)
+        {
+            // connection
+            var conn = SqlConnectionProvider.GetConnection();
+
+            // command text
+            var cmdText = "sp_delete_sale";
+
+            // command
+            var cmd = new SqlCommand(cmdText, conn);
+
+            // command type
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            // parameters
+            cmd.Parameters.Add("@SaleID", SqlDbType.Int);
+
+            // parameter values            
+            cmd.Parameters["@SaleID"].Value = SaleID;
+            var rows = 0;
+            try
+            {
+                conn.Open();
+
+                rows = cmd.ExecuteNonQuery();
+
+                if (rows == 0)
+                {
+                    Console.WriteLine("Cannot Delete Sale.");
+                    return rows;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
         public List<SalesVM> ViewSalesForEmployee(int EmployeeID)
         {
             // Make return variable if appropriate
