@@ -31,6 +31,9 @@
             <MenuItem x:Name="mnuEmployees" Header="Employee Accounts">
                 <MenuItem x:Name="mnuEmployeesWindow" Header="View employee Accounts" Click="mnuEmployeesWindow_Click"/>
             </MenuItem>
+            <MenuItem x:Name="mnuUpdateEmployees" Header="Edit Account">
+                <MenuItem x:Name="mnuUpdateEmployeesWindow" Header="Edit Account Information" Click="mnuUpdateEmployeesWindow_Click"/>
+            </MenuItem>
         </Menu>
         
 
@@ -44,6 +47,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="250px"/>
                 <ColumnDefinition Width="250px"/>
+                <ColumnDefinition Width="125px"/>
                 <ColumnDefinition Width="125px"/>
             </Grid.ColumnDefinitions>
             <TextBox x:Name="txtEmail" Grid.Row="0" Grid.Column="2"               
@@ -62,8 +66,11 @@
                 FontWeight="Bold" VerticalAlignment="Top"
                 HorizontalContentAlignment="Center"
                 Content="Password" />
-            <Button x:Name="btnLogin" Content="Log in" 
+            <Button x:Name="btnSignUp" Content="Sign Up" 
                 Grid.Column="3" Grid.RowSpan="2"
+                FontWeight="Bold" Height="30" Width="75" Click="btnSignUp_Click"/>
+            <Button x:Name="btnLogin" Content="Log in" 
+                Grid.Column="4" Grid.RowSpan="2"
                 FontWeight="Bold" Height="30" Width="75" Click="btnLogin_Click"/>
             <Label x:Name="lblGreeting" 
                 Content="Please log in if you haven't already."

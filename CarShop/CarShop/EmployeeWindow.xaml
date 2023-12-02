@@ -8,8 +8,7 @@
         Title="EmployeeWindow" Height="500" Width="1000">
     <Grid>
         <StackPanel>
-            <Grid Grid.Row="2" Background="Black" Height="10" Grid.RowSpan="1">
-            </Grid>
+            <Grid Grid.Row="2" Background="Black" Height="10" Grid.RowSpan="1"/>
             <TabControl Name="MainWindowTabs" Height="450">
                 <TabItem Header="Employees" Name="Employees">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -27,85 +26,6 @@
                             Content="Employees" FontSize="20"/>
                             </Grid>
                             <DataGrid ColumnWidth="*" Name="MyEmployees"/>
-                        </StackPanel>
-                    </ScrollViewer>
-                </TabItem>
-                <TabItem Header="Create Employee Account" Name="CreateEmployeeAccount">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <StackPanel Height="700">
-                            <Grid x:Name="CreateEmployeeAccountTitle" Height="50">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Label x:Name="lblCreateEmployeeAccountTitle" Grid.Row="0" Grid.Column="0"
-                                FontWeight="Bold" 
-                                HorizontalContentAlignment="Center"
-                                Content="Create Employee Account" FontSize="20"/>
-                            </Grid>
-                            <Grid x:Name="CreateEmployeeAccountGrid">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="400"/>
-                                    <ColumnDefinition Width="300"/>
-                                </Grid.ColumnDefinitions>
-                                <Label x:Name="lblFirstName" Grid.Row="1" Grid.Column="0"
-                        FontWeight="Bold" VerticalAlignment="Top"
-                        HorizontalContentAlignment="Right"
-                        Content="First Name" Margin="10"/>
-                                <TextBox x:Name="txtFirstName" Grid.Row="1" Grid.Column="1" 
-                        HorizontalContentAlignment="Left" 
-                        Height="25" Width="250"/>
-                                <Label x:Name="lblLastName" Grid.Row="2" Grid.Column="0"
-                        FontWeight="Bold" VerticalAlignment="Top"
-                        HorizontalContentAlignment="Right"
-                        Content="Last Name" Margin="10"/>
-                                <TextBox x:Name="txtLastName" Grid.Row="2" Grid.Column="1" 
-                        HorizontalContentAlignment="Left"
-                        Height="25" Width="250">
-                                </TextBox>
-                                <Label x:Name="lblPassword" Grid.Row="3" Grid.Column="0"
-                        FontWeight="Bold" VerticalAlignment="Top"
-                        HorizontalContentAlignment="Right"
-                        Content="Password" Margin="10"/>
-                                <TextBox x:Name="txtPassword" Grid.Row="3" Grid.Column="1" 
-                        HorizontalContentAlignment="Left"
-                        Height="25" Width="250"/>
-                                <Label x:Name="lblPhoneNumber" Grid.Row="4" Grid.Column="0"
-                        FontWeight="Bold" VerticalAlignment="Top"
-                        HorizontalContentAlignment="Right"
-                        Content="Phone Number" Margin="10"/>
-                                <TextBox x:Name="txtPhoneNumber" Grid.Row="4" Grid.Column="1" 
-                        HorizontalContentAlignment="Left"
-                        Height="25" Width="250"/>
-                                <Label x:Name="lblEmail" Grid.Row="5" Grid.Column="0"
-                        FontWeight="Bold" VerticalAlignment="Top"
-                        HorizontalContentAlignment="Right"
-                        Content="Email" Margin="10"/>
-                                <TextBox x:Name="txtEmail" Grid.Row="5" Grid.Column="1" 
-                        HorizontalContentAlignment="Left"
-                        Height="25" Width="250"/>
-                            </Grid>
-                            <Grid x:Name="SubmitEmployeeAccount" Height="50">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Button x:Name="btnCreateEmployeeAccount" Content="Create Account" 
-                            Grid.Column="0" Grid.Row="0"
-                            FontWeight="Bold" Height="30" Width="100"/>
-                            </Grid>
                         </StackPanel>
                     </ScrollViewer>
                 </TabItem>
@@ -151,120 +71,6 @@
                         FontWeight="Bold" Height="30" Width="100"/>
                         </Grid>
                     </StackPanel>
-                </TabItem>
-                <TabItem Header="Edit Employee Account" Name="EditEmployeeAccount">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <StackPanel>
-                            <Grid x:Name="EditEmployeeAccountHeader" Height="50">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Label x:Name="lblEmployeeAccountTitle" Grid.Row="0" Grid.Column="0"
-                        FontWeight="Bold" 
-                        HorizontalContentAlignment="Center"
-                        Content="Edit Employee Account" FontSize="20"/>
-                            </Grid>
-                            <Grid x:Name="EditEmployeeAccountBody" Height="50">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="400"/>
-                                    <ColumnDefinition Width="300"/>
-                                </Grid.ColumnDefinitions>
-                                <Label x:Name="lblEditEmployeeAccount" Grid.Row="0" Grid.Column="0"
-                        FontWeight="Bold" VerticalAlignment="Top"
-                        HorizontalContentAlignment="Right"
-                        Content="Employee ID" Margin="10"/>
-                                <TextBox x:Name="txtEditEmployeeID" Grid.Row="1" Grid.Column="1" 
-                        HorizontalContentAlignment="Left"
-                        Height="25" Width="250"/>
-                            </Grid>
-                            <Grid x:Name="EditEmployeeAccountButton" Height="50">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Button x:Name="btnEditCar" Content="Find Car" 
-                                Grid.Column="0" Grid.Row="0"
-                                FontWeight="Bold" Height="30" Width="75"/>
-                            </Grid>
-                            <Grid x:Name="EditEmployeeAccountGrid">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="50"/>
-                                    <RowDefinition Height="50"/>
-                                    <RowDefinition Height="50"/>
-                                    <RowDefinition Height="50"/>
-                                    <RowDefinition Height="50"/>
-                                    <RowDefinition Height="50"/>
-                                    <RowDefinition Height="100"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="400"/>
-                                    <ColumnDefinition Width="300"/>
-                                </Grid.ColumnDefinitions>
-                                <Label x:Name="lblEditFirstName" Grid.Row="1" Grid.Column="0"
-                        FontWeight="Bold" VerticalAlignment="Top"
-                        HorizontalContentAlignment="Right"
-                        Content="First Name" Margin="10"/>
-                                <TextBox x:Name="txtEditFirstName" Grid.Row="1" Grid.Column="1" 
-                        HorizontalContentAlignment="Left" 
-                        Height="25" Width="250"/>
-                                <Label x:Name="lblEditLastName" Grid.Row="2" Grid.Column="0"
-                        FontWeight="Bold" VerticalAlignment="Top"
-                        HorizontalContentAlignment="Right"
-                        Content="Last Name" Margin="10"/>
-                                <TextBox x:Name="txtEditLastName" Grid.Row="2" Grid.Column="1" 
-                        HorizontalContentAlignment="Left"
-                        Height="25" Width="250">
-                                </TextBox>
-                                <Label x:Name="lblEditPassword" Grid.Row="3" Grid.Column="0"
-                        FontWeight="Bold" VerticalAlignment="Top"
-                        HorizontalContentAlignment="Right"
-                        Content="Color" Margin="10"/>
-                                <TextBox x:Name="txtEditPassword" Grid.Row="3" Grid.Column="1" 
-                        HorizontalContentAlignment="Left"
-                        Height="25" Width="250"/>
-                                <Label x:Name="lblEditPhoneNumber" Grid.Row="4" Grid.Column="0"
-                        FontWeight="Bold" VerticalAlignment="Top"
-                        HorizontalContentAlignment="Right"
-                        Content="VIN" Margin="10"/>
-                                <TextBox x:Name="txtEditPhoneNumber" Grid.Row="4" Grid.Column="1" 
-                        HorizontalContentAlignment="Left"
-                        Height="25" Width="250"/>
-                                <Label x:Name="lblEditEmail" Grid.Row="5" Grid.Column="0"
-                        FontWeight="Bold" VerticalAlignment="Top"
-                        HorizontalContentAlignment="Right"
-                        Content="Email" Margin="10"/>
-                                <TextBox x:Name="txtEditEmail" Grid.Row="5" Grid.Column="1" 
-                        HorizontalContentAlignment="Left"
-                        Height="25" Width="250"/>
-                                <Label x:Name="lblEditRole" Grid.Row="6" Grid.Column="0"
-                        FontWeight="Bold" VerticalAlignment="Top"
-                        HorizontalContentAlignment="Right"
-                        Content="Mileage" Margin="10"/>
-                                <TextBox x:Name="txtEditRole" Grid.Row="6" Grid.Column="1" 
-                        HorizontalContentAlignment="Left"
-                        Height="25" Width="250"/>
-                            </Grid>
-                            <Grid x:Name="SubmitEditCar" Height="50">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Button x:Name="btnSubmitEditEmployeeAccount" Click="btnSubmitEditEmployeeAccount_Click" Content="Submit" 
-                        Grid.Column="0" Grid.Row="0"
-                        FontWeight="Bold" Height="30" Width="75"/>
-                            </Grid>
-                        </StackPanel>
-                    </ScrollViewer>
                 </TabItem>
             </TabControl>
         </StackPanel>

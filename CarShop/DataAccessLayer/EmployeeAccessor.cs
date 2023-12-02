@@ -385,7 +385,7 @@ namespace DataAccessLayer
             }
         }
 
-        public void UpdateEmployee(int EmployeeID, string FirstName, string LastName, string Password, string PhoneNumber, string Email, string Role)
+        public void UpdateEmployee(string FirstName, string LastName, string PhoneNumber, string Email, string Role)
         {
             // Make return variable if appropriate
             // connection
@@ -401,19 +401,15 @@ namespace DataAccessLayer
             cmd.CommandType = CommandType.StoredProcedure;
 
             // parameters
-            cmd.Parameters.Add("@EmployeeID", SqlDbType.Int);
             cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar, 50);
             cmd.Parameters.Add("@LastName", SqlDbType.NVarChar, 50);
-            cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 100);
             cmd.Parameters.Add("@PhoneNumber", SqlDbType.NVarChar, 11);
             cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 250);
             cmd.Parameters.Add("@Role", SqlDbType.NVarChar, 100);
 
             // parameters values
-            cmd.Parameters["@EmployeeID"].Value = EmployeeID;
             cmd.Parameters["@FirstName"].Value = FirstName;
-            cmd.Parameters["@LastName"].Value = LastName;
-            cmd.Parameters["@Password"].Value = Password;
+            cmd.Parameters["@LastName"].Value = LastName;            
             cmd.Parameters["@PhoneNumber"].Value = PhoneNumber;
             cmd.Parameters["@Email"].Value = Email;
             cmd.Parameters["@Role"].Value = Role;

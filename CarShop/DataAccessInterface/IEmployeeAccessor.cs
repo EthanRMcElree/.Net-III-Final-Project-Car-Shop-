@@ -17,6 +17,6 @@ namespace DataAccessInterface
         int ChangeEmployeePassword(string email, string oldPassword, string newPassword);
         void ResetEmployeePassword(string email, string newPassword);
         void DeleteEmployeeAccountByEmail(string email);
-        void UpdateEmployee(int EmployeeID, string FirstName, string LastName, string Password, string PhoneNumber, string Email, string Role);
+        void UpdateEmployee(string FirstName, string LastName, string PhoneNumber, string Email, string Role);
     }
 }

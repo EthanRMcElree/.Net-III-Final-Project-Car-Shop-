@@ -45,6 +45,8 @@ namespace CarShop
             mnuSales.Visibility = Visibility.Hidden;
             mnuServiceAppointment.Visibility = Visibility.Hidden;
             mnuAddServApp.Visibility = Visibility.Hidden;
+            mnuEmployees.Visibility = Visibility.Hidden;
+            mnuUpdateEmployees.Visibility = Visibility.Hidden;
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {                    
@@ -79,10 +81,12 @@ namespace CarShop
                         mnuSales.Visibility = Visibility.Visible;
                         mnuServiceAppointment.Visibility = Visibility.Visible;
                         mnuEmployees.Visibility = Visibility.Visible;
+                        mnuUpdateEmployees.Visibility= Visibility.Visible;
                         break;
                     case "sales":
                         CarInventory.Visibility = Visibility.Visible;
                         mnuSales.Visibility= Visibility.Visible;
+                        mnuUpdateEmployees.Visibility = Visibility.Visible;
                         break;
                     case "admin":
                         CarInventory.Visibility = Visibility.Visible;
@@ -90,6 +94,7 @@ namespace CarShop
                         DeleteCar.Visibility = Visibility.Visible;
                         EditCar.Visibility = Visibility.Visible;
                         mnuServiceAppointment.Visibility = Visibility.Visible;
+                        mnuUpdateEmployees.Visibility = Visibility.Visible;
                         break;
                 }
             }
@@ -166,6 +171,7 @@ namespace CarShop
             {
                 updateUIforLogOut();
             }
+            btnSignUp.Visibility = Visibility.Collapsed;            
         }
 
         private void updateUIforEmployee()
@@ -415,6 +421,18 @@ namespace CarShop
         {
             var employeeWindow = new EmployeeWindow();
             employeeWindow.Show();
+        }
+
+        private void mnuUpdateEmployeesWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var updateEmployeeWindow = new UpdateEmployeeWindow();
+            updateEmployeeWindow.Show();
+        }
+
+        private void btnSignUp_Click(object sender, RoutedEventArgs e)
+        {
+            var createEmployeeAccountWindow = new CreateEmployeeAccountWindow();
+            createEmployeeAccountWindow.Show();
         }
     }
 }

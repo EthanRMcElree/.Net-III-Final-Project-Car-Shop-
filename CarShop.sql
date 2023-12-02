@@ -869,11 +869,9 @@ GO
 print '' print '*** creating sp_update_employee ***'
 GO
 CREATE PROCEDURE [dbo].[sp_update_employee]
-(
-	@EmployeeID			[int],
+(	
 	@FirstName			[nvarchar] (50),
-	@LastName			[nvarchar] (50),
-	@Password			[nvarchar] (100),
+	@LastName			[nvarchar] (50),	
 	@PhoneNumber		[nvarchar] (11),
 	@Email				[nvarchar] (250),
 	@Role				[nvarchar] (100)
@@ -882,12 +880,11 @@ AS
 	BEGIN
 		UPDATE [dbo].[Employee] SET 
 			[FirstName] = @FirstName,
-			[LastName] = @LastName,
-			[Password] = @Password,
+			[LastName] = @LastName,			
 			[PhoneNumber] = @PhoneNumber,
 			[Email] = @Email,
 			[Role] = @Role
-			WHERE [EmployeeID] = @EmployeeID
+			WHERE [Email] = @Email
 	END
 GO
 

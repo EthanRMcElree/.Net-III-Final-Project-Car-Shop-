@@ -1,0 +1,99 @@
+﻿<Window x:Class="CarShop.CreateEmployeeAccountWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CarShop"
+        mc:Ignorable="d"
+        Title="CreateEmployeeAccountWindow" Height="500" Width="1000">
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Height="700">
+                <Grid x:Name="CreateEmployeeAccountTitle" Height="50">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="lblCreateEmployeeAccountTitle" Grid.Row="0" Grid.Column="0"
+                        FontWeight="Bold" 
+                        HorizontalContentAlignment="Center"
+                        Content="Create Employee Account" FontSize="20"/>
+                </Grid>
+                <Grid x:Name="CreateEmployeeAccountGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="300"/>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="lblFirstName" Grid.Row="1" Grid.Column="0"
+                    FontWeight="Bold" VerticalAlignment="Top"
+                    HorizontalContentAlignment="Right"
+                    Content="First Name" Margin="10"/>
+                    <TextBox x:Name="txtFirstName" Grid.Row="1" Grid.Column="1" 
+                    HorizontalContentAlignment="Left" 
+                    Height="25" Width="250"/>
+                    <Label x:Name="lblLastName" Grid.Row="2" Grid.Column="0"
+                    FontWeight="Bold" VerticalAlignment="Top"
+                    HorizontalContentAlignment="Right"
+                    Content="Last Name" Margin="10"/>
+                    <TextBox x:Name="txtLastName" Grid.Row="2" Grid.Column="1" 
+                    HorizontalContentAlignment="Left"
+                    Height="25" Width="250">
+                    </TextBox>
+                    <Label x:Name="lblPassword" Grid.Row="3" Grid.Column="0"
+                    FontWeight="Bold" VerticalAlignment="Top"
+                    HorizontalContentAlignment="Right"
+                    Content="Password" Margin="10"/>
+                    <TextBox x:Name="txtPassword" Grid.Row="3" Grid.Column="1" 
+                    HorizontalContentAlignment="Left"
+                    Height="25" Width="250"/>
+                    <Label x:Name="lblPhoneNumber" Grid.Row="4" Grid.Column="0"
+                    FontWeight="Bold" VerticalAlignment="Top"
+                    HorizontalContentAlignment="Right"
+                    Content="Phone Number" Margin="10"/>
+                    <TextBox x:Name="txtPhoneNumber" Grid.Row="4" Grid.Column="1" 
+                    HorizontalContentAlignment="Left"
+                    Height="25" Width="250"/>
+                    <Label x:Name="lblEmail" Grid.Row="5" Grid.Column="0"
+                    FontWeight="Bold" VerticalAlignment="Top"
+                    HorizontalContentAlignment="Right"
+                    Content="Email" Margin="10"/>
+                    <TextBox x:Name="txtEmail" Grid.Row="5" Grid.Column="1" 
+                    HorizontalContentAlignment="Left"
+                    Height="25" Width="250"/>
+                    <Label x:Name="lblRole" Grid.Row="5" Grid.Column="0"
+                    FontWeight="Bold" VerticalAlignment="Top"
+                    HorizontalContentAlignment="Right"
+                    Content="Email" Margin="10"/>
+                    <ComboBox x:Name="cboRole" Grid.Row="5" Grid.Column="1" 
+                        HorizontalContentAlignment="Left"
+                        Height="25" Width="250">
+                        <ComboBoxItem Content="Sales"/>
+                        <ComboBoxItem Content="Admin"/>
+                    </ComboBox>
+                </Grid>
+                <Grid x:Name="SubmitEmployeeAccount" Height="50">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnCreateEmployeeAccount" Content="Create Account" 
+                    Grid.Column="0" Grid.Row="0"
+                    FontWeight="Bold" Height="30" Width="100"/>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

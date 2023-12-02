@@ -58,6 +58,9 @@
     <Compile Include="AddServAppWindow.xaml.cs">
       <DependentUpon>AddServAppWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CreateEmployeeAccountWindow.xaml.cs">
+      <DependentUpon>CreateEmployeeAccountWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EmployeeWindow.xaml.cs">
       <DependentUpon>EmployeeWindow.xaml</DependentUpon>
     </Compile>
@@ -67,11 +70,18 @@
     <Compile Include="ServiceAppointmentWindow.xaml.cs">
       <DependentUpon>ServiceAppointmentWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UpdateEmployeeWindow.xaml.cs">
+      <DependentUpon>UpdateEmployeeWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="AddServAppWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ChangePasswordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CreateEmployeeAccountWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -99,6 +109,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ServiceAppointmentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UpdateEmployeeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
