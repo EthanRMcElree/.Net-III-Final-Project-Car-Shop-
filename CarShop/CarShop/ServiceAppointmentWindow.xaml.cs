@@ -32,30 +32,47 @@ namespace CarShop
         private void mnuServAppExit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }        
+        }
 
         private void setUpServiceData()
         {
             List<ServiceAppointmentVM> serviceAppointmentVMs = serviceAppointmentManager.RetrieveServiceAppointments();
-            List<ServiceAppointment> serviceAppointments = new List<ServiceAppointment>();
+            List<ServiceDisplayItem> display = new List<ServiceDisplayItem>();
             foreach (ServiceAppointmentVM s in serviceAppointmentVMs)
             {
-                ServiceAppointment serviceAppointment = new ServiceAppointment();
-                serviceAppointment.SupplierID = s.SupplierID;
-                serviceAppointment.AppointmentID = s.AppointmentID;
-                serviceAppointment.CustomerID = s.CustomerID;
-                serviceAppointment.ScheduledDate = s.ScheduledDate;
-                serviceAppointment.CarID = s.CarID;
-                serviceAppointments.Add(serviceAppointment);
+                ServiceDisplayItem lineItem = new ServiceDisplayItem();
+                lineItem.AppointmentID = s.AppointmentID;
+                lineItem.customer = s.Customer;
+                lineItem.car = s.Car;
+                lineItem.serviceType = s.ServiceType;
+                lineItem.supplier = s.Supplier;
+                lineItem.scheduleDate = s.ScheduledDate;
+                display.Add(lineItem);
             }
-            MyServApps.ItemsSource = serviceAppointments;
+            MyServApps.ItemsSource = display;
         }
 
         private void MyServApps_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var item = MyServApps.SelectedItem as ServiceAppointment;            
+            var item = MyServApps.SelectedItem as ServiceDisplayItem;            
             serviceAppointmentManager.DeleteServiceAppointmentByAppointmentID(item.AppointmentID);
             setUpServiceData();
         }
-    }    
+    }
+    class ServiceDisplayItem
+    {
+        public int AppointmentID { get; set; }
+
+        public Customer customer { get; set; }
+
+        public CarInventory car { get; set; }
+
+        public ServiceType serviceType { get; set; }
+
+        public Supplier supplier { get; set; }
+
+        public DateTime scheduleDate { get; set; }
+
+
+    }
 }

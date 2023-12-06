@@ -124,16 +124,16 @@ namespace CarShop
         private void setUpSalesData()
         {
             List<SalesVM> salesVMs = salesManager.ViewSales();
-            List<Sales> sales = new List<Sales>();
+            List<SalesDisplayItem> sales = new List<SalesDisplayItem>();
             foreach (SalesVM s in salesVMs)
             {
-                Sales sale = new Sales();
-                sale.SaleDate = s.SaleDate;
-                sale.SalePrice = s.SalePrice;
+                SalesDisplayItem sale = new SalesDisplayItem();
                 sale.SaleID = s.SaleID;
-                sale.CarID = s.CarID;
-                sale.EmployeeID = s.EmployeeID;
-                sale.CustomerID = s.CustomerID;
+                sale.Car = s.Car;
+                sale.employee = s.Employee;
+                sale.customer = s.Customer;
+                sale.saleDate = s.SaleDate;
+                sale.salePrice = s.SalePrice;
                 sales.Add(sale);
             }
             MySales.ItemsSource = sales;
@@ -175,5 +175,19 @@ namespace CarShop
                 MessageBox.Show("There was a problem deleting the sale.  Check your input and try again.");
             }
         }
+    }
+    class SalesDisplayItem
+    {
+        public int SaleID { get; set; }
+
+        public CarInventory Car { get; set; }
+
+        public Employee employee { get; set; }
+
+        public Customer customer { get; set; }
+
+        public DateTime saleDate { get; set; }
+
+        public Double salePrice { get; set; }
     }
 }

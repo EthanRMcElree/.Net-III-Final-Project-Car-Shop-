@@ -28,5 +28,10 @@ namespace CarShop
         {
             this.Close();
         }
+
+        private void btnCreateServApp_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

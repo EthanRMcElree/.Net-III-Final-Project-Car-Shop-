@@ -12,7 +12,7 @@ namespace DataObjects
         {
             bool isValid = false;
 
-            if (email.EndsWith("@company.com") && email.Length > 13 && email.Length <= 100)
+            if (email.EndsWith(".com") && email.Length > 13 && email.Length <= 100)
             {
                 isValid = true;
             }

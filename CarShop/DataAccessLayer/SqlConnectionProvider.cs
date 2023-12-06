@@ -13,7 +13,7 @@ namespace DataAccessLayer
         // in the entire project that has the database connection string
 
         // connections strings always include server, database, and credentials
-        private static string connectionString = @"Data Source=localhost;Initial Catalog=CarShop;Integrated Security=True";
+        private static string connectionString = @"Data Source=localhost;Initial Catalog=CarShop;Integrated Security=True;TrustServerCertificate=True";
 
         public static SqlConnection GetConnection()
         {

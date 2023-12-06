@@ -195,7 +195,61 @@ namespace DataAccessLayer
             }
 
             return employeeVM;
-        }    
+        }
+
+        public List<EmployeeVM> SelectAllEmployees()
+        {
+            List<EmployeeVM> employeeVMs = new List<EmployeeVM>();
+
+            // connection
+            var conn = SqlConnectionProvider.GetConnection();
+
+            // command text
+            var cmdText = "sp_select_all_employee";
+
+            // command
+            var cmd = new SqlCommand(cmdText, conn);
+
+            // command type
+            cmd.CommandType = CommandType.StoredProcedure;            
+
+            try
+            {
+                // open the connection
+                conn.Open();
+
+                // execute
+                var reader = cmd.ExecuteReader();
+
+                // process the results
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        EmployeeVM employeeVM = new EmployeeVM();
+                        employeeVM.EmployeeID = reader.GetInt32(0);
+                        employeeVM.FirstName = reader.GetString(1);
+                        employeeVM.LastName = reader.GetString(2);
+                        employeeVM.Password = reader.GetString(3);
+                        employeeVM.PhoneNumber = reader.GetString(4);
+                        employeeVM.Email = reader.GetString(5);
+                        employeeVM.Role = reader.GetString(6);
+                        employeeVMs.Add(employeeVM);
+                    }
+                }                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw new ArgumentException("Unable to find employee");
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return employeeVMs;
+        }
 
         public int ChangeEmployeePassword(string email, string oldPassword, string newPassword)
         {
@@ -343,7 +397,7 @@ namespace DataAccessLayer
             }
         }
 
-        public void DeleteEmployeeAccountByEmail(string email)
+        public int DeleteEmployeeAccountByID(int EmployeeID)
         {
             // start a connect object
             var conn = SqlConnectionProvider.GetConnection();
@@ -358,10 +412,10 @@ namespace DataAccessLayer
             cmd.CommandType = CommandType.StoredProcedure;
 
             // add parameters to the command
-            cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 250);            
+            cmd.Parameters.Add("@EmployeeID", SqlDbType.Int);            
 
             // set the parameters values
-            cmd.Parameters["@Email"].Value = email;            
+            cmd.Parameters["@EmployeeID"].Value = EmployeeID;            
 
             try
             {
@@ -383,6 +437,7 @@ namespace DataAccessLayer
             {
                 conn.Close();
             }
+            return EmployeeID;
         }
 
         public void UpdateEmployee(string FirstName, string LastName, string PhoneNumber, string Email, string Role)

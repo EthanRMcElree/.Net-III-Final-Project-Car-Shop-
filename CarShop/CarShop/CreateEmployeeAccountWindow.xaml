@@ -71,16 +71,6 @@
                     <TextBox x:Name="txtEmail" Grid.Row="5" Grid.Column="1" 
                     HorizontalContentAlignment="Left"
                     Height="25" Width="250"/>
-                    <Label x:Name="lblRole" Grid.Row="5" Grid.Column="0"
-                    FontWeight="Bold" VerticalAlignment="Top"
-                    HorizontalContentAlignment="Right"
-                    Content="Email" Margin="10"/>
-                    <ComboBox x:Name="cboRole" Grid.Row="5" Grid.Column="1" 
-                        HorizontalContentAlignment="Left"
-                        Height="25" Width="250">
-                        <ComboBoxItem Content="Sales"/>
-                        <ComboBoxItem Content="Admin"/>
-                    </ComboBox>
                 </Grid>
                 <Grid x:Name="SubmitEmployeeAccount" Height="50">
                     <Grid.RowDefinitions>
@@ -89,7 +79,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btnCreateEmployeeAccount" Content="Create Account" 
+                    <Button x:Name="btnCreateEmployeeAccount" Click="btnCreateEmployeeAccount_Click" Content="Create Account" 
                     Grid.Column="0" Grid.Row="0"
                     FontWeight="Bold" Height="30" Width="100"/>
                 </Grid>

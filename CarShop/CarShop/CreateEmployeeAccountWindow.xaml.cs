@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogicLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,30 @@ namespace CarShop
     /// </summary>
     public partial class CreateEmployeeAccountWindow : Window
     {
+        EmployeeManager employeeManager = null;
         public CreateEmployeeAccountWindow()
         {
             InitializeComponent();
+            employeeManager = new EmployeeManager();
+        }
+
+        private void btnCreateEmployeeAccount_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string FirstName = txtFirstName.Text;
+                string LastName = txtLastName.Text;
+                string Email = txtEmail.Text;
+                string Password = txtPassword.Text;
+                string PhoneNumber = txtPhoneNumber.Text;
+                employeeManager.CreateCreateEmployeeAccount(FirstName, LastName, Password, PhoneNumber, Email, "employee");
+                MessageBox.Show("Account created.  Welcome to the team.");
+                this.Close();
+            }
+            catch(Exception ex) 
+            {
+                MessageBox.Show("There was a problem.  Check your inputs.");
+            }           
         }
     }
 }

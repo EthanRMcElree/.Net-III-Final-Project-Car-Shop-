@@ -18,6 +18,10 @@ namespace DataObjectsLayer
         public string SupplierName { get; set; }
         public string ContactPerson { get; set; }
         public string PhoneNumber { get; set; }
+        public override string ToString()
+        {
+            return SupplierName;
+        }
     }
     public class SupplierVM : Supplier
     {

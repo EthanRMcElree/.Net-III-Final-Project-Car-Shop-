@@ -103,5 +103,24 @@ namespace LogicLayer
 
             return result;
         }
+
+        public void CreateCreateEmployeeAccount(string FirstName, string LastName, string Password, string PhoneNumber, string Email, string Role)
+        {
+            _employeeAccessor.CreateEmployeeAccount(FirstName, LastName, HashSha256(Password), PhoneNumber, Email, Role);
+        }
+
+        public void UpdateEmployee(string FirstName, string LastName, string PhoneNumber, string Email, string Role)
+        {
+            _employeeAccessor.UpdateEmployee(FirstName, LastName, PhoneNumber, Email, Role);
+        }
+        public List<EmployeeVM> SelectAllEmployee()
+        {
+            return _employeeAccessor.SelectAllEmployees();           
+        }
+
+        public int DeleteEmployeeAccountByID(int EmployeeID) 
+        { 
+            return _employeeAccessor.DeleteEmployeeAccountByID(EmployeeID);
+        }
     }
 }

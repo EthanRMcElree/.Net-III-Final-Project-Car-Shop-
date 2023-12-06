@@ -44,9 +44,9 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btnEditCar" Content="Find Car" 
+                    <Button x:Name="btnEditEmployee" Click="btnEditEmployee_Click" Content="Find Employee" 
                         Grid.Column="0" Grid.Row="0"
-                        FontWeight="Bold" Height="30" Width="75"/>
+                        FontWeight="Bold" Height="30" Width="90"/>
                 </Grid>
                 <Grid x:Name="EditEmployeeAccountGrid">
                     <Grid.RowDefinitions>
@@ -88,9 +88,10 @@
                         Content="Role" Margin="10"/>
                     <ComboBox x:Name="cboEditRole" Grid.Row="4" Grid.Column="1" 
                         HorizontalContentAlignment="Left"
-                        Height="25" Width="250">
+                        Height="25" Width="250" SelectedValuePath="Content">
                         <ComboBoxItem Content="Sales"/>
                         <ComboBoxItem Content="Admin"/>
+                        <ComboBoxItem Content="Employee"/>
                     </ComboBox>
                 </Grid>
                 <Grid x:Name="SubmitEditCar" Height="50">

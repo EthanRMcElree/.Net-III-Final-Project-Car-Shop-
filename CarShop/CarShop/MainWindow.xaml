@@ -16,8 +16,10 @@
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" Padding="10, 2">
-            <MenuItem x:Name="mnuEdit" Header="Update Password">
+            <MenuItem x:Name="mnuEdit" Header="Account Management">
                 <MenuItem x:Name="mnuUpdatePassword" Header="Update your password" Click="mnuUpdatePassword_Click"/>
+                <MenuItem x:Name="mnuEmployeesWindow" Header="View employee Accounts" Click="mnuEmployeesWindow_Click"/>
+                <MenuItem x:Name="mnuUpdateEmployeesWindow" Header="Edit Account Information" Click="mnuUpdateEmployeesWindow_Click"/>
             </MenuItem>
             <MenuItem x:Name="mnuSales" Header="Sales">
                 <MenuItem x:Name="mnuSalesWindow" Header="View Sales" Click="mnuSalesWindow_Click"/>
@@ -27,12 +29,6 @@
             </MenuItem>
             <MenuItem x:Name="mnuAddServApp" Header="Create Service Appointment">
                 <MenuItem x:Name="mnuAddServAppWindow" Header="Send a service appointment"/>
-            </MenuItem>
-            <MenuItem x:Name="mnuEmployees" Header="Employee Accounts">
-                <MenuItem x:Name="mnuEmployeesWindow" Header="View employee Accounts" Click="mnuEmployeesWindow_Click"/>
-            </MenuItem>
-            <MenuItem x:Name="mnuUpdateEmployees" Header="Edit Account">
-                <MenuItem x:Name="mnuUpdateEmployeesWindow" Header="Edit Account Information" Click="mnuUpdateEmployeesWindow_Click"/>
             </MenuItem>
         </Menu>
         
@@ -49,6 +45,7 @@
                 <ColumnDefinition Width="250px"/>
                 <ColumnDefinition Width="125px"/>
                 <ColumnDefinition Width="125px"/>
+                <ColumnDefinition Width="175px"/>
             </Grid.ColumnDefinitions>
             <TextBox x:Name="txtEmail" Grid.Row="0" Grid.Column="2"               
                 Margin="5px" 
@@ -60,11 +57,11 @@
                 VerticalContentAlignment="Center"/>
             <Label x:Name="lblEmail" Grid.Row="0" Grid.Column="1"
                 FontWeight="Bold" VerticalAlignment="Top"
-                HorizontalContentAlignment="Center"
+                HorizontalContentAlignment="Right"
                 Content="Email Address" />
             <Label x:Name="lblPassword" Grid.Row="1" Grid.Column="1"
                 FontWeight="Bold" VerticalAlignment="Top"
-                HorizontalContentAlignment="Center"
+                HorizontalContentAlignment="Right"
                 Content="Password" />
             <Button x:Name="btnSignUp" Content="Sign Up" 
                 Grid.Column="3" Grid.RowSpan="2"
@@ -72,12 +69,14 @@
             <Button x:Name="btnLogin" Content="Log in" 
                 Grid.Column="4" Grid.RowSpan="2"
                 FontWeight="Bold" Height="30" Width="75" Click="btnLogin_Click"/>
+            <CheckBox x:Name="chkIsCustomer" Grid.Column="5" Grid.RowSpan="2"
+                      VerticalAlignment="Center" Content="Check if you're a customer"/>
             <Label x:Name="lblGreeting" 
                 Content="Please log in if you haven't already."
                 FontWeight="Bold"
                 Padding="20px 0px" VerticalContentAlignment="Center"
                 HorizontalContentAlignment="Left"
-                Grid.Column="0" Grid.RowSpan="2" />
+                Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
         </Grid>
         <Grid Grid.Row="2" Background="Black" Height="10" Grid.RowSpan="1">
         </Grid>

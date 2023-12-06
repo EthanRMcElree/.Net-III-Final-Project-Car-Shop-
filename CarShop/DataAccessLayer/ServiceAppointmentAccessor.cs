@@ -115,7 +115,7 @@ namespace DataAccessLayer
             var conn = SqlConnectionProvider.GetConnection();
 
             // set the command text
-            var commandText = "sp_view_all_service_appointments";
+            var commandText = "sp_view_all_service_appointments_data";
 
             // create the command object
             var cmd = new SqlCommand(commandText, conn);
@@ -141,6 +141,20 @@ namespace DataAccessLayer
                         serviceAppointmentVM.ServiceTypeID = reader.GetInt32(3);
                         serviceAppointmentVM.SupplierID = reader.GetInt32(4);
                         serviceAppointmentVM.ScheduledDate = reader.GetDateTime(5);
+                        Customer customer = new Customer();
+                        customer.FirstName = reader.GetString(6);
+                        customer.LastName = reader.GetString(7);
+                        serviceAppointmentVM.Customer = customer;
+                        CarInventory car = new CarInventory();
+                        car.Model = reader.GetString(8);
+                        car.Year = reader.GetInt32(9);
+                        serviceAppointmentVM.Car = car;
+                        ServiceType serviceType = new ServiceType();
+                        serviceType.ServiceDescription = reader.GetString(10);
+                        serviceAppointmentVM.ServiceType = serviceType;
+                        Supplier supplier = new Supplier();
+                        supplier.SupplierName = reader.GetString(11);
+                        serviceAppointmentVM.Supplier = supplier;
                         serviceAppointmentVMs.Add(serviceAppointmentVM);
                     }
                 }

@@ -14,5 +14,6 @@ namespace LogicLayer
         EmployeeVM GetEmployeeVMByEmail(string email);
         string GetRolesByEmployeeID(int employeeID);
         bool ResetPassword(string email, string oldPassword, string newPassword);
+        int DeleteEmployeeAccountByID(int EmployeeID);
     }
 }

@@ -42,41 +42,43 @@
                                     <RowDefinition Height="50"/>
                                     <RowDefinition Height="50"/>
                                     <RowDefinition Height="50"/>
-                                    <RowDefinition Height="50"/>
-                                    <RowDefinition Height="50"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="400"/>
                                     <ColumnDefinition Width="300"/>
                                 </Grid.ColumnDefinitions>
-                                <Label x:Name="lblSaleEmployeeID" Grid.Row="1" Grid.Column="0"
+                                <Label x:Name="lblServAppCarID" Grid.Row="1" Grid.Column="0"
                                 FontWeight="Bold" VerticalAlignment="Top"
                                 HorizontalContentAlignment="Right"
-                                Content="Employee ID" Margin="10"/>
-                                <TextBox x:Name="txtSaleEmployeeID" Grid.Row="1" Grid.Column="1" 
+                                Content="Car ID" Margin="10"/>
+                                <TextBox x:Name="txtServAppCarID" Grid.Row="1" Grid.Column="1" 
                                 HorizontalContentAlignment="Left" 
                                 Height="25" Width="250"/>
-                                <Label x:Name="lblSaleCustomerID" Grid.Row="2" Grid.Column="0"
+                                <Label x:Name="lblServAppCustomerID" Grid.Row="2" Grid.Column="0"
                                 FontWeight="Bold" VerticalAlignment="Top"
                                 HorizontalAlignment="Right"
                                 Content="Customer ID" Margin="10"/>
-                                <TextBox x:Name="txtSaleCustomerID" Grid.Row="2" Grid.Column="1"
+                                <TextBox x:Name="txtServAppCustomerID" Grid.Row="2" Grid.Column="1"
                                 HorizontalContentAlignment="Left" 
                                 Height="25" Width="250"/>
-                                <Label x:Name="lblSaleDate" Grid.Row="3" Grid.Column="0"
+                                <Label x:Name="lblServAppType" Grid.Row="3" Grid.Column="0"
                                 FontWeight="Bold" VerticalAlignment="Top"
                                 HorizontalAlignment="Right"
-                                Content="Date" Margin="10"/>
-                                <TextBox x:Name="txtSaleDate" Grid.Row="3" Grid.Column="1"
+                                Content="Service Type" Margin="10"/>
+                                <TextBox x:Name="txtServAppType" Grid.Row="3" Grid.Column="1"
                                 HorizontalContentAlignment="Left" 
                                 Height="25" Width="250"/>
-                                <Label x:Name="lblSalePrice" Grid.Row="4" Grid.Column="0"
-                                FontWeight="Bold" VerticalAlignment="Top"
-                                HorizontalAlignment="Right"
-                                Content="Price" Margin="10"/>
-                                <TextBox x:Name="txtSalePrice" Grid.Row="4" Grid.Column="1"
-                                HorizontalContentAlignment="Left" 
-                                Height="25" Width="250"/>
+                            </Grid>
+                            <Grid x:Name="CreateServiceAppointmentButton" Height="50">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="btnCreateServApp" Click="btnCreateServApp_Click"
+                                        Grid.Column="0" Grid.Row="0" Content="Submit"
+                                        FontWeight="Bold" Height="30" Width="100"/>
                             </Grid>
                         </StackPanel>
                     </ScrollViewer>

@@ -87,7 +87,7 @@ CREATE TABLE [dbo].[Customer] (
 	[LastName]				[nvarchar] (50) 		NOT NULL,
 	[Email]					[nvarchar] (250) 		NOT NULL,
 	[Password]				[nvarchar] (100) 		NOT NULL DEFAULT
-	'2597a7caf656e89e9ab35e12326d557ebfe9b7b5dcbe4c564e74070fa5cfcbe5', 
+	'ecd71870d1963316a97e3ac3408c9835ad8cf0f3c1bc703527c30265534f75ae', 
 	[PhoneNumber]			[nvarchar] (11) 		NOT NULL,
 	CONSTRAINT [pk_CustomerID] PRIMARY KEY([CustomerID])
 )
@@ -480,6 +480,16 @@ AS
 	END
 GO
 
+print '' print '*** creating sp_select_all_employee ***'
+GO
+CREATE PROCEDURE [dbo].[sp_select_all_employee]
+AS
+	BEGIN
+		SELECT [EmployeeID], [FirstName], [LastName], [Password], [PhoneNumber], [Email], [Role] 
+		FROM [Employee]		
+	END
+GO
+
 print '' print '*** creating sp_change_employee_password ***'
 GO
 CREATE PROCEDURE [dbo].[sp_change_employee_password]
@@ -544,11 +554,11 @@ print '' print '*** creating sp_delete_employee_account ***'
 GO
 CREATE PROCEDURE [dbo].[sp_delete_employee_account]
 (
-	@Email			[nvarchar] (250)
+	@EmployeeID			[nvarchar] (250)
 )
 AS
 	BEGIN
-		DELETE FROM [dbo].[Employee] WHERE [Email] = @Email
+		DELETE FROM [dbo].[Employee] WHERE [EmployeeID] = @EmployeeID
 	END
 GO
 
@@ -926,6 +936,33 @@ AS
 			([CarID], [EmployeeID], [IssueDescription], [RepairDate])
 		VALUES
 			(@CarID, @EmployeeID, @IssueDescription, @RepairDate)
+	END
+GO
+
+print '' print '*** creating sp_view_all_sales_data ***'
+GO
+CREATE PROCEDURE [dbo].[sp_view_all_sales_data]
+AS
+	BEGIN
+		SELECT sls.SaleID, sls.EmployeeID, sls.CarID, sls.CustomerID, sls.SaleDate, sls.SalePrice, emp.FirstName, emp.LastName, cst.FirstName, cst.LastName, car.Model, car.Year
+		FROM [dbo].[Sales] sls
+		JOIN [dbo].[Employee] emp ON [sls].[EmployeeID] = [emp].[EmployeeID]
+		JOIN [dbo].[CarInventory] car ON [sls].[CarID] = [car].[CarID]
+		JOIN [dbo].[Customer] cst ON [sls].[CustomerID] = [cst].[CustomerID]
+	END
+GO
+
+print '' print '*** creating sp_view_all_service_appointments_data ***'
+GO
+CREATE PROCEDURE [dbo].[sp_view_all_service_appointments_data]
+AS
+	BEGIN
+		SELECT sap.AppointmentID, sap.CarID, sap.CustomerID, sap.ServiceTypeID, sap.SupplierID, sap.ScheduleDate, cst.FirstName, cst.LastName, car.Model, car.Year, svt.Description, sup.SupplierName
+		FROM [dbo].[ServiceAppointment] sap
+		JOIN [dbo].[Customer] cst ON [sap].[CustomerID] = [cst].[CustomerID]
+		JOIN [dbo].[CarInventory] car ON [sap].[CarID] = [car].[CarID]
+		JOIN [dbo].[ServiceType] svt ON [sap].[ServiceTypeID] = [svt].[ServiceTypeID]
+		JOIN [dbo].[Supplier] sup ON [sap].[SupplierID] = [sup].[SupplierID]
 	END
 GO
 

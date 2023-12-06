@@ -38,14 +38,14 @@
                             </Grid>
                             <Grid x:Name="ServiceAppointmentDeleteTip" Height="20">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition/>
+                                    <RowDefinition Height="50"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <Label x:Name="lblServiceAppointmentDeleteTip" Grid.Row="0" Grid.Column="0"
                                     FontWeight="Bold" 
-                                    HorizontalContentAlignment="Left"                                    
+                                    HorizontalContentAlignment="Center"                                    
                                     Content="Double click on a service appointment to delete it." FontSize="10"/>
                             </Grid>
                             <Grid>

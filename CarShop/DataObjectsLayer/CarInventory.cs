@@ -19,6 +19,10 @@ namespace DataObjectsLayer
         public string TransmissionType { get; set; }
         public Double EngineSize { get; set; }
         public string Description { get; set; }
+        public override string ToString()
+        {
+            return Year + ", " + Model;
+        }
     }
     public class CarInventoryVM : CarInventory
     {

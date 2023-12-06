@@ -32,21 +32,22 @@ namespace CarShop
         EmployeeVM loggedInEmployee = null;
         CustomerManager _customerManager = null;
         CustomerVM loggedInCustomer = null;
-        string customerRole = "customer";
         CarInventoryManager carInventoryManager = null;
         public MainWindow()
         {
             InitializeComponent();
             _employeeManager = new EmployeeManager();
             carInventoryManager = new CarInventoryManager();
+            _customerManager = new CustomerManager();
             hideAllTabs();
             EditCarGrid.Visibility = Visibility.Collapsed;
             SubmitEditCar.Visibility = Visibility.Collapsed;
+            mnuEdit.Visibility = Visibility.Hidden;
             mnuSales.Visibility = Visibility.Hidden;
             mnuServiceAppointment.Visibility = Visibility.Hidden;
             mnuAddServApp.Visibility = Visibility.Hidden;
-            mnuEmployees.Visibility = Visibility.Hidden;
-            mnuUpdateEmployees.Visibility = Visibility.Hidden;
+            mnuEmployeesWindow.Visibility = Visibility.Hidden;
+            mnuUpdateEmployeesWindow.Visibility = Visibility.Hidden;
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {                    
@@ -67,41 +68,65 @@ namespace CarShop
         private void showTabsForRoles()
         {
             // loop through the user roles
-            if (loggedInEmployee != null)
+            if (loggedInEmployee != null || loggedInCustomer != null)
             {
                 MainWindowTabs.Visibility = Visibility.Hidden;
                 MainWindowTabContainer.Visibility = Visibility.Hidden;
-                switch (loggedInEmployee.Role)
+                string role = "";
+                if(loggedInEmployee != null)
+                {
+                    role = loggedInEmployee.Role;
+                }                                                                                                     
+                switch (role)
                 {
                     case "manager":
                         CarInventory.Visibility = Visibility.Visible;
                         InsertCar.Visibility = Visibility.Visible;
                         DeleteCar.Visibility = Visibility.Visible;
                         EditCar.Visibility = Visibility.Visible;
+                        mnuEdit.Visibility = Visibility.Visible;
                         mnuSales.Visibility = Visibility.Visible;
                         mnuServiceAppointment.Visibility = Visibility.Visible;
-                        mnuEmployees.Visibility = Visibility.Visible;
-                        mnuUpdateEmployees.Visibility= Visibility.Visible;
+                        mnuEmployeesWindow.Visibility = Visibility.Visible;
+                        mnuUpdateEmployeesWindow.Visibility= Visibility.Visible;
                         break;
                     case "sales":
+                        mnuEdit.Visibility = Visibility.Visible;
+                        mnuEmployeesWindow.Visibility = Visibility.Hidden;
+                        mnuUpdateEmployeesWindow.Visibility = Visibility.Hidden;
                         CarInventory.Visibility = Visibility.Visible;
                         mnuSales.Visibility= Visibility.Visible;
-                        mnuUpdateEmployees.Visibility = Visibility.Visible;
+                        mnuUpdateEmployeesWindow.Visibility = Visibility.Visible;
                         break;
                     case "admin":
+                        mnuEdit.Visibility = Visibility.Visible;
+                        mnuEmployeesWindow.Visibility = Visibility.Hidden;
+                        mnuUpdateEmployeesWindow.Visibility = Visibility.Hidden;
                         CarInventory.Visibility = Visibility.Visible;
                         InsertCar.Visibility = Visibility.Visible;
                         DeleteCar.Visibility = Visibility.Visible;
                         EditCar.Visibility = Visibility.Visible;
                         mnuServiceAppointment.Visibility = Visibility.Visible;
-                        mnuUpdateEmployees.Visibility = Visibility.Visible;
+                        mnuUpdateEmployeesWindow.Visibility = Visibility.Visible;
+                        break;
+                    case "employee":
+                        mnuEdit.Visibility = Visibility.Visible;
+                        mnuEmployeesWindow.Visibility = Visibility.Hidden;
+                        mnuUpdateEmployeesWindow.Visibility = Visibility.Hidden;
+                        CarInventory.Visibility = Visibility.Visible;
+                        InsertCar.Visibility = Visibility.Hidden;
+                        DeleteCar.Visibility = Visibility.Hidden;
+                        EditCar.Visibility = Visibility.Hidden;
+                        break;
+                    default:
+                        CarInventory.Visibility = Visibility.Visible;                       
                         break;
                 }
             }
             else
             {
                 CarInventory.Visibility = Visibility.Visible;
-            }              
+            }            
             MainWindowTabs.Visibility = Visibility.Visible;
             MainWindowTabContainer.Visibility = Visibility.Visible;
         }
@@ -114,6 +139,11 @@ namespace CarShop
             lblEmail.Visibility = Visibility.Visible;
             pwdPassword.Visibility = Visibility.Visible;
             lblPassword.Visibility = Visibility.Visible;
+            btnSignUp.Visibility = Visibility.Visible;
+            chkIsCustomer.Visibility = Visibility.Visible;
+            mnuEdit.Visibility = Visibility.Hidden;
+            mnuSales.Visibility = Visibility.Hidden;
+            mnuServiceAppointment.Visibility = Visibility.Hidden;
 
             btnLogin.Content = "Log in";
             btnLogin.IsDefault = true;
@@ -124,54 +154,131 @@ namespace CarShop
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            if (btnLogin.Content.ToString() == "Log in")
+            if ((bool)chkIsCustomer.IsChecked)
             {
-                var email = txtEmail.Text;
-                var password = pwdPassword.Password;
+                if (btnLogin.Content.ToString() == "Log in")
+                {
+                    var email = txtEmail.Text;
+                    var password = pwdPassword.Password;
 
-                // error checks
-                if (!email.IsValidEmail())
-                {
-                    MessageBox.Show("Invalid email address", "Invalid Email",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
-                    txtEmail.SelectAll();
-                    txtEmail.Focus();
-                    return;
-                }
-                if (!password.IsValidPassword())
-                {
-                    MessageBox.Show("Invalid password", "Invalid Password",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
-                    pwdPassword.SelectAll();
-                    pwdPassword.Focus();
-                    return;
-                }
-                // try to login the user
-                try
-                {
-                    loggedInEmployee = _employeeManager.AuthenticateEmployee(email, password);                    
-                    
-                    if(loggedInEmployee == null) 
+                    // error checks
+                    if (!email.IsValidEmail())
                     {
-                        throw new Exception("Username and/or password not found");
+                        MessageBox.Show("Invalid email address", "Invalid Email",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+                        txtEmail.SelectAll();
+                        txtEmail.Focus();
+                        return;
                     }
-                    // update the UI
-                    updateUIforEmployee();
+                    if (!password.IsValidPassword())
+                    {
+                        MessageBox.Show("Invalid password", "Invalid Password",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+                        pwdPassword.SelectAll();
+                        pwdPassword.Focus();
+                        return;
+                    }
+                    // try to login the user
+                    try
+                    {
+                        loggedInCustomer = _customerManager.AuthenticateCustomer(email, password);
+
+                        if (loggedInCustomer == null)
+                        {
+                            throw new Exception("Username and/or password not found");
+                        }
+                        // update the UI
+                        updateUIforCustomer();
+                        btnSignUp.Visibility = Visibility.Collapsed;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Login failed");
+                        pwdPassword.Clear();
+                        txtEmail.Clear();
+                        txtEmail.Focus();
+                        return;
+                    }
                 }
-                catch (Exception ex)
-                {                   
-                    MessageBox.Show("Login failed");
-                    pwdPassword.Clear();
-                    txtEmail.Clear();
-                    txtEmail.Focus();
-                    return;
+                else // log out
+                {
+                    updateUIforLogOut();
                 }
             }
-            else // log out
+            else
             {
-                updateUIforLogOut();
+                if (btnLogin.Content.ToString() == "Log in")
+                {
+                    var email = txtEmail.Text;
+                    var password = pwdPassword.Password;
+
+                    // error checks
+                    if (!email.IsValidEmail())
+                    {
+                        MessageBox.Show("Invalid email address", "Invalid Email",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+                        txtEmail.SelectAll();
+                        txtEmail.Focus();
+                        return;
+                    }
+                    if (!password.IsValidPassword())
+                    {
+                        MessageBox.Show("Invalid password", "Invalid Password",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+                        pwdPassword.SelectAll();
+                        pwdPassword.Focus();
+                        return;
+                    }
+                    // try to login the user
+                    try
+                    {
+                        loggedInEmployee = _employeeManager.AuthenticateEmployee(email, password);
+
+                        if (loggedInEmployee == null)
+                        {
+                            throw new Exception("Username and/or password not found");
+                        }
+                        // update the UI
+                        updateUIforEmployee();
+                        btnSignUp.Visibility = Visibility.Collapsed;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Login failed");
+                        pwdPassword.Clear();
+                        txtEmail.Clear();
+                        txtEmail.Focus();
+                        return;
+                    }
+                }
+                else // log out
+                {
+                    updateUIforLogOut();
+                }
             }
-            btnSignUp.Visibility = Visibility.Collapsed;            
+        }
+
+        private void updateUIforCustomer()
+        {
+            lblGreeting.Content = "Welcome " + loggedInCustomer.FirstName + ".";
+            statMessage.Content = "Logged in on " + DateTime.Now.ToLongDateString() + " at " +
+                DateTime.Now.ToShortDateString();                              
+
+            // clear the login section
+            txtEmail.Text = "";
+            txtEmail.Visibility = Visibility.Hidden;
+            lblEmail.Visibility = Visibility.Hidden;
+            pwdPassword.Password = "";
+            pwdPassword.Visibility = Visibility.Hidden;
+            lblPassword.Visibility = Visibility.Hidden;
+            chkIsCustomer.Visibility = Visibility.Hidden;
+            chkIsCustomer.IsChecked = false;
+
+            btnLogin.Content = "Log Out";
+            btnLogin.IsDefault = false;
+
+            setUpCarInventory();
+            showTabsForRoles();
         }
 
         private void updateUIforEmployee()
@@ -190,6 +297,7 @@ namespace CarShop
             pwdPassword.Password = "";
             pwdPassword.Visibility = Visibility.Hidden;
             lblPassword.Visibility = Visibility.Hidden;
+            chkIsCustomer.Visibility = Visibility.Hidden;
 
             btnLogin.Content = "Log Out";
             btnLogin.IsDefault = false;

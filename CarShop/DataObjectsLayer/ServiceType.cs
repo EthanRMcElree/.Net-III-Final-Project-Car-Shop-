@@ -14,6 +14,10 @@ namespace DataObjectsLayer
          */
         public int ServiceTypeID { get; set; }
         public string ServiceDescription { get; set; }
+        public override string ToString()
+        {
+            return ServiceDescription;
+        }
     }
     public class ServiceTypeVM : ServiceType
     {

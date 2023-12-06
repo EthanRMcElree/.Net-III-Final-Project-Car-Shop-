@@ -77,7 +77,7 @@ namespace DataAccessLayer
             var conn = SqlConnectionProvider.GetConnection();
 
             // command text
-            var cmdText = "sp_view_all_sales";
+            var cmdText = "sp_view_all_sales_data";
 
             // command
             var cmd = new SqlCommand(cmdText, conn);
@@ -104,7 +104,19 @@ namespace DataAccessLayer
                         salesVM.CarID = reader.GetInt32(2);
                         salesVM.CustomerID = reader.GetInt32(3);
                         salesVM.SaleDate = reader.GetDateTime(4);
-                        salesVM.SalePrice = reader.GetDouble(5);                       
+                        salesVM.SalePrice = reader.GetDouble(5);
+                        Employee employee = new Employee();
+                        employee.FirstName = reader.GetString(6);
+                        employee.LastName = reader.GetString(7);
+                        salesVM.Employee = employee;
+                        Customer customer = new Customer();
+                        customer.FirstName = reader.GetString(8);
+                        customer.LastName = reader.GetString(9);
+                        salesVM.Customer = customer;
+                        CarInventory car = new CarInventory();
+                        car.Model = reader.GetString(10);
+                        car.Year = reader.GetInt32(11);
+                        salesVM.Car = car;
                         List.Add(salesVM);
                     }
                 }
