@@ -402,7 +402,7 @@ CREATE PROCEDURE [dbo].[sp_select_customer_by_id]
 )
 AS
 	BEGIN
-		SELECT * FROM [dbo].[Customer] WHERE Customer.CustomerID = @CustomerID
+		SELECT [CustomerID], [FirstName], [LastName], [Email], [Password], [PhoneNumber] FROM [dbo].[Customer] WHERE Customer.CustomerID = @CustomerID
 	END
 GO
 
@@ -579,7 +579,7 @@ GO
 CREATE PROCEDURE [dbo].[sp_view_car_inventory]
 AS
 	BEGIN
-		SELECT * FROM [dbo].[CarInventory]
+		SELECT [CarID], [Model], [Year], [Color], [VIN], [Price], [Mileage], [FuelType], [TransmissionType], [EngineSize], [Description] FROM [dbo].[CarInventory]
 	END
 GO
 
@@ -591,7 +591,7 @@ CREATE PROCEDURE [dbo].[sp_select_car_by_id]
 )
 AS
 	BEGIN
-		SELECT * FROM [dbo].[CarInventory] WHERE CarInventory.CarID = @CarID
+		SELECT [CarID], [Model], [Year], [Color], [VIN], [Price], [Mileage], [FuelType], [TransmissionType], [EngineSize], [Description] FROM [dbo].[CarInventory] WHERE CarInventory.CarID = @CarID
 	END
 GO
 
@@ -603,7 +603,7 @@ CREATE PROCEDURE [dbo].[sp_filter_car_inventory_by_model]
 )
 AS
 	BEGIN
-		SELECT * FROM [dbo].[CarInventory] WHERE [Model] = @Model
+		SELECT [CarID], [Model], [Year], [Color], [VIN], [Price], [Mileage], [FuelType], [TransmissionType], [EngineSize], [Description] FROM [dbo].[CarInventory] WHERE [Model] = @Model
 	END
 GO
 
@@ -615,7 +615,7 @@ CREATE PROCEDURE [dbo].[sp_filter_car_inventory_by_year]
 )
 AS
 	BEGIN
-		SELECT * FROM [dbo].[CarInventory] WHERE [Year] = @Year
+		SELECT [CarID], [Model], [Year], [Color], [VIN], [Price], [Mileage], [FuelType], [TransmissionType], [EngineSize], [Description] FROM [dbo].[CarInventory] WHERE [Year] = @Year
 	END
 GO
 
@@ -627,7 +627,7 @@ CREATE PROCEDURE [dbo].[sp_filter_car_inventory_by_fuel_type]
 )
 AS
 	BEGIN
-		SELECT * FROM [dbo].[CarInventory] WHERE [FuelType] = @FuelType
+		SELECT [CarID], [Model], [Year], [Color], [VIN], [Price], [Mileage], [FuelType], [TransmissionType], [EngineSize], [Description] FROM [dbo].[CarInventory] WHERE [FuelType] = @FuelType
 	END
 GO
 
@@ -636,7 +636,7 @@ GO
 CREATE PROCEDURE [dbo].[sp_filter_car_inventory_by_high_mileage]
 AS
 	BEGIN
-		SELECT * FROM [dbo].[CarInventory] WHERE [Mileage] > 75000
+		SELECT [CarID], [Model], [Year], [Color], [VIN], [Price], [Mileage], [FuelType], [TransmissionType], [EngineSize], [Description] FROM [dbo].[CarInventory] WHERE [Mileage] > 75000
 	END
 GO
 
@@ -645,7 +645,7 @@ GO
 CREATE PROCEDURE [dbo].[sp_filter_car_inventory_by_low_mileage]
 AS
 	BEGIN
-		SELECT * FROM [dbo].[CarInventory] WHERE [Mileage] < 10000
+		SELECT [CarID], [Model], [Year], [Color], [VIN], [Price], [Mileage], [FuelType], [TransmissionType], [EngineSize], [Description] FROM [dbo].[CarInventory] WHERE [Mileage] < 10000
 	END
 GO
 
@@ -654,7 +654,7 @@ GO
 CREATE PROCEDURE [dbo].[sp_filter_car_inventory_by_moderate_mileage]
 AS
 	BEGIN
-		SELECT * FROM [dbo].[CarInventory] WHERE [Mileage] > 10000 AND [Mileage] < 75000
+		SELECT [CarID], [Model], [Year], [Color], [VIN], [Price], [Mileage], [FuelType], [TransmissionType], [EngineSize], [Description] FROM [dbo].[CarInventory] WHERE [Mileage] > 10000 AND [Mileage] < 75000
 	END
 GO
 
@@ -666,7 +666,7 @@ CREATE PROCEDURE [dbo].[sp_view_car_detail]
 )
 AS
 	BEGIN
-		SELECT * FROM [dbo].[CarInventory] WHERE [CarID] = @CarID
+		SELECT [CarID], [Model], [Year], [Color], [VIN], [Price], [Mileage], [FuelType], [TransmissionType], [EngineSize], [Description] FROM [dbo].[CarInventory] WHERE [CarID] = @CarID
 	END
 GO
 
@@ -760,7 +760,7 @@ GO
 CREATE PROCEDURE [dbo].[sp_view_all_service_appointments]
 AS
 	BEGIN
-		SELECT * FROM [dbo].[ServiceAppointment]
+		SELECT [AppointmentID], [CarID], [CustomerID], [ServiceTypeID], [SupplierID], [ScheduleDate] FROM [dbo].[ServiceAppointment]
 	END
 GO
 
@@ -772,7 +772,7 @@ CREATE PROCEDURE [dbo].[sp_retrieve_service_appointment_by_appointment_id]
 )
 AS
 	BEGIN
-		SELECT * FROM [dbo].[ServiceAppointment] WHERE [AppointmentID] = @AppointmentID 
+		SELECT [AppointmentID], [CarID], [CustomerID], [ServiceTypeID], [SupplierID], [ScheduleDate] FROM [dbo].[ServiceAppointment] WHERE [AppointmentID] = @AppointmentID 
 	END
 GO
 
@@ -851,7 +851,7 @@ CREATE PROCEDURE [dbo].[sp_select_sale_by_id]
 )
 AS
 	BEGIN
-		SELECT * FROM [dbo].[Sales] WHERE Sales.SaleID = @SaleID
+		SELECT [SaleID], [EmployeeID], [CarID], [CustomerID], [SaleDate], [SalePrice] FROM [dbo].[Sales] WHERE Sales.SaleID = @SaleID
 	END
 GO
 
@@ -860,7 +860,7 @@ GO
 CREATE PROCEDURE [dbo].[sp_view_all_sales]
 AS
 	BEGIN
-		SELECT * FROM [dbo].[Sales]
+		SELECT [SaleID], [EmployeeID], [CarID], [CustomerID], [SaleDate], [SalePrice] FROM [dbo].[Sales]
 	END
 GO
 
@@ -872,7 +872,7 @@ CREATE PROCEDURE [dbo].[sp_view_sales_for_employee]
 )
 AS
 	BEGIN
-		SELECT * FROM [dbo].[Sales] WHERE [EmployeeID] = @EmployeeID
+		SELECT [SaleID], [EmployeeID], [CarID], [CustomerID], [SaleDate], [SalePrice] FROM [dbo].[Sales] WHERE [EmployeeID] = @EmployeeID
 	END
 GO
 
