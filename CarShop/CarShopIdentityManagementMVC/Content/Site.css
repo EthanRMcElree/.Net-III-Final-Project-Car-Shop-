@@ -1,0 +1,69 @@
+﻿.body-content {
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: white;
+}
+
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+body {
+    background-color: #202b3d;
+}
+
+.table th, .table td {
+    color: white;
+}
+
+#homeIndex {
+    animation: shakeY, shakeY;
+    animation-delay: 3s, 5390ms;
+    animation-duration: 1s, 500ms;
+}
+
+.animate-fadeInLeft {
+    animation: fadeInLeft;
+    animation-duration: 1s;
+}
+
+.animate-fadeInRight {
+    animation: fadeInRight;
+    animation-duration: 1s;
+}
+
+@keyframes arcIn {
+    0% {
+        transform: translate(-300px, 1000px) rotate(5deg);
+    }
+
+    80% {
+        transform: translate(-100px, -800px) rotate(2.5deg);
+    }
+
+    100% {
+        transform: translate(0px, 0px) rotate(0);
+    }
+}
+
+#homeImage {
+    animation-name: hinge, arcIn;
+    animation-duration: 2s, 2s;
+    animation-delay: 1s, 3s;
+    animation-timing-function: ease-in, ease-out;
+    animation-iteration-count: 1, 1;
+}
+
+#carDiv {
+    animation-name: arcIn;
+    animation-duration: 2500ms;
+    animation-delay: 3s;
+    animation-iteration-count: 1;
+}

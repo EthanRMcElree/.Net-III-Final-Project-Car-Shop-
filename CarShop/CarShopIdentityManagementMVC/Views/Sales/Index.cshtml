@@ -1,0 +1,67 @@
+﻿@model IEnumerable<DataObjectsLayer.SalesVM>
+
+@{
+    ViewBag.Title = "Sales";
+}
+
+<h2 class="animate__animated animate__flash">Sales</h2>
+
+<p>
+    @if (User.IsInRole("MANAGER") || User.IsInRole("ADMIN"))
+    {
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+    }
+</p>
+<table class="table table-bordered table-dark">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SaleID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CarID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Car.Model)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Car.Year)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SaleDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SalePrice)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SaleID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CarID)
+        </td>
+        <td style="text-transform: capitalize">
+            @Html.DisplayFor(modelItem => item.Car.Model)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Car.Year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SaleDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SalePrice)
+        </td>
+        <td>
+            @if (User.IsInRole("MANAGER") || User.IsInRole("ADMIN"))
+            {
+                @Html.ActionLink("Delete", "Delete", new { id = item.SaleID }, new { @class = "btn btn-danger", style = "Width: 5rem;" })
+            }
+        </td>
+    </tr>
+}
+
+</table>

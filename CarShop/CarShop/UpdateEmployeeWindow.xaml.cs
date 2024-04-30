@@ -22,11 +22,11 @@ namespace CarShop
     public partial class UpdateEmployeeWindow : Window
     {
         Employee employee = null;
-        EmployeeManager manager = null;
+        UserManager manager = null;
         public UpdateEmployeeWindow()
         {
             InitializeComponent();
-            manager = new EmployeeManager();
+            manager = new UserManager();
             EditEmployeeAccountGrid.Visibility = Visibility.Collapsed;
             SubmitEditCar.Visibility = Visibility.Collapsed;
         }

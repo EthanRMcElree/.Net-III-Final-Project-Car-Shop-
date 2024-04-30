@@ -68,11 +68,13 @@ namespace LogicLayerTests
         {
             // Arrange                         
             int CarID = 4;
-            int CustomerID = 4;
+            string CustomerEmail = "spongebob@comapny.com";
             int ServiceTypeID = 4;
+            string CustomerComments = "I think it seems fine.";
+            DateTime ScheduleDate = DateTime.Now;
 
             // Act 
-            int ID = _serviceAppointmentManager.CreateNewServiceAppointment(CarID, CustomerID, ServiceTypeID);
+            int ID = _serviceAppointmentManager.CreateNewServiceAppointment(CarID, CustomerEmail, ServiceTypeID, CustomerComments, ScheduleDate);
 
             // Assert
             Assert.AreEqual(ID, 999);
@@ -83,14 +85,16 @@ namespace LogicLayerTests
         {
             // Arrange             
             int CarID = 4;
-            int CustomerID = 0;
+            string CustomerEmail = "squidward@company.com";
             int ServiceTypeID = 4;
+            string CustomerComments = "Spongebob wrecked my car.";
+            DateTime ScheduleDate = DateTime.Now;
 
             // Act 
-            int ID = _serviceAppointmentManager.CreateNewServiceAppointment(CarID, CustomerID, ServiceTypeID);
+            int ID = _serviceAppointmentManager.CreateNewServiceAppointment(CarID, CustomerEmail, ServiceTypeID, CustomerComments, ScheduleDate);
 
             // Assert
-            Assert.AreEqual(ID, 0);
+            Assert.AreNotEqual(ID, 0);
         }
 
         [TestMethod]
@@ -129,13 +133,13 @@ namespace LogicLayerTests
             // Arrange
             int AppointmentID = 2;
             int CarID = 4;
-            int CustomerID = 3;
+            string CustomerEmail = "squidward@company.com";
             int ServiceTypeID = 3;
-            int SupplierID = 3;
+            string CustomerComments = "His care got damaged by spongebob's reckless driving";
             DateTime ScheduleDate = DateTime.Now.AddYears(4);
 
             // Act
-            _serviceAppointmentManager.UpdateServiceAppointment(AppointmentID, CarID, CustomerID, ServiceTypeID, SupplierID, ScheduleDate);
+            _serviceAppointmentManager.UpdateServiceAppointment(AppointmentID, CarID, CustomerEmail, ServiceTypeID, CustomerComments, ScheduleDate);
             var Appointment = _serviceAppointmentManager.RetrieveServiceAppointmentByAppointmentID(AppointmentID);
 
             // Assert
@@ -148,13 +152,13 @@ namespace LogicLayerTests
             // Arrange
             int AppointmentID = 2;
             int CarID = 3;
-            int CustomerID = 3;
+            string CustomerEmail = "spongebob@company.com";
             int ServiceTypeID = 3;
-            int SupplierID = 3;
+            string CustomerComments = "No surprise, spongebob crashed his car.  Spongebob is unteachable.";
             DateTime ScheduleDate = DateTime.Now.AddYears(4);
 
             // Act
-            _serviceAppointmentManager.UpdateServiceAppointment(AppointmentID, CarID, CustomerID, ServiceTypeID, SupplierID, ScheduleDate);
+            _serviceAppointmentManager.UpdateServiceAppointment(AppointmentID, CarID, CustomerEmail, ServiceTypeID, CustomerComments, ScheduleDate);
             var Appointment = _serviceAppointmentManager.RetrieveServiceAppointmentByAppointmentID(AppointmentID);
 
             // Assert

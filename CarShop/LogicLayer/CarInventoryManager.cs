@@ -25,47 +25,126 @@ namespace LogicLayer
 
         public int DeleteCarByID(int CarID)
         {
-            return _carInventoryAccessor.DeleteCarByID(CarID);            
+            int rows = 0;
+            try
+            {
+                rows = _carInventoryAccessor.DeleteCarByID(CarID);
+            }
+            catch(Exception ex)
+            {
+                throw new ApplicationException("Failed to delete car", ex);
+            }
+            return rows;            
         }
 
         public List<CarInventoryVM> FilterCarByFuelType(string FuelType)
         {
-            return _carInventoryAccessor.FilterCarByFuelType(FuelType);
+            List<CarInventoryVM> carInventory = new List<CarInventoryVM>();
+            try
+            {
+                carInventory = _carInventoryAccessor.FilterCarByFuelType(FuelType);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to filter by fuel type", ex);
+            }
+            return carInventory;
         }
 
         public List<CarInventoryVM> FilterCarByHighMileage()
         {
-            return _carInventoryAccessor.FilterCarByHighMileage();
+            List<CarInventoryVM> carInventory = new List<CarInventoryVM>();
+            try
+            {
+                carInventory = _carInventoryAccessor.FilterCarByHighMileage();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to filter by high mileage", ex);
+            }
+            return carInventory;
         }
 
         public List<CarInventoryVM> FilterCarByLowMileage()
         {
-            return _carInventoryAccessor.FilterCarByLowMileage();
+            List<CarInventoryVM> carInventory = new List<CarInventoryVM>();
+            try
+            {
+                carInventory = _carInventoryAccessor.FilterCarByLowMileage();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to filter by low mileage", ex);
+            }
+            return carInventory;
         }
 
         public List<CarInventoryVM> FilterCarByModerateMileage()
         {
-            return _carInventoryAccessor.FilterCarByModerateMileage();
+            List<CarInventoryVM> carInventory = new List<CarInventoryVM>();
+            try
+            {
+                carInventory = _carInventoryAccessor.FilterCarByModerateMileage();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to filter by low mileage", ex);
+            }
+            return carInventory;
         }
 
         public int InsertNewCar(string Model, int Year, string Color, string VIN, Double Price, int Mileage, string FuelType, string TransmissionType, Double EngineSize, string Description)
         {
-            return _carInventoryAccessor.InsertNewCar(Model, Year, Color, VIN, Price, Mileage, FuelType, TransmissionType, EngineSize, Description);
+            int rows = 0;
+            try
+            {
+                rows = _carInventoryAccessor.InsertNewCar(Model, Year, Color, VIN, Price, Mileage, FuelType, TransmissionType, EngineSize, Description);
+            }
+            catch(Exception ex)
+            {
+                throw new ApplicationException("Failed to insert a new car.", ex);
+            }
+            return rows;
         }
 
-        public void UpdateCar(int CarID, string Model, int Year, string Color, string VIN, Double Price, int Mileage, string FuelType, string TransmissionType, Double EngineSize, string Description)
+        public void UpdateCar(int CarID, string CustomerEmail, string Model, int Year, string Color, string VIN, Double Price, int Mileage, string FuelType, string TransmissionType, Double EngineSize, string Description)
         {
-            _carInventoryAccessor.UpdateCar(CarID, Model, Year, Color, VIN, Price, Mileage, FuelType, TransmissionType, EngineSize, Description);
+            try
+            {
+                _carInventoryAccessor.UpdateCar(CarID, CustomerEmail, Model, Year, Color, VIN, Price, Mileage, FuelType, TransmissionType, EngineSize, Description);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to update a car.", ex);
+            }      
         }
 
         public CarInventoryVM ViewCarByID(int CarID)
         {
-            return _carInventoryAccessor.ViewCarByID(CarID);
+            CarInventoryVM result = null;
+            try
+            {
+                result = _carInventoryAccessor.ViewCarByID(CarID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to view a car.", ex);
+            }
+            return result;
         }
 
         public List<CarInventoryVM> ViewCarInventory()
         {
-            return _carInventoryAccessor.ViewCarInventory();
+            List<CarInventoryVM> carInventory = new List<CarInventoryVM>();
+            try
+            {
+                carInventory = _carInventoryAccessor.ViewCarInventory();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to view the car's inventory", ex);
+            }
+            return carInventory;
         }
     }
 }

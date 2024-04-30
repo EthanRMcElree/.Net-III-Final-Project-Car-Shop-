@@ -22,29 +22,74 @@ namespace LogicLayer
         {
             _salesAccessor = salesAccessor;
         }
-        public int CreateSale(int EmployeeID, int CarID, int CustomerID, DateTime SaleDate, double SalePrice)
+        public int CreateSale(int UserID, int CarID, DateTime SaleDate, double SalePrice)
         {
-            return _salesAccessor.CreateSale(EmployeeID, CarID, CustomerID, SaleDate, SalePrice);
+            int rows = 0;
+            try
+            {
+                rows = _salesAccessor.CreateSale(UserID, CarID, SaleDate, SalePrice);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to create sale.", ex);
+            }
+            return rows;
         }
 
         public int DeleteSaleByID(int SaleID)
         {
-            return _salesAccessor.DeleteSaleByID(SaleID);
+            int rows = 0;
+            try
+            {
+                rows = _salesAccessor.DeleteSaleByID(SaleID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to delete sale.", ex);
+            }
+            return rows;
         }
 
         public List<SalesVM> ViewSales()
         {
-            return _salesAccessor.ViewSales();
+            List<SalesVM> sale = new List<SalesVM>();
+            try
+            {
+                sale = _salesAccessor.ViewSales();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to view sales.", ex);
+            }
+            return sale;
         }
 
         public SalesVM ViewSaleByID(int SaleID)
         {
-            return _salesAccessor.ViewSaleByID(SaleID);
+            SalesVM result = null;
+            try
+            {
+                result = _salesAccessor.ViewSaleByID(SaleID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to view sale by its ID.", ex);
+            }
+            return result;
         }
 
-        public List<SalesVM> ViewSalesForEmployee(int EmployeeID)
+        public List<SalesVM> ViewSalesForUser(int UserID)
         {
-            return _salesAccessor.ViewSalesForEmployee(EmployeeID);
+            List<SalesVM> sale = new List<SalesVM>();
+            try
+            {
+                sale = _salesAccessor.ViewSalesForUser(UserID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to view sales for user.", ex);
+            }
+            return sale;
         }
     }
 }

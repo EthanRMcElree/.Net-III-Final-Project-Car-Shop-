@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<main>    
+    <div class="row">
+        <div class="col-md-4">
+            <section aria-labelledby="gettingStartedTitle">
+                <h2 id="gettingStartedTitle">Check Out Inventory</h2>
+                <p>
+                    You can take a look at all of our cars, their prices, models, etc.
+                </p>            
+            </section>
+            </div>
+            <div class="col-md-4">
+                <section aria-labelledby="librariesTitle">
+                    <h2 id="librariesTitle">Make a Service Appointment</h2>
+                    <p>You can make a service appointment for us to check on the status of your car.</p>
+                </section>
+            </div>
+            <div class="col-md-4">
+                <section aria-labelledby="hostingTitle">
+                    <h2 id="hostingTitle">Contact Us</h2>
+                    <p>Let us know what you need.</p>
+                </section>
+            </div>
+        </div>
+    <div class="row"> 
+        <hr />
+      
+<div class="col-8">
+            <h3>
+                Login
+            </h3>
+            <form action="/Home/Login" method="post">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>                        
+                        <input name="Email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input name="Password" type="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                </div>                               
+                <button type="submit" class="btn btn-primary">Log in</button>
+                @*@if (Model.errors != null && Model.errors.ContainsKey("loginError"))
+                {
+                    <div class="alert alert-danger my-3">
+                        @Model.errors["loginError"]
+                    </div>               
+                }*@
+            </form>            
+        </div> 
+    </div>
+</main>

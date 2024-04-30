@@ -1,33 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace DataObjectsLayer
 {
     public class ServiceAppointment
     {
-        /*
-         AppointmentID	int
-        CarID	int
-        CustomerID	int
-        ServiceTypeID	int
-        SupplierID	int
-        ScheduledDate	datetime
-         */
         public int AppointmentID { get; set; }
+        [Required]
+        [Display(Name = "Car ID")]
         public int CarID { get; set; }
-        public int CustomerID { get; set; }
+        [Required]
+        [Display(Name = "Customer Email")]
+        public string CustomerEmail { get; set; }
+        [Display(Name = "Service Type")]
         public int ServiceTypeID { get; set; }
-        public int SupplierID { get; set; }
+        [Display(Name = "Comments (optional)")]
+        public string CustomerComments { get; set; } = string.Empty;
+        [Required]
+        [Display(Name = "Scheduled Date")]
         public DateTime ScheduledDate { get; set; }
     }
     public class ServiceAppointmentVM : ServiceAppointment
     {
-        public CarInventory Car { get; set; }
-        public Customer Customer { get; set; }
-        public ServiceType ServiceType { get; set; }
-        public Supplier Supplier { get; set; }
+        [Display(Name = "Car Model")]
+        public string CarModel { get; set; }
+        [Required]
+        [Display(Name = "Service Name")]
+        public string ServiceTypeName { get; set; }
+        public IEnumerable<SelectListItem> ServiceTypeSelectionList { get; set; }
     }
 }

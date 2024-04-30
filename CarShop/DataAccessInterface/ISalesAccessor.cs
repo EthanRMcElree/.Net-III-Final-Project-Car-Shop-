@@ -9,10 +9,10 @@ namespace DataAccessInterface
 {
     public interface ISalesAccessor 
     {
-        int CreateSale(int EmployeeID, int CarID, int CustomerID, DateTime SaleDate, Double SalePrice);
+        int CreateSale(int UserID, int CarID, DateTime SaleDate, Double SalePrice);
         int DeleteSaleByID(int SaleID);
         List<SalesVM> ViewSales();
         SalesVM ViewSaleByID(int SaleID);
-        List<SalesVM> ViewSalesForEmployee(int EmployeeID);
+        List<SalesVM> ViewSalesForUser(int UserID);
     }
 }

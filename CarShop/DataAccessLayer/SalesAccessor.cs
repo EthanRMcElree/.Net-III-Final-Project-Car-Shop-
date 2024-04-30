@@ -15,7 +15,7 @@ namespace DataAccessLayer
 {
     public class SalesAccessor : ISalesAccessor
     {
-        public int CreateSale(int EmployeeID, int CarID, int CustomerID, DateTime SaleDate, Double SalePrice)
+        public int CreateSale(int UserID, int CarID, DateTime SaleDate, Double SalePrice)
         {
             // Make return variable if appropriate
             // connection
@@ -31,16 +31,14 @@ namespace DataAccessLayer
             cmd.CommandType = CommandType.StoredProcedure;
 
             // parameters            
-            cmd.Parameters.Add("@EmployeeID", SqlDbType.Int);
+            cmd.Parameters.Add("@UserID", SqlDbType.Int);
             cmd.Parameters.Add("@CarID", SqlDbType.Int);
-            cmd.Parameters.Add("@CustomerID", SqlDbType.Int);
             cmd.Parameters.Add("@SaleDate", SqlDbType.DateTime);
             cmd.Parameters.Add("@SalePrice", SqlDbType.Float);            
 
             // parameter values
-            cmd.Parameters["@EmployeeID"].Value = EmployeeID;
+            cmd.Parameters["@UserID"].Value = UserID;
             cmd.Parameters["@CarID"].Value = CarID;
-            cmd.Parameters["@CustomerID"].Value = CustomerID;
             cmd.Parameters["@SaleDate"].Value = SaleDate;
             cmd.Parameters["@SalePrice"].Value = SalePrice;
 
@@ -100,22 +98,17 @@ namespace DataAccessLayer
                     {
                         SalesVM salesVM = new SalesVM();
                         salesVM.SaleID = reader.GetInt32(0);
-                        salesVM.EmployeeID = reader.GetInt32(1);
+                        salesVM.UserID = reader.GetInt32(1);
                         salesVM.CarID = reader.GetInt32(2);
-                        salesVM.CustomerID = reader.GetInt32(3);
-                        salesVM.SaleDate = reader.GetDateTime(4);
-                        salesVM.SalePrice = reader.GetDouble(5);
-                        Employee employee = new Employee();
-                        employee.FirstName = reader.GetString(6);
-                        employee.LastName = reader.GetString(7);
-                        salesVM.Employee = employee;
-                        Customer customer = new Customer();
-                        customer.FirstName = reader.GetString(8);
-                        customer.LastName = reader.GetString(9);
-                        salesVM.Customer = customer;
+                        salesVM.SaleDate = reader.GetDateTime(3);
+                        salesVM.SalePrice = reader.GetDouble(4);
+                        User user = new User();
+                        user.FirstName = reader.GetString(5);
+                        user.LastName = reader.GetString(6);
+                        salesVM.User = user;
                         CarInventory car = new CarInventory();
-                        car.Model = reader.GetString(10);
-                        car.Year = reader.GetInt32(11);
+                        car.Model = reader.GetString(7);
+                        car.Year = reader.GetInt32(8);
                         salesVM.Car = car;
                         List.Add(salesVM);
                     }
@@ -167,11 +160,10 @@ namespace DataAccessLayer
                     while (reader.Read())
                     {
                         salesVM.SaleID = reader.GetInt32(0);
-                        salesVM.CarID = reader.GetInt32(1);
-                        salesVM.EmployeeID = reader.GetInt32(2);
-                        salesVM.CustomerID = reader.GetInt32(3);
-                        salesVM.SaleDate = reader.GetDateTime(4);
-                        salesVM.SalePrice = reader.GetDouble(5);                                                
+                        salesVM.UserID = reader.GetInt32(1);
+                        salesVM.CarID = reader.GetInt32(2);                                            
+                        salesVM.SaleDate = reader.GetDateTime(3);
+                        salesVM.SalePrice = reader.GetDouble(4);                                                
                     }
                 }
             }
@@ -229,7 +221,7 @@ namespace DataAccessLayer
             return rows;
         }
 
-        public List<SalesVM> ViewSalesForEmployee(int EmployeeID)
+        public List<SalesVM> ViewSalesForUser(int UserID)
         {
             // Make return variable if appropriate
             var List = new List<SalesVM>();
@@ -238,7 +230,7 @@ namespace DataAccessLayer
             var conn = SqlConnectionProvider.GetConnection();
 
             // command text
-            var cmdText = "sp_view_sales_for_employee";
+            var cmdText = "sp_view_sales_for_user";
 
             // command
             var cmd = new SqlCommand(cmdText, conn);
@@ -247,10 +239,10 @@ namespace DataAccessLayer
             cmd.CommandType = CommandType.StoredProcedure;
 
             // parameters
-            cmd.Parameters.Add("@EmployeeID", SqlDbType.Int);
+            cmd.Parameters.Add("@UserID", SqlDbType.Int);
 
             // parameter values            
-            cmd.Parameters["@EmployeeID"].Value = EmployeeID;
+            cmd.Parameters["@UserID"].Value = UserID;
 
             try
             {
@@ -264,9 +256,9 @@ namespace DataAccessLayer
                     while (reader.Read())
                     {
                         salesVM.SaleID = reader.GetInt32(0);
-                        salesVM.EmployeeID = reader.GetInt32(1);
+                        salesVM.UserID = reader.GetInt32(1);
                         salesVM.CarID = reader.GetInt32(2);
-                        salesVM.CustomerID = reader.GetInt32(3);
+                        salesVM.UserID = reader.GetInt32(3);
                         salesVM.SaleDate = reader.GetDateTime(4);
                         salesVM.SalePrice = reader.GetDouble(5);
                         List.Add(salesVM);

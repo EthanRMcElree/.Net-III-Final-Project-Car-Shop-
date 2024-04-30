@@ -28,7 +28,7 @@ namespace CarShop
     /// </summary>
     public partial class MainWindow : Window
     {
-        EmployeeManager _employeeManager = null;
+        UserManager _employeeManager = null;
         EmployeeVM loggedInEmployee = null;
         CustomerManager _customerManager = null;
         CustomerVM loggedInCustomer = null;
@@ -36,7 +36,7 @@ namespace CarShop
         public MainWindow()
         {
             InitializeComponent();
-            _employeeManager = new EmployeeManager();
+            _employeeManager = new UserManager();
             carInventoryManager = new CarInventoryManager();
             _customerManager = new CustomerManager();
             hideAllTabs();

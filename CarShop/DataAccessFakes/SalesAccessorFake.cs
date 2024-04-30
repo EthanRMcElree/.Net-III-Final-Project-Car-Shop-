@@ -17,9 +17,8 @@ namespace DataAccessFakes
             fakeSales.Add(new SalesVM()
             {
                 SaleID = 1,
-                EmployeeID = 1,
+                UserID = 1,
                 CarID = 1,
-                CustomerID = 1,
                 SaleDate = DateTime.Now,
                 SalePrice = 22500.00F,
             });
@@ -27,9 +26,8 @@ namespace DataAccessFakes
             fakeSales.Add(new SalesVM()
             {
                 SaleID = 2,
-                EmployeeID = 2,
+                UserID = 2,
                 CarID = 2,
-                CustomerID = 2,
                 SaleDate = DateTime.Now.AddYears(2),
                 SalePrice = 19295.50F,
             });
@@ -37,14 +35,13 @@ namespace DataAccessFakes
             fakeSales.Add(new SalesVM()
             {
                 SaleID = 3,
-                EmployeeID = 2,
+                UserID = 2,
                 CarID = 3,
-                CustomerID = 3,
                 SaleDate = DateTime.Now.AddDays(10),
                 SalePrice = 20750.00F,
             });
         }
-        public int CreateSale(int EmployeeID, int CarID, int CustomerID, DateTime SaleDate, Double SalePrice)
+        public int CreateSale(int UserID, int CarID, DateTime SaleDate, Double SalePrice)
         {
             if (CarID <= 0)
             {
@@ -52,9 +49,8 @@ namespace DataAccessFakes
             }
             fakeSales.Add(new SalesVM()
             {
-                EmployeeID = EmployeeID,
+                UserID = UserID,
                 CarID = CarID,
-                CustomerID = CustomerID,
                 SaleDate = SaleDate,
                 SalePrice = SalePrice
             });
@@ -66,13 +62,13 @@ namespace DataAccessFakes
             return fakeSales;
         }
 
-        public List<SalesVM> ViewSalesForEmployee(int EmployeeID)
+        public List<SalesVM> ViewSalesForUser(int UserID)
         {
             List<SalesVM> salesVM = new List<SalesVM>();
 
             foreach (SalesVM sales in fakeSales)
             {                
-                if (sales.EmployeeID == EmployeeID)
+                if (sales.UserID == UserID)
                 {
                     salesVM.Add(sales);
                 }

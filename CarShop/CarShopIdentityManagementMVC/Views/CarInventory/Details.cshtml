@@ -1,0 +1,113 @@
+﻿@model DataObjectsLayer.CarInventoryVM
+
+@{
+    ViewBag.Title = "Car Details";
+}
+
+<h2>Car Details</h2>
+
+<div>
+    <hr />   
+                <table class="table">
+                    <tr>
+                        <td class="px-2 fw-bold">
+                            @Html.DisplayNameFor(model => model.CarID):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.CarID)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-2 fw-bold">
+                            @Html.DisplayNameFor(model => model.CustomerEmail):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.CustomerEmail)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-2 fw-bold">
+                            @Html.DisplayNameFor(model => model.Model):
+                        </td>
+                        <td class="text-capitalize">
+                            @Html.DisplayFor(model => model.Model)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-2 fw-bold">
+                            @Html.DisplayNameFor(model => model.Year):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Year)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-2 fw-bold">
+                            @Html.DisplayNameFor(model => model.Color):
+                        </td>
+                        <td class="text-capitalize">
+                            @Html.DisplayFor(model => model.Color)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-2 fw-bold">
+                            @Html.DisplayNameFor(model => model.VIN):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.VIN)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-2 fw-bold">
+                            @Html.DisplayNameFor(model => model.Price):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Price)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-2 fw-bold">
+                            @Html.DisplayNameFor(model => model.Mileage):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Mileage)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-2 fw-bold">
+                            @Html.DisplayNameFor(model => model.FuelType):
+                        </td>
+                        <td class="text-capitalize">
+                            @Html.DisplayFor(model => model.FuelType)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-2 fw-bold">
+                            @Html.DisplayNameFor(model => model.TransmissionType):
+                        </td>
+                        <td class="text-capitalize">
+                            @Html.DisplayFor(model => model.TransmissionType)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-2 fw-bold">
+                            @Html.DisplayNameFor(model => model.EngineSize):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.EngineSize)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-2 fw-bold">
+                            @Html.DisplayNameFor(model => model.Description):
+                        </td>
+                        <td class="text-capitalize">
+                            @Html.DisplayFor(model => model.Description)
+                        </td>
+                    </tr>
+                </table>                     
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CarID }, new { @class = "btn btn-secondary" }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

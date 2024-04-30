@@ -20,11 +20,11 @@ namespace CarShop
     /// </summary>
     public partial class CreateEmployeeAccountWindow : Window
     {
-        EmployeeManager employeeManager = null;
+        UserManager employeeManager = null;
         public CreateEmployeeAccountWindow()
         {
             InitializeComponent();
-            employeeManager = new EmployeeManager();
+            employeeManager = new UserManager();
         }
 
         private void btnCreateEmployeeAccount_Click(object sender, RoutedEventArgs e)

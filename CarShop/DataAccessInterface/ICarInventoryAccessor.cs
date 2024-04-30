@@ -14,7 +14,7 @@ namespace DataAccessInterface
     {
         // crud: create, retrieve, update, delete
         int InsertNewCar(string Model, int Year, string Color, string VIN, Double Price, int Mileage, string FuelType, string TransmissionType, Double EngineSize, string Description);
-        void UpdateCar(int CarID, string Model, int Year, string Color, string VIN, Double Price, int Mileage, string FuelType, string TransmissionType, Double EngineSize, string Description);
+        void UpdateCar(int CarID, string CustomerEmail, string Model, int Year, string Color, string VIN, Double Price, int Mileage, string FuelType, string TransmissionType, Double EngineSize, string Description);
         int DeleteCarByID(int CarID);
         List<CarInventoryVM> ViewCarInventory();
         CarInventoryVM ViewCarByID(int CarID);

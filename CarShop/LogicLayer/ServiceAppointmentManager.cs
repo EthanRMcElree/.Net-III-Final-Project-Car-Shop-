@@ -22,29 +22,99 @@ namespace LogicLayer
         {
             _serviceAppointmentAccessor = serviceAppointmentAccessor;
         }
-        public int CreateNewServiceAppointment(int CarID, int CustomerID, int ServiceTypeID)
+        public int CreateNewServiceAppointment(int CarID, string CustomerEmail, int ServiceTypeID, string CustomerComments, DateTime ScheduledDate)
         {
-            return _serviceAppointmentAccessor.CreateNewServiceAppointment(CarID, CustomerID, ServiceTypeID);
+            int rows = 0;
+            try
+            {
+                rows = _serviceAppointmentAccessor.CreateNewServiceAppointment(CarID, CustomerEmail, ServiceTypeID, CustomerComments, ScheduledDate);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to create a new service appointment.", ex);
+            }
+            return rows;           
         }
 
         public void DeleteServiceAppointmentByAppointmentID(int AppointmentID)
         {
-            _serviceAppointmentAccessor.DeleteServiceAppointmentByAppointmentID(AppointmentID);
+            try
+            {
+                _serviceAppointmentAccessor.DeleteServiceAppointmentByAppointmentID(AppointmentID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to delete service appointment by id.", ex);
+            }           
         }
 
         public List<ServiceAppointmentVM> RetrieveServiceAppointments()
         {
-            return _serviceAppointmentAccessor.RetrieveServiceAppointments();
+            List<ServiceAppointmentVM> serviceAppointment = new List<ServiceAppointmentVM>();
+            try
+            {
+                serviceAppointment = _serviceAppointmentAccessor.RetrieveServiceAppointments();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to view the car's inventory", ex);
+            }
+            return serviceAppointment; 
         }
 
         public ServiceAppointmentVM RetrieveServiceAppointmentByAppointmentID(int AppointmentID)
         {
-            return _serviceAppointmentAccessor.RetrieveServiceAppointmentByAppointmentID(AppointmentID);
+            ServiceAppointmentVM result = null;
+            try
+            {
+                result = _serviceAppointmentAccessor.RetrieveServiceAppointmentByAppointmentID(AppointmentID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to retrieve service appointment by its id.", ex);
+            }
+            return result;
         }
 
-        public void UpdateServiceAppointment(int AppointmentID, int CarID, int CustomerID, int ServiceTypeID, int SupplierID, DateTime ScheduledDate)
+        public void UpdateServiceAppointment(int AppointmentID, int CarID, string CustomerEmail, int ServiceTypeID, string CustomerComments, DateTime ScheduledDate)
         {
-            _serviceAppointmentAccessor.UpdateServiceAppointment(AppointmentID, CarID, CustomerID, ServiceTypeID, SupplierID, ScheduledDate);
+            try
+            {
+                _serviceAppointmentAccessor.UpdateServiceAppointment(AppointmentID, CarID, CustomerEmail, ServiceTypeID, CustomerComments, ScheduledDate);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to update service appointment.", ex);
+            }           
+        }
+
+        public ServiceTypeVM RetrieveServiceTypeByID(int ServiceTypeID)
+        {
+            ServiceTypeVM result = null;
+            try
+            {
+                result = _serviceAppointmentAccessor.RetrieveServiceTypeByID(ServiceTypeID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to retrieve service type by its id.", ex);
+            }
+            return result;
+            
+        }
+
+        public ServiceTypeVM RetrieveServiceTypeByDescription(string Description)
+        {
+            ServiceTypeVM result = null;
+            try
+            {
+                result = _serviceAppointmentAccessor.RetrieveServiceTypeByDescription(Description);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to retrieve service type by its description.", ex);
+            }
+            return result; 
         }
     }
 }

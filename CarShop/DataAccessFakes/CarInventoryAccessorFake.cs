@@ -171,13 +171,14 @@ namespace DataAccessFakes
             return 1;
         }
 
-        public void UpdateCar(int CarID, string Model, int Year, string Color, string VIN, Double Price, int Mileage, string FuelType, string TransmissionType, Double EngineSize, string Description)
+        public void UpdateCar(int CarID, string CustomerEmail, string Model, int Year, string Color, string VIN, Double Price, int Mileage, string FuelType, string TransmissionType, Double EngineSize, string Description)
         {                        
             var carToUpdate = ViewCarByID(CarID);
 
             if (carToUpdate != null)
             {
                 carToUpdate.Model = Model;
+                carToUpdate.CustomerEmail = CustomerEmail;
                 carToUpdate.Year = Year;
                 carToUpdate.Color = Color;
                 carToUpdate.VIN = VIN;

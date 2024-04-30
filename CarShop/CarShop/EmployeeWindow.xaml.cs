@@ -20,11 +20,11 @@ namespace CarShop
     /// </summary>
     public partial class EmployeeWindow : Window
     {
-        EmployeeManager employeeManager = null;
+        UserManager employeeManager = null;
         public EmployeeWindow()
         {
             InitializeComponent();
-            employeeManager = new EmployeeManager();
+            employeeManager = new UserManager();
             MyEmployees.ItemsSource = employeeManager.SelectAllEmployee();
         }
 

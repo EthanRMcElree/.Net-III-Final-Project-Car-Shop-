@@ -35,7 +35,7 @@ namespace WPFPresentation
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            EmployeeManager employeeManager = new EmployeeManager();
+            UserManager employeeManager = new UserManager();
 
             string oldPassword = pwdOldPassword.Password;
             string newPassword = pwdNewPassword.Password;

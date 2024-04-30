@@ -24,6 +24,6 @@ namespace DataObjectsLayer
     public class RepairInvoiceVM : RepairInvoice
     {
         public CarInventory Car { get; set; }
-        public Employee Employee { get; set; }
+        public User User { get; set; }
     }
 }

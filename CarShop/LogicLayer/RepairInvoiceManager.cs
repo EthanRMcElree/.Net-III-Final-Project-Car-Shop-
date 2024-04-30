@@ -23,7 +23,16 @@ namespace LogicLayer
         }
         public int CreateRepairInvoice(int CarID, int EmployeeID, string IssueDescription, DateTime RepairDate)
         {
-            return _repairInvoiceAccessor.CreateRepairInvoice(CarID, EmployeeID, IssueDescription, RepairDate);
+            int rows = 0;
+            try
+            {
+                rows = _repairInvoiceAccessor.CreateRepairInvoice(CarID, EmployeeID, IssueDescription, RepairDate);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to create a repair invoice.", ex);
+            }
+            return rows;
         }
     }
 }

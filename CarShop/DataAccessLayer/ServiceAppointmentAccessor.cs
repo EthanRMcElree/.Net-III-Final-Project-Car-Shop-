@@ -15,7 +15,7 @@ namespace DataAccessLayer
 {
     public class ServiceAppointmentAccessor : IServiceAppointmentAccessor
     {
-        public int CreateNewServiceAppointment(int CarID, int CustomerID, int ServiceTypeID)
+        public int CreateNewServiceAppointment(int CarID, string CustomerEmail, int ServiceTypeID, string CustomerComments, DateTime ScheduleDate)
         {
             // Make return variable if appropriate
             // connection
@@ -32,26 +32,31 @@ namespace DataAccessLayer
 
             // parameters            
             cmd.Parameters.Add("@CarID", SqlDbType.Int);
-            cmd.Parameters.Add("@CustomerID", SqlDbType.Int);
-            cmd.Parameters.Add("@ServiceTypeID", SqlDbType.Int);            
+            cmd.Parameters.Add("@CustomerEmail", SqlDbType.NVarChar, 256);
+            cmd.Parameters.Add("@ServiceTypeID", SqlDbType.Int);
+            cmd.Parameters.Add("@CustomerComments", SqlDbType.NVarChar, 300);
+            cmd.Parameters.Add("@ScheduleDate", SqlDbType.DateTime);
 
             // parameter values
             cmd.Parameters["@CarID"].Value = CarID;
-            cmd.Parameters["@CustomerID"].Value = CustomerID;
+            cmd.Parameters["@CustomerEmail"].Value = CustomerEmail;
             cmd.Parameters["@ServiceTypeID"].Value = ServiceTypeID;
+            if(CustomerComments == null)
+            {
+                CustomerComments = "No comments at this time.";
+            }
+            cmd.Parameters["@CustomerComments"].Value = CustomerComments;
+            cmd.Parameters["@ScheduleDate"].Value = ScheduleDate;
             int ID = 0;
             try
             {
                 conn.Open();
 
-                var reader = cmd.ExecuteReader();
+                ID = (int)cmd.ExecuteNonQuery();
 
-                if (reader.HasRows)
+                if (ID != -1)
                 {
-                    while (reader.Read())
-                    {
-                        ID = reader.GetInt32(0);                        
-                    }
+                    return 0;
                 }
             }
             catch (Exception ex)
@@ -121,7 +126,7 @@ namespace DataAccessLayer
             var cmd = new SqlCommand(commandText, conn);
 
             // set the command type
-            cmd.CommandType = CommandType.StoredProcedure;                      
+            cmd.CommandType = CommandType.StoredProcedure;
 
             try
             {
@@ -137,24 +142,17 @@ namespace DataAccessLayer
                         ServiceAppointmentVM serviceAppointmentVM = new ServiceAppointmentVM();
                         serviceAppointmentVM.AppointmentID = reader.GetInt32(0);
                         serviceAppointmentVM.CarID = reader.GetInt32(1);
-                        serviceAppointmentVM.CustomerID = reader.GetInt32(2);
+                        serviceAppointmentVM.CustomerEmail = reader.GetString(2);
                         serviceAppointmentVM.ServiceTypeID = reader.GetInt32(3);
-                        serviceAppointmentVM.SupplierID = reader.GetInt32(4);
+                        if (reader.IsDBNull(4))
+                        {
+                            serviceAppointmentVM.CustomerComments = "No comment at this time.";
+                        }
+                        else
+                        {
+                            serviceAppointmentVM.CustomerComments = reader.GetString(4);
+                        }
                         serviceAppointmentVM.ScheduledDate = reader.GetDateTime(5);
-                        Customer customer = new Customer();
-                        customer.FirstName = reader.GetString(6);
-                        customer.LastName = reader.GetString(7);
-                        serviceAppointmentVM.Customer = customer;
-                        CarInventory car = new CarInventory();
-                        car.Model = reader.GetString(8);
-                        car.Year = reader.GetInt32(9);
-                        serviceAppointmentVM.Car = car;
-                        ServiceType serviceType = new ServiceType();
-                        serviceType.ServiceDescription = reader.GetString(10);
-                        serviceAppointmentVM.ServiceType = serviceType;
-                        Supplier supplier = new Supplier();
-                        supplier.SupplierName = reader.GetString(11);
-                        serviceAppointmentVM.Supplier = supplier;
                         serviceAppointmentVMs.Add(serviceAppointmentVM);
                     }
                 }
@@ -188,10 +186,10 @@ namespace DataAccessLayer
             cmd.CommandType = CommandType.StoredProcedure;
 
             // add parameters to the command
-            cmd.Parameters.Add("@AppointmentID", SqlDbType.Int);           
+            cmd.Parameters.Add("@AppointmentID", SqlDbType.Int);
 
             // set the parameters values
-            cmd.Parameters["@AppointmentID"].Value = AppointmentID;            
+            cmd.Parameters["@AppointmentID"].Value = AppointmentID;
 
             try
             {
@@ -206,10 +204,19 @@ namespace DataAccessLayer
                     {
                         serviceAppointmentVM.AppointmentID = reader.GetInt32(0);
                         serviceAppointmentVM.CarID = reader.GetInt32(1);
-                        serviceAppointmentVM.CustomerID = reader.GetInt32(2);
+                        serviceAppointmentVM.CustomerEmail = reader.GetString(2);
                         serviceAppointmentVM.ServiceTypeID = reader.GetInt32(3);
-                        serviceAppointmentVM.SupplierID = reader.GetInt32(4);
-                        serviceAppointmentVM.ScheduledDate = reader.GetDateTime(5);                        
+                        if (reader.IsDBNull(4))
+                        {
+                            serviceAppointmentVM.CustomerComments = "No comment at this time.";
+                        }
+                        else
+                        {
+                            serviceAppointmentVM.CustomerComments = reader.GetString(4);
+                        }                                            
+                        serviceAppointmentVM.ScheduledDate = reader.GetDateTime(5);
+                        serviceAppointmentVM.CarModel = reader.GetString(6);
+                        serviceAppointmentVM.ServiceTypeName = reader.GetString(7);
                     }
                 }
             }
@@ -225,7 +232,7 @@ namespace DataAccessLayer
             return serviceAppointmentVM;
         }
 
-        public void UpdateServiceAppointment(int AppointmentID, int CarID, int CustomerID, int ServiceTypeID, int SupplierID, DateTime ScheduledDate)
+        public void UpdateServiceAppointment(int AppointmentID, int CarID, string CustomerEmail, int ServiceTypeID, string CustomerComments, DateTime ScheduleDate)
         {
             // Make return variable if appropriate
             // connection
@@ -243,18 +250,18 @@ namespace DataAccessLayer
             // parameters
             cmd.Parameters.Add("@AppointmentID", SqlDbType.Int);
             cmd.Parameters.Add("@CarID", SqlDbType.Int);
-            cmd.Parameters.Add("@CustomerID", SqlDbType.Int);
+            cmd.Parameters.Add("@CustomerEmail", SqlDbType.NVarChar, 256);
             cmd.Parameters.Add("@ServiceTypeID", SqlDbType.Int);
-            cmd.Parameters.Add("@SupplierID", SqlDbType.Int);
-            cmd.Parameters.Add("@ScheduledDate", SqlDbType.DateTime);            
+            cmd.Parameters.Add("@CustomerComments", SqlDbType.NVarChar, 300);
+            cmd.Parameters.Add("@ScheduleDate", SqlDbType.DateTime);
 
             // parameter values
             cmd.Parameters["@AppointmentID"].Value = AppointmentID;
             cmd.Parameters["@CarID"].Value = CarID;
-            cmd.Parameters["@CustomerID"].Value = CustomerID;
+            cmd.Parameters["@CustomerEmail"].Value = CustomerEmail;
             cmd.Parameters["@ServiceTypeID"].Value = ServiceTypeID;
-            cmd.Parameters["@SupplierID"].Value = SupplierID;
-            cmd.Parameters["@ScheduledDate"].Value = ScheduledDate;         
+            cmd.Parameters["@CustomerComments"].Value = CustomerComments;
+            cmd.Parameters["@ScheduleDate"].Value = ScheduleDate;
 
             try
             {
@@ -275,6 +282,108 @@ namespace DataAccessLayer
             {
                 conn.Close();
             }
+        }
+
+        public ServiceTypeVM RetrieveServiceTypeByID(int ServiceTypeID)
+        {
+            ServiceTypeVM serviceType = null;
+
+            // start a connect object
+            var conn = SqlConnectionProvider.GetConnection();
+
+            // set the command text
+            var commandText = "sp_retrieve_service_type_by_type_id";
+
+            // create the command object
+            var cmd = new SqlCommand(commandText, conn);
+
+            // set the command type
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            // add parameters to the command
+            cmd.Parameters.Add("@ServiceTypeID", SqlDbType.Int);
+
+            // set the parameters values
+            cmd.Parameters["@ServiceTypeID"].Value = ServiceTypeID;
+
+            try
+            {
+                // open connection
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        serviceType = new ServiceTypeVM();
+                        serviceType.ServiceTypeID = reader.GetInt32(0);
+                        serviceType.ServiceDescription = reader.GetString(1);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return serviceType;
+        }
+
+        public ServiceTypeVM RetrieveServiceTypeByDescription(string Description)
+        {
+            ServiceTypeVM serviceType = null;
+
+            // start a connect object
+            var conn = SqlConnectionProvider.GetConnection();
+
+            // set the command text
+            var commandText = "sp_retrieve_service_type_by_description";
+
+            // create the command object
+            var cmd = new SqlCommand(commandText, conn);
+
+            // set the command type
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            // add parameters to the command
+            cmd.Parameters.Add("@Description", SqlDbType.NVarChar, 250);
+
+            // set the parameters values
+            cmd.Parameters["@Description"].Value = Description;
+
+            try
+            {
+                // open connection
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        serviceType = new ServiceTypeVM();
+                        serviceType.ServiceTypeID = reader.GetInt32(0);
+                        serviceType.ServiceDescription = reader.GetString(1);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return serviceType;
         }
     }
 }

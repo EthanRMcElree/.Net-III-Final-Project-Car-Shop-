@@ -9,9 +9,12 @@ namespace LogicLayer
 {
     public interface IServiceAppointmentManager
     {
-        int CreateNewServiceAppointment(int CarID, int CustomerID, int ServiceTypeID);
-        void DeleteServiceAppointmentByAppointmentID(int AppointmentID);
+        int CreateNewServiceAppointment(int CarID, string CustomerEmail, int ServiceTypeID, string customerComments, DateTime scheduledDate);
+        void UpdateServiceAppointment(int AppointmentID, int CarID, string CustomerEmail, int ServiceTypeID, string CustomerComments, DateTime ScheduledDate);
         ServiceAppointmentVM RetrieveServiceAppointmentByAppointmentID(int AppointmentID);
-        void UpdateServiceAppointment(int AppointmentID, int CarID, int CustomerID, int ServiceTypeID, int SupplierID, DateTime ScheduledDate);
+        List<ServiceAppointmentVM> RetrieveServiceAppointments();
+        ServiceTypeVM RetrieveServiceTypeByID(int ServiceTypeID);
+        void DeleteServiceAppointmentByAppointmentID(int AppointmentID);
+        ServiceTypeVM RetrieveServiceTypeByDescription(string Description);
     }
 }

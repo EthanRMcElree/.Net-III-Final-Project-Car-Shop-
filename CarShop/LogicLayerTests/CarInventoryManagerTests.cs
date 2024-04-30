@@ -158,6 +158,7 @@ namespace LogicLayerTests
         {
             // Arrange
             int CarID = 3;
+            string CustomerEmail = "spongebob@company.com";
             string Model = "ascent";
             int Year = 2024;
             string Color = "red";
@@ -170,7 +171,7 @@ namespace LogicLayerTests
             string Description = "awesome car";
 
             // Act
-            _carInventoryManager.UpdateCar(CarID, Model, Year, Color, VIN, Price, Mileage, FuelType, TransmissionType, EngineSize, Description);
+            _carInventoryManager.UpdateCar(CarID, CustomerEmail, Model, Year, Color, VIN, Price, Mileage, FuelType, TransmissionType, EngineSize, Description);
             var Car = _carInventoryManager.ViewCarByID(CarID);
 
             // Assert
@@ -182,6 +183,7 @@ namespace LogicLayerTests
         {
             // Arrange
             int CarID = 3;
+            string CustomerEmail = "spongebob@company.com";
             string Model = "ascent";
             int Year = 2024;
             string Color = "red";
@@ -194,7 +196,7 @@ namespace LogicLayerTests
             string Description = "awesome car";
 
             // Act
-            _carInventoryManager.UpdateCar(CarID, Model, Year, Color, VIN, Price, Mileage, FuelType, TransmissionType, EngineSize, Description);
+            _carInventoryManager.UpdateCar(CarID, CustomerEmail, Model, Year, Color, VIN, Price, Mileage, FuelType, TransmissionType, EngineSize, Description);
             var Car = _carInventoryManager.ViewCarByID(CarID);
 
             // Assert

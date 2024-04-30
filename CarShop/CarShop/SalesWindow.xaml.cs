@@ -24,13 +24,13 @@ namespace CarShop
     {
         CarInventoryManager carInventoryManager = null;
         SalesManager salesManager = null;
-        EmployeeManager employeeManager = null;
+        UserManager employeeManager = null;
         CustomerManager customerManager = null;
         public SalesWindow()
         {
             InitializeComponent();            
             salesManager = new SalesManager(); 
-            employeeManager = new EmployeeManager();
+            employeeManager = new UserManager();
             customerManager = new CustomerManager();
             carInventoryManager = new CarInventoryManager();            
             InsertSaleGrid.Visibility = Visibility.Collapsed;

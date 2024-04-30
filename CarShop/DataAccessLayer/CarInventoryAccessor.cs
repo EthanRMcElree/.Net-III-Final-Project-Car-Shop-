@@ -475,7 +475,7 @@ namespace DataAccessLayer
             return rows;
         }
 
-        public void UpdateCar(int CarID, string Model, int Year, string Color, string VIN, Double Price, int Mileage, string FuelType, string TransmissionType, Double EngineSize, string Description)
+        public void UpdateCar(int CarID, string CustomerEmail, string Model, int Year, string Color, string VIN, Double Price, int Mileage, string FuelType, string TransmissionType, Double EngineSize, string Description)
         {
             // Make return variable if appropriate
             // connection
@@ -492,6 +492,7 @@ namespace DataAccessLayer
 
             // parameters
             cmd.Parameters.Add("@CarID", SqlDbType.Int);
+            cmd.Parameters.Add("@CustomerEmail", SqlDbType.NVarChar, 256);
             cmd.Parameters.Add("@Model", SqlDbType.NVarChar, 50);
             cmd.Parameters.Add("@Year", SqlDbType.Int);
             cmd.Parameters.Add("@Color", SqlDbType.NVarChar, 50);
@@ -505,6 +506,7 @@ namespace DataAccessLayer
 
             // parameter values
             cmd.Parameters["@CarID"].Value = CarID;
+            cmd.Parameters["@CustomerEmail"].Value = CustomerEmail;
             cmd.Parameters["@Model"].Value = Model;
             cmd.Parameters["@Year"].Value = Year;
             cmd.Parameters["@Color"].Value = Color;
@@ -582,6 +584,11 @@ namespace DataAccessLayer
                         carInventoryVM.TransmissionType = reader.GetString(8);
                         carInventoryVM.EngineSize = reader.GetDouble(9);
                         carInventoryVM.Description = reader.GetString(10);
+                        carInventoryVM.CustomerEmail = reader.GetString(11);
+                        if (carInventoryVM.CustomerEmail == "")
+                        {
+                            carInventoryVM.CustomerEmail = "No one has bought his car yet.";
+                        }
                     }
                 }
             }
@@ -611,10 +618,7 @@ namespace DataAccessLayer
             var cmd = new SqlCommand(cmdText, conn);
 
             // command type
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            // parameters            
-            // parameter values            
+            cmd.CommandType = CommandType.StoredProcedure;           
 
             try
             {
@@ -638,6 +642,11 @@ namespace DataAccessLayer
                         carInventoryVM.TransmissionType = reader.GetString(8);
                         carInventoryVM.EngineSize = reader.GetDouble(9);
                         carInventoryVM.Description = reader.GetString(10);
+                        carInventoryVM.CustomerEmail = reader.GetString(11);
+                        if (carInventoryVM.CustomerEmail == "")
+                        {
+                            carInventoryVM.CustomerEmail = "No one has bought his car yet.";
+                        }
                         List.Add(carInventoryVM);
                     }
                 }

@@ -42,11 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CarInventoryManager.cs" />
-    <Compile Include="CustomerManager.cs" />
-    <Compile Include="EmployeeManager.cs" />
+    <Compile Include="UserManager.cs" />
     <Compile Include="ICarInventoryManager.cs" />
-    <Compile Include="ICustomerManager.cs" />
-    <Compile Include="IEmployeeManager.cs" />
+    <Compile Include="IUserManager.cs" />
     <Compile Include="IRepairInvoiceManager.cs" />
     <Compile Include="ISalesManager.cs" />
     <Compile Include="IServiceAppointmentManager.cs" />

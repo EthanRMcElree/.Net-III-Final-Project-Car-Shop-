@@ -25,14 +25,13 @@ namespace LogicLayerTests
         public void TestSuccessfullyCreateSale()
         {
             // Arrange
-            int EmployeeID = 4;
-            int CarID = 4;
-            int CustomerID = 4;
+            int UserID = 4;
+            int CarID = 4;           
             DateTime SaleDate = DateTime.Now.AddDays(23);
             float SalePrice = 22500.50F;
 
             // Act
-            int ID = _salesManager.CreateSale(EmployeeID, CarID, CustomerID, SaleDate, SalePrice);
+            int ID = _salesManager.CreateSale(UserID, CarID, SaleDate, SalePrice);
 
             // Assert
             Assert.AreEqual(999, ID);
@@ -42,14 +41,13 @@ namespace LogicLayerTests
         public void TestFailedToCreateSale()
         {
             // Arrange
-            int EmployeeID = 4;
+            int UserID = 4;
             int CarID = 0;
-            int CustomerID = 4;
             DateTime SaleDate = DateTime.Now.AddDays(23);
             float SalePrice = 22500.50F;
 
             // Act
-            int ID = _salesManager.CreateSale(EmployeeID, CarID, CustomerID, SaleDate, SalePrice);
+            int ID = _salesManager.CreateSale(UserID, CarID, SaleDate, SalePrice);
 
             // Assert
             Assert.AreEqual(0, ID);
@@ -141,27 +139,27 @@ namespace LogicLayerTests
         }
 
         [TestMethod]
-        public void TestSuccessfullyViewedSalesForEmployee()
+        public void TestSuccessfullyViewedSalesForUser()
         {
             // Arrange
             List<SalesVM> salesVMs = new List<SalesVM>();
-            int EmployeeID = 1;
+            int UserID = 1;
 
             // Act
-            salesVMs = _salesManager.ViewSalesForEmployee(EmployeeID);
+            salesVMs = _salesManager.ViewSalesForUser(UserID);
 
             // Assert
             Assert.AreEqual(salesVMs.Count, 1);
         }
 
         [TestMethod]
-        public void TestFailedToViewSalesForEmployee()
+        public void TestFailedToViewSalesForUser()
         {
             // Arrange
             List<SalesVM> salesVMs = new List<SalesVM>();
 
             // Act
-            salesVMs = _salesManager.ViewSalesForEmployee(2);
+            salesVMs = _salesManager.ViewSalesForUser(2);
 
             // Assert
             Assert.AreNotEqual(salesVMs.Count, 1);

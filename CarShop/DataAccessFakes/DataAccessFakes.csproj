@@ -42,8 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CarInventoryAccessorFake.cs" />
-    <Compile Include="CustomerAccessorFake.cs" />
-    <Compile Include="EmployeeAccessorFake.cs" />
+    <Compile Include="UserAccessorFake.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepairInvoiceAccessorFake.cs" />
     <Compile Include="SalesAccessorFake.cs" />

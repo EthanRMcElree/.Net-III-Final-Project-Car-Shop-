@@ -50,8 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CarInventoryManagerTests.cs" />
-    <Compile Include="CustomerManagerTests.cs" />
-    <Compile Include="EmployeeManagerTests.cs" />
+    <Compile Include="UserManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepairInvoiceManagerTests.cs" />
     <Compile Include="SalesManagerTests.cs" />

@@ -1,0 +1,80 @@
+﻿@model DataObjectsLayer.ServiceAppointmentVM
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Appointment Details</h2>
+
+<div>
+    <hr />   
+        <table class="table">
+            <tr>
+                <td class="px-2 fw-bold">
+                    @Html.DisplayNameFor(model => model.AppointmentID)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.AppointmentID)
+                </td>
+            </tr>
+            <tr>
+                <td class="px-2 fw-bold">
+                    @Html.DisplayNameFor(model => model.CarID)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.CarID)
+                </td>
+            </tr>
+            <tr>
+                <td class="px-2 fw-bold">
+                    @Html.DisplayNameFor(model => model.CustomerEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.CustomerEmail)
+                </td>
+            </tr>
+            <tr>
+                <td class="px-2 fw-bold">
+                    @Html.DisplayNameFor(model => model.ServiceTypeID)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ServiceTypeID)
+                </td>
+            </tr>
+            <tr>
+                <td class="px-2 fw-bold">
+                    @Html.DisplayNameFor(model => model.CustomerComments)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.CustomerComments)
+                </td>
+            </tr>
+            <tr>
+                <td class="px-2 fw-bold">
+                    @Html.DisplayNameFor(model => model.ScheduledDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ScheduledDate)
+                </td>
+            </tr>
+            <tr>
+                <td class="px-2 fw-bold">
+                    @Html.DisplayNameFor(model => model.CarModel)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.CarModel)
+                </td>
+            </tr>
+            <tr>
+                <td class="px-2 fw-bold">
+                    @Html.DisplayNameFor(model => model.ServiceTypeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ServiceTypeName)
+                </td>
+            </tr>
+        </table>               
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

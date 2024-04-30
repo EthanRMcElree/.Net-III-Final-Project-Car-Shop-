@@ -1,0 +1,74 @@
+﻿@model IEnumerable<DataObjectsLayer.CarInventoryVM>
+
+@{
+    ViewBag.Title = "Car Inventory";
+}
+
+<h2 class="animate__animated animate__flipInY">Car Inventory</h2>
+
+    <p>
+        @if (User.IsInRole("MANAGER") || User.IsInRole("ADMIN") || User.IsInRole("EMPLOYEE"))
+        {
+            @Html.ActionLink("Add new car", "Create", "CarInventory", null, new { @class = "btn btn-success" })
+        }
+    </p>
+    <table class="table table-bordered table-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CarID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mileage)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarID)
+                </td>
+                <td style="text-transform: capitalize">
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td style="text-transform: capitalize">
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mileage)
+                </td>
+                <td>
+                    @if (User.IsInRole("MANAGER") || User.IsInRole("ADMIN") || User.IsInRole("EMPLOYEE"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.CarID }, new { @class = "btn btn-secondary", style = "Width: 5rem; margin-right: 5px;" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.CarID }, new { @class = "btn btn-danger", style = "Width: 5rem;" })
+                    }
+                    @Html.ActionLink("Details", "Details", new { id = item.CarID }, new { @class = "btn btn-info", style = "Width: 5rem;" })
+                    @if (User.IsInRole("CUSTOMER") && (string)ViewBag.UserEmail == item.CustomerEmail)
+                    {
+                        @Html.ActionLink("Service", "Create", "ServiceAppointment", new { id = item.CarID }, new { @class = "btn btn-warning", style = "Width: 5rem;" })
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>

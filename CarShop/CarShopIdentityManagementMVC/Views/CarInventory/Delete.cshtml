@@ -1,0 +1,74 @@
+﻿@model DataObjectsLayer.CarInventoryVM
+
+@{
+    ViewBag.Title = "Delete a car";
+}
+
+<h2>Delete</h2>
+
+    <div class="col-md-6 offset-md-3">
+        <h3 class="text-danger">Are you sure you want to delete this?</h3>
+        <hr />
+            <table class="table">
+                <tr>
+                    <td class="px-2 fw-bold">
+                        @Html.DisplayNameFor(model => model.CarID):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.CarID)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-2 fw-bold">
+                        @Html.DisplayNameFor(model => model.Model):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Model)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-2 fw-bold">
+                        @Html.DisplayNameFor(model => model.Year):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Year)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-2 fw-bold">
+                        @Html.DisplayNameFor(model => model.Color):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Color)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-2 fw-bold">
+                        @Html.DisplayNameFor(model => model.Price):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Price)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-2 fw-bold">
+                        @Html.DisplayNameFor(model => model.EngineSize):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.EngineSize)
+                    </td>
+                </tr>
+            </table>
+
+            
+
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color text-center">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+                <br />
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>

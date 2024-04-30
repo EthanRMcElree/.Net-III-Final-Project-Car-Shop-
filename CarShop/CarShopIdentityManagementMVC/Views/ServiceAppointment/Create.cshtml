@@ -1,0 +1,75 @@
+﻿@model DataObjectsLayer.ServiceAppointmentVM
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>ServiceAppointmentVM</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group my-3">
+            @Html.LabelFor(model => model.CarID, htmlAttributes: new { @class = "control-label col-md-2 fw-bold mb-1" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CarID, new { htmlAttributes = new { @class = "form-control", hidden = "true" } })
+                <span>@Model.CarID</span>
+                @Html.ValidationMessageFor(model => model.CarID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group my-3">
+            @Html.LabelFor(model => model.CustomerEmail, htmlAttributes: new { @class = "control-label col-md-2 fw-bold mb-1" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CustomerEmail, new { htmlAttributes = new { @class = "form-control", hidden = "true" } })
+                <span>@Model.CustomerEmail</span>
+                @Html.ValidationMessageFor(model => model.CustomerEmail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group my-3">
+            @Html.LabelFor(model => model.ServiceTypeName, htmlAttributes: new { @class = "control-label col-md-2 fw-bold mb-1" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ServiceTypeName, Model.ServiceTypeSelectionList,
+                                            "Service Type", new { @class = "py-1 px-1 w-100" })
+                @Html.ValidationMessageFor(model => model.ServiceTypeName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group my-3">
+            @Html.LabelFor(model => model.CustomerComments, htmlAttributes: new { @class = "control-label col-md-2 fw-bold mb-1" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CustomerComments, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CustomerComments, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group my-3">
+            @Html.LabelFor(model => model.ScheduledDate, htmlAttributes: new { @class = "control-label col-md-2 fw-bold mb-1" })
+            <div class="col-md-10">
+                <input type="datetime-local"
+                       id="scheduledDate"
+                       name="ScheduledDate"
+                       value="@DateTime.Now"
+                       min="@DateTime.Now"
+                       max="@DateTime.Now.AddDays(30)" />
+                @Html.ValidationMessageFor(model => model.ScheduledDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-light" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
